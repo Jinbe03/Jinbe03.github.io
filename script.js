@@ -701,7 +701,243 @@
     });
   }
 
-  // Upbeat 122 BPM Jazztronik-style Nu-Jazz House Groove (100% Original Synth)
+  // =========================================================
+  // 4B. SPECIAL EASTER EGG MUSIC THEMES (100% ORIGINAL SYNTH)
+  // =========================================================
+  let ccMusicTimer = null;
+  let ccMusicStep = 0;
+  let aoaTimers = [];
+
+  // Reusable plucked Japanese Shamisen / Koto voice (Hirajoshi scale!)
+  function playShamisenPluck(ctx, freq, t, vol = 0.055) {
+    const osc = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const filter = ctx.createBiquadFilter();
+    const g = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc2.type = 'triangle';
+    osc.frequency.setValueAtTime(freq, t);
+    osc2.frequency.setValueAtTime(freq * 2, t);
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(freq * 3.2, t);
+    filter.Q.setValueAtTime(1.6, t);
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.24);
+    osc.connect(filter);
+    osc2.connect(filter);
+    filter.connect(g);
+    g.connect(ctx.destination);
+    osc.start(t);
+    osc2.start(t);
+    osc.stop(t + 0.26);
+    osc2.stop(t + 0.26);
+  }
+
+  // Easter Egg #3 Intro Sting: Japanese Hyoshigi wooden clappers + Hirajoshi koto flourish
+  function playJapaneseRevealTheme() {
+    if (!sfxEnabled && !bgmEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+
+    // Two sharp Hyoshigi wooden clapper hits ("KAK! KAK!")
+    [0, 0.16].forEach((offset) => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(2150, t + offset);
+      osc.frequency.exponentialRampToValueAtTime(1680, t + offset + 0.045);
+      g.gain.setValueAtTime(0.07, t + offset);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + offset + 0.055);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(t + offset);
+      osc.stop(t + offset + 0.06);
+    });
+
+    // Rapid Hirajoshi pentatonic Shamisen flourish (D4, Eb4, G4, A4, Bb4, D5, G5)
+    const scale = [293.66, 311.13, 392.00, 440.00, 466.16, 587.33, 783.99];
+    scale.forEach((f, idx) => {
+      playShamisenPluck(ctx, f, t + 0.26 + idx * 0.068, 0.065);
+    });
+  }
+
+  // Easter Egg #1 Theme: All-Out Attack Victory Brass Fanfare
+  function stopAllOutMusic() {
+    aoaTimers.forEach((id) => clearTimeout(id));
+    aoaTimers = [];
+  }
+
+  function playAllOutFanfare() {
+    stopAllOutMusic();
+    if (!sfxEnabled && !bgmEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+
+    // Rising Persona-inspired jazz-rock victory horn melody after initial shatter boom
+    const melody = [
+      { t: 220,  f: 587.33, d: 0.13 }, // D5
+      { t: 360,  f: 698.46, d: 0.13 }, // F5
+      { t: 500,  f: 783.99, d: 0.13 }, // G5
+      { t: 640,  f: 880.00, d: 0.19 }, // A5
+      { t: 860,  f: 1046.50, d: 0.16 }, // C6
+      { t: 1040, f: 1174.66, d: 0.45 }, // D6 (victory hold!)
+      { t: 1580, f: 880.00, d: 0.14 }, // A5 strut
+      { t: 1760, f: 1046.50, d: 0.14 }, // C6 strut
+      { t: 1940, f: 1174.66, d: 0.55 }  // D6 final triumph
+    ];
+
+    melody.forEach((note) => {
+      const id = setTimeout(() => {
+        if (!alloutOverlay || !alloutOverlay.classList.contains('active')) return;
+        const nowT = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const filter = ctx.createBiquadFilter();
+        const g = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(note.f, nowT);
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(3200, nowT);
+        filter.frequency.exponentialRampToValueAtTime(950, nowT + note.d);
+        g.gain.setValueAtTime(0.055, nowT);
+        g.gain.exponentialRampToValueAtTime(0.0001, nowT + note.d + 0.04);
+        osc.connect(filter);
+        filter.connect(g);
+        g.connect(ctx.destination);
+        osc.start(nowT);
+        osc.stop(nowT + note.d + 0.06);
+
+        // Funky backing bass hit on strong accents
+        if (note.t === 220 || note.t === 1040 || note.t === 1940) {
+          const b = ctx.createOscillator();
+          const bg = ctx.createGain();
+          b.type = 'triangle';
+          b.frequency.setValueAtTime(note.t === 1040 ? 196 : 146.83, nowT);
+          bg.gain.setValueAtTime(0.09, nowT);
+          bg.gain.exponentialRampToValueAtTime(0.0001, nowT + 0.35);
+          b.connect(bg);
+          bg.connect(ctx.destination);
+          b.start(nowT);
+          b.stop(nowT + 0.38);
+        }
+      }, note.t);
+      aoaTimers.push(id);
+    });
+  }
+
+  // Easter Egg #2 Theme: Calling Card Stealth Heist Groove (E minor suspense loop!)
+  const HEIST_BASS = [
+    164.81, 0, 164.81, 196.00,  220.00, 0, 233.08, 246.94,
+    164.81, 0, 329.63, 293.66,  246.94, 233.08, 220.00, 196.00
+  ];
+  const HEIST_CHORDS = [
+    [329.63, 392.00, 493.88, 587.33], // Em7
+    [261.63, 329.63, 392.00, 493.88], // Cmaj7
+    [246.94, 311.13, 369.99, 440.00]  // B7
+  ];
+
+  function playCallingCardStep() {
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    const s16 = ccMusicStep % 16;
+
+    // Tense driving heist kick + snare
+    if (s16 % 4 === 0) {
+      const k = ctx.createOscillator();
+      const kg = ctx.createGain();
+      k.type = 'sine';
+      k.frequency.setValueAtTime(140, t);
+      k.frequency.exponentialRampToValueAtTime(42, t + 0.08);
+      kg.gain.setValueAtTime(0.095, t);
+      kg.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+      k.connect(kg);
+      kg.connect(ctx.destination);
+      k.start(t);
+      k.stop(t + 0.11);
+    }
+
+    if (s16 === 4 || s16 === 12) {
+      const n = ctx.createBufferSource();
+      n.buffer = getNoiseBuffer(ctx);
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.setValueAtTime(1850, t);
+      const ng = ctx.createGain();
+      ng.gain.setValueAtTime(0.065, t);
+      ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+      n.connect(bp);
+      bp.connect(ng);
+      ng.connect(ctx.destination);
+      n.start(t);
+      n.stop(t + 0.09);
+    }
+
+    // Sneaky E-minor heist bass riff
+    const bf = HEIST_BASS[s16];
+    if (bf > 0) {
+      const osc = ctx.createOscillator();
+      const flt = ctx.createBiquadFilter();
+      const g = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(bf, t);
+      flt.type = 'lowpass';
+      flt.frequency.setValueAtTime(680, t);
+      flt.frequency.exponentialRampToValueAtTime(220, t + 0.12);
+      g.gain.setValueAtTime(0.055, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+      osc.connect(flt);
+      flt.connect(g);
+      g.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.15);
+    }
+
+    // Dramatic staccato heist brass stabs
+    if (s16 === 0 || s16 === 6 || s16 === 12) {
+      const cIdx = s16 === 12 ? 2 : (s16 === 6 ? 1 : 0);
+      HEIST_CHORDS[cIdx].forEach((f) => {
+        const osc = ctx.createOscillator();
+        const flt = ctx.createBiquadFilter();
+        const g = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(f, t);
+        flt.type = 'lowpass';
+        flt.frequency.setValueAtTime(2200, t);
+        g.gain.setValueAtTime(0.015, t);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+        osc.connect(flt);
+        flt.connect(g);
+        g.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.18);
+      });
+    }
+
+    ccMusicStep++;
+  }
+
+  function startCallingCardMusic() {
+    stopCallingCardMusic();
+    if (!sfxEnabled && !bgmEnabled) return;
+    ensureAudio();
+    ccMusicStep = 0;
+    playCallingCardStep();
+    ccMusicTimer = setInterval(playCallingCardStep, 118); // ~127 BPM tense heist pulse
+  }
+
+  function stopCallingCardMusic() {
+    if (ccMusicTimer) {
+      clearInterval(ccMusicTimer);
+      ccMusicTimer = null;
+    }
+  }
+
+  // Upbeat 122 BPM Jazztronik-style Nu-Jazz House Groove (morphs into Tokyo Shamisen Jazz in JP mode!)
+  const JP_SHAMISEN_RIFF = [
+    587.33, 0, 622.25, 0,  783.99, 0, 880.00, 783.99,
+    0, 622.25, 587.33, 0,  466.16, 0, 587.33, 0
+  ];
   const NUJAZZ_CHORDS = [
     [293.66, 349.23, 440.00, 523.25, 659.25], // Dm9
     [392.00, 493.88, 587.33, 659.25, 783.99], // G13
@@ -717,11 +953,19 @@
 
   function playNuJazzStep() {
     if (!bgmEnabled) return;
+    // Duck/pause main BGM automatically while Calling Card or All-Out Attack theme is playing
+    if (ccMusicTimer || (alloutOverlay && alloutOverlay.classList.contains('active'))) return;
     const ctx = ensureAudio();
     if (!ctx) return;
     const t = ctx.currentTime;
     const s32 = bgmStep % 32;
     const s16 = bgmStep % 16;
+
+    // In Secret Japanese Mode, weave plucked Hirajoshi Shamisen melody over the Nu-Jazz groove!
+    if (currentLang === 'jp') {
+      const sf = JP_SHAMISEN_RIFF[s16];
+      if (sf > 0) playShamisenPluck(ctx, sf, t, 0.042);
+    }
 
     // Four-on-the-floor punchy house kick (steps 0, 4, 8, 12)
     if (s16 % 4 === 0) {
@@ -890,15 +1134,18 @@
 
   function triggerAllOutAttack() {
     if (!alloutOverlay) return;
+    stopCallingCardMusic();
     playAllOutHit();
     alloutOverlay.classList.add('active');
     alloutOverlay.setAttribute('aria-hidden', 'false');
+    playAllOutFanfare();
     if (allOutTimeout) clearTimeout(allOutTimeout);
-    allOutTimeout = setTimeout(closeAllOutAttack, 3600);
+    allOutTimeout = setTimeout(closeAllOutAttack, 3800);
   }
 
   function closeAllOutAttack() {
     if (!alloutOverlay) return;
+    stopAllOutMusic();
     alloutOverlay.classList.remove('active');
     alloutOverlay.setAttribute('aria-hidden', 'true');
   }
@@ -910,10 +1157,12 @@
     playSelectSnap();
     callingCardOverlay.classList.add('active');
     callingCardOverlay.setAttribute('aria-hidden', 'false');
+    startCallingCardMusic();
   }
 
   function closeCallingCard() {
     if (!callingCardOverlay) return;
+    stopCallingCardMusic();
     playBackCancel();
     callingCardOverlay.classList.remove('active');
     callingCardOverlay.setAttribute('aria-hidden', 'true');
@@ -923,8 +1172,12 @@
   if (ccBackdrop) ccBackdrop.addEventListener('click', closeCallingCard);
 
   function triggerJapaneseMode() {
-    playAllOutHit();
     const target = currentLang === 'jp' ? 'en' : 'jp';
+    if (target === 'jp') {
+      playJapaneseRevealTheme();
+    } else {
+      playBackCancel();
+    }
     triggerWipe(target === 'jp' ? '日本語モード' : 'ENGLISH MODE', 'SECRET LANGUAGE // 秘密', true, () => {
       applyLanguage(target);
     });
