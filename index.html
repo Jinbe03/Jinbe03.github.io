@@ -646,72 +646,104 @@
           </div>
         </article>
 
-        <!-- VIEW 06: CONTACT (PERSONA 5 SMARTPHONE SNS CHAT) -->
+        <!-- VIEW 06: CONTACT (AUTHENTIC PERSONA 5 SNS PHONE SCREEN!) -->
         <article id="view-contact" class="dossier-panel" role="tabpanel">
-          <div class="panel-header-ribbon">
-            <span class="panel-code mono" data-i18n="code_contact">STOP 06 // DIRECT SNS LINE</span>
-            <h2 data-i18n="hdr_contact">CONTACT BRUNO</h2>
-          </div>
+          <div class="sns-stage">
+            <div class="sns-phone-wrap">
+              <!-- Stylized comic black-and-white hand gripping left edge -->
+              <svg class="sns-hand sns-hand-left" viewBox="0 0 90 290" fill="none" aria-hidden="true">
+                <path d="M 6 286 L 26 112 C 34 62, 52 14, 70 10 C 86 8, 86 58, 72 118 L 48 286 Z" fill="#ffffff" stroke="#09090b" stroke-width="11" stroke-linejoin="round"/>
+              </svg>
 
-          <div class="contact-phone-layout">
-            <div class="p5-phone">
-              <div class="phone-top-bar">
-                <span class="phone-im-badge">IM</span>
-                <span class="phone-title mono">BRUNO MALDONADO</span>
-                <span class="phone-signal mono">5G</span>
-              </div>
+              <!-- Stylized comic black-and-white fingers gripping right edge -->
+              <svg class="sns-hand sns-hand-right" viewBox="0 0 95 220" fill="none" aria-hidden="true">
+                <path d="M 8 44 C 46 28, 84 40, 82 70 C 80 94, 48 112, 16 124 L 8 44 Z" fill="#ffffff" stroke="#09090b" stroke-width="10" stroke-linejoin="round"/>
+                <path d="M 10 132 C 52 126, 78 148, 66 180 C 56 204, 24 212, 4 214 L 10 132 Z" fill="#ffffff" stroke="#09090b" stroke-width="10" stroke-linejoin="round"/>
+              </svg>
 
-              <div class="phone-thread">
-                <div class="chat-msg msg-1">
-                  <div class="chat-avatar">
-                    <img src="assets/art/jockey-logo.jpg" alt="Bruno Maldonado" />
+              <!-- The Tilted Red Persona 5 SNS Phone Screen -->
+              <div class="sns-phone">
+                <!-- Iconic Zig-Zag Black Connecting Thread Behind Messages -->
+                <svg class="sns-zigzag" viewBox="0 0 460 520" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline
+                    points="125,22 335,96 72,188 188,268 78,348 260,445"
+                    fill="none"
+                    stroke="#09090b"
+                    stroke-width="26"
+                    stroke-linejoin="miter"
+                  />
+                </svg>
+
+                <!-- Top-Left Cutout SNS Logo + Mini Header Avatar -->
+                <div class="sns-header">
+                  <div class="sns-logo" aria-label="SNS">
+                    <span class="sns-s1">S</span><span class="sns-n">N</span><span class="sns-s2">S</span>
                   </div>
-                  <div class="chat-bubble" data-i18n="chat1">
-                    Hey! Looking for a remote Junior / Trainee Software Engineer?
+                  <div class="sns-mini-card">
+                    <img src="assets/art/jockey-logo.jpg" alt="Bruno Maldonado" />
+                    <span class="mono">BRUNO</span>
                   </div>
                 </div>
 
-                <div class="chat-msg msg-2">
-                  <div class="chat-avatar">
-                    <img src="assets/art/jockey-logo.jpg" alt="Bruno Maldonado" />
+                <!-- Message Thread -->
+                <div class="sns-thread">
+                  <!-- Outgoing White Bubble (Top Right, just like the game!) -->
+                  <div class="sns-row sns-row-right msg-1">
+                    <div class="sns-bubble-white" data-i18n="sns_out1">
+                      Looking for a remote dev?
+                    </div>
                   </div>
-                  <div class="chat-bubble" data-i18n-html="chat2">
-                    Python, Backend, SQL &amp; Full-Stack &mdash; building clean, automated software from <strong>Santiago, Chile (UTC-3)</strong>.
+
+                  <!-- Incoming Black Bubbles with Thick White Borders (Left, with skewed avatars!) -->
+                  <div class="sns-row sns-row-left msg-2">
+                    <div class="sns-avatar av-tilt-1">
+                      <img src="assets/art/jockey-logo.jpg" alt="Bruno" />
+                    </div>
+                    <div class="sns-bubble-black" data-i18n="chat1">
+                      Hey! Looking for a remote Junior / Trainee Software Engineer?
+                    </div>
+                  </div>
+
+                  <div class="sns-row sns-row-left msg-3">
+                    <div class="sns-avatar av-tilt-2">
+                      <img src="assets/art/jockey-logo.jpg" alt="Bruno" />
+                    </div>
+                    <div class="sns-bubble-black" data-i18n-html="chat2">
+                      Python, Backend, SQL &amp; Full-Stack &mdash; building clean, automated software from <strong>Santiago, Chile (UTC-3)</strong>.
+                    </div>
+                  </div>
+
+                  <div class="sns-row sns-row-left msg-4">
+                    <div class="sns-avatar av-tilt-3">
+                      <img src="assets/art/jockey-logo.jpg" alt="Bruno" />
+                    </div>
+                    <div class="sns-bubble-black" data-i18n-html="chat3">
+                      Drop me an email at <strong>brunomaldonado04@gmail.com</strong> &mdash; fast response guaranteed.
+                    </div>
                   </div>
                 </div>
 
-                <div class="chat-msg msg-3">
-                  <div class="chat-avatar">
-                    <img src="assets/art/jockey-logo.jpg" alt="Bruno Maldonado" />
-                  </div>
-                  <div class="chat-bubble accent-bubble" data-i18n-html="chat3">
-                    Drop me an email at <strong>brunomaldonado04@gmail.com</strong> &mdash; fast response guaranteed.
-                  </div>
+                <!-- Interactive Persona Reply Choices Inside the SNS Phone -->
+                <div class="sns-replies">
+                  <button id="copyEmailBtn" class="sns-reply-btn sns-reply-primary" type="button" data-email="brunomaldonado04@gmail.com">
+                    <span class="reply-tri">&#9654;</span>
+                    <span class="reply-txt" data-i18n="btn_copy_email">COPY EMAIL ADDRESS</span>
+                  </button>
+                  <a class="sns-reply-btn" href="mailto:brunomaldonado04@gmail.com">
+                    <span class="reply-tri">&#9654;</span>
+                    <span class="reply-txt" data-i18n="btn_send_mail">SEND EMAIL &nearr;</span>
+                  </a>
+                  <a class="sns-reply-btn" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
+                    <span class="reply-tri">&#9654;</span>
+                    <span class="reply-txt" data-i18n="btn_linkedin">LINKEDIN PROFILE &nearr;</span>
+                  </a>
+                  <button class="sns-reply-btn js-open-pdf" type="button"
+                          data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
+                          data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)">
+                    <span class="reply-tri">&#9654;</span>
+                    <span class="reply-txt" data-i18n="btn_inspect_resume">INSPECT RESUME PDF</span>
+                  </button>
                 </div>
-              </div>
-            </div>
-
-            <div class="dossier-card contact-actions-card">
-              <span class="company-kicker mono" data-i18n="contact_kicker">QUICK ACTIONS</span>
-              <h3 data-i18n="contact_h3">CONNECT DIRECTLY</h3>
-              <p class="proj-copy" data-i18n="contact_copy">Choose a channel below or open my updated resume right inside the page.</p>
-
-              <div class="contact-btn-stack">
-                <button id="copyEmailBtn" class="action-btn action-primary" type="button" data-email="brunomaldonado04@gmail.com" data-i18n="btn_copy_email">
-                  COPY EMAIL ADDRESS
-                </button>
-                <a class="action-btn action-dark" href="mailto:brunomaldonado04@gmail.com" data-i18n="btn_send_mail">
-                  SEND EMAIL &nearr;
-                </a>
-                <a class="action-btn action-outline" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer" data-i18n="btn_linkedin">
-                  LINKEDIN PROFILE &nearr;
-                </a>
-                <button class="action-btn action-outline js-open-pdf" type="button"
-                        data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
-                        data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)"
-                        data-i18n="btn_inspect_resume">
-                  INSPECT RESUME PDF
-                </button>
               </div>
             </div>
           </div>

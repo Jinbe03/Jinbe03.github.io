@@ -103,6 +103,7 @@
       c1_t: 'Cloud Architecture', c2_t: 'Full-Stack Developer', c3_t: 'Database Design & Mgmt', c4_t: 'Agile Systems Design',
       btn_view_pdf: 'VIEW PDF',
       code_contact: 'STOP 06 // DIRECT SNS LINE', hdr_contact: 'CONTACT BRUNO',
+      sns_out1: 'Leave it to me.',
       chat1: 'Hey! Looking for a remote Junior / Trainee Software Engineer?',
       chat2: 'Python, Backend, SQL &amp; Full-Stack &mdash; building clean, automated software from <strong>Santiago, Chile (UTC-3)</strong>.',
       chat3: 'Drop me an email at <strong>brunomaldonado04@gmail.com</strong> &mdash; fast response guaranteed.',
@@ -204,6 +205,7 @@
       c1_t: 'Arquitectura Cloud', c2_t: 'Desarrollador Full-Stack', c3_t: 'Diseño y Gestión de BD', c4_t: 'Diseño Ágil de Sistemas',
       btn_view_pdf: 'VER PDF',
       code_contact: 'PARADA 06 // LÍNEA DIRECTA SNS', hdr_contact: 'CONTACTO',
+      sns_out1: 'Déjamelo a mí.',
       chat1: '¡Hola! ¿Buscas un Ingeniero de Software Jr / Trainee 100% remoto?',
       chat2: 'Python, Backend, SQL y Full-Stack &mdash; construyendo software limpio y automatizado desde <strong>Santiago, Chile (UTC-3)</strong>.',
       chat3: 'Escríbeme directo a <strong>brunomaldonado04@gmail.com</strong> &mdash; respondo rápido.',
@@ -305,6 +307,7 @@
       c1_t: 'クラウドアーキテクチャ', c2_t: 'フルスタック開発者', c3_t: 'データベース設計・管理', c4_t: 'アジャイルシステム設計',
       btn_view_pdf: 'PDF表示',
       code_contact: '終点 // ダイレクト通信', hdr_contact: 'お問い合わせ',
+      sns_out1: 'まかせろ',
       chat1: 'こんにちは！フルリモートのジュニア・ソフトウェアエンジニアをお探しですか？',
       chat2: 'Python・バックエンド・SQL・フルスタック対応 — <strong>チリ・サンティアゴ (UTC-3)</strong> よりクリーンな開発をお届けします。',
       chat3: 'ご連絡は <strong>brunomaldonado04@gmail.com</strong> まで — 迅速に返信します！',
@@ -1449,11 +1452,12 @@
   if (copyBtn) {
     copyBtn.addEventListener('click', async () => {
       const email = copyBtn.getAttribute('data-email');
+      const txtEl = copyBtn.querySelector('.reply-txt') || copyBtn;
       playSelectSnap();
       try {
         await navigator.clipboard.writeText(email);
-        copyBtn.textContent = I18N[currentLang].btn_copied;
-        setTimeout(() => { copyBtn.textContent = I18N[currentLang].btn_copy_email; }, 1800);
+        txtEl.textContent = I18N[currentLang].btn_copied;
+        setTimeout(() => { txtEl.textContent = I18N[currentLang].btn_copy_email; }, 1800);
       } catch {
         window.location.href = 'mailto:' + email;
       }
