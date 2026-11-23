@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BRUNO MALDONADO // JINBE03 — Software Engineer</title>
-  <meta name="description" content="Interactive Software Engineer portfolio of Bruno R. Maldonado (@Jinbe03) — Python, Backend & Full-Stack Engineer. Ex-Intern at Huawei Technologies." />
-  <meta property="og:title" content="Bruno R. Maldonado (@Jinbe03) — Software Engineer" />
+  <title>BRUNO MALDONADO — Software Engineer</title>
+  <meta name="description" content="Interactive Software Engineer portfolio of Bruno Maldonado — Python, Backend & Full-Stack Engineer. Ex-Intern at Huawei Technologies." />
+  <meta property="og:title" content="Bruno Maldonado — Software Engineer" />
   <meta property="og:description" content="Python, Backend & Full-Stack Software Engineer. Former Software & Data Engineering Intern at Huawei Technologies." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,7 +15,7 @@
 </head>
 <body class="mode-title" data-view="profile" data-scene="station">
 
-  <!-- SVG Filters for organic Sumi-e ink strokes -->
+  <!-- SVG Filters for organic Sumi-e ink edges -->
   <svg class="svg-defs" aria-hidden="true" focusable="false">
     <defs>
       <filter id="sumi-brush" x="-10%" y="-10%" width="120%" height="120%">
@@ -26,21 +26,52 @@
   </svg>
 
   <!-- =========================================================
-       3D PERSPECTIVE WORLD STAGE (CAMERA + STATION + TRAINS)
+       FIRST-ENTRY KINETIC MOTION GRAPHICS INTRO (1.5s AUTO)
+       ========================================================= -->
+  <div id="intro-opener" class="intro-opener" aria-hidden="true">
+    <div class="intro-curtain intro-curtain-left"></div>
+    <div class="intro-curtain intro-curtain-right"></div>
+    <div class="intro-star-burst">
+      <svg viewBox="0 0 200 200" fill="none">
+        <polygon points="100,4 121,68 192,68 135,110 156,178 100,136 44,178 65,110 8,68 79,68" fill="#e60012" stroke="#f6f3ec" stroke-width="5"/>
+      </svg>
+    </div>
+    <div class="intro-slash-bar">
+      <span class="intro-kicker mono">LINE 03 // SANTIAGO EXPRESS</span>
+      <span class="intro-big-name">BRUNO MALDONADO</span>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       3D PERSPECTIVE WORLD STAGE (3 SCENES + TRACK-ALIGNED TRAIN)
        ========================================================= -->
   <div class="stage-viewport" aria-hidden="true">
     <div id="camera-rig" class="camera-rig">
-      <!-- Scene A: Subway Platform -->
+      <!-- Scene A: Underground Subway Platform -->
       <div class="world-layer world-station"></div>
 
       <!-- Scene B: Inside Express Train Car -->
       <div class="world-layer world-interior"></div>
 
-      <!-- Atmospheric Crimson Halftone & Vignette -->
+      <!-- Scene C: Elevated Night Station & Mountain Skyline -->
+      <div class="world-layer world-night"></div>
+
+      <!-- True 3D Track-Aligned Passing Train (Receding along right-side rails into tunnel!) -->
+      <div class="track-corridor">
+        <div class="track-3d-plane">
+          <div class="track-speed-lines"></div>
+          <div class="train-consist">
+            <img src="assets/art/train-car.png" alt="" class="train-car-sprite" />
+            <img src="assets/art/train-car.png" alt="" class="train-car-sprite" />
+            <img src="assets/art/train-car.png" alt="" class="train-car-sprite" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Halftone, Vignette & Sumi-e Ink Enso -->
       <div class="halftone-overlay"></div>
       <div class="vignette-overlay"></div>
 
-      <!-- Sumi-e Ink Enso Watermark floating in depth -->
       <svg class="stage-enso" viewBox="0 0 280 280" fill="none">
         <g filter="url(#sumi-brush)">
           <path
@@ -50,17 +81,7 @@
         </g>
       </svg>
 
-      <!-- Animated Passing Train Cars (visible on Platform scenes & Title) -->
-      <div class="train-track-layer">
-        <div class="speed-streaks"></div>
-        <div class="train-consist">
-          <img src="assets/art/train-car.png" alt="" class="train-car-sprite" />
-          <img src="assets/art/train-car.png" alt="" class="train-car-sprite" />
-          <img src="assets/art/train-car.png" alt="" class="train-car-sprite" />
-        </div>
-      </div>
-
-      <!-- High-speed diagonal crimson slashes -->
+      <!-- Graphic Diagonal Crimson Slashes -->
       <div class="slash-layer">
         <div class="slash slash-1"></div>
         <div class="slash slash-2"></div>
@@ -69,22 +90,29 @@
   </div>
 
   <!-- =========================================================
-       KINETIC TRANSITION WIPE (EXPRESS TRAIN CUT-IN)
+       CINEMATIC PAPER-CRUMPLE & CUT-IN TRANSITION (~900ms)
        ========================================================= -->
   <div id="transition-wipe" class="transition-wipe" aria-hidden="true">
-    <div class="wipe-band wipe-red"></div>
-    <div class="wipe-band wipe-black"></div>
-    <div class="wipe-train-flash">
-      <img src="assets/art/train-car.png" alt="" />
+    <div class="crumple-shard shard-1"></div>
+    <div class="crumple-shard shard-2"></div>
+    <div class="crumple-shard shard-3"></div>
+    <div class="crumple-shard shard-4"></div>
+
+    <!-- Dramatic Persona 5 Horizontal Portrait Cut-In -->
+    <div id="cutin-strip" class="cutin-strip">
+      <img src="assets/art/engineer-cutin.jpg" alt="" />
     </div>
-    <div id="wipe-label" class="wipe-label">NEXT STOP</div>
+
+    <div class="wipe-title-wrap">
+      <span id="wipe-sub" class="wipe-sub mono">NEXT STATION</span>
+      <div id="wipe-label" class="wipe-label">PROFILE</div>
+    </div>
   </div>
 
   <!-- =========================================================
-       TOP HUD BAR (ALWAYS ACCESSIBLE FOR RECRUITERS)
+       TOP HUD BAR (DATE + QUICK IN-PAGE PDF RESUMES + AUDIO)
        ========================================================= -->
   <header class="hud-top">
-    <!-- Left Persona-style Date / Station Widget -->
     <div class="hud-date-box">
       <div class="hud-date-main">
         <span id="hud-date" class="hud-date-num">11/23</span>
@@ -92,18 +120,24 @@
       </div>
       <div class="hud-station-sub">
         <span class="hanko-mini" aria-hidden="true">BM</span>
-        <span id="hud-location" class="mono">SANTIAGO · PLATFORM 01</span>
+        <span id="hud-location" class="mono">BRUNO MALDONADO · PLATFORM 01</span>
       </div>
     </div>
 
-    <!-- Right Quick Actions (Resume PDFs + SFX + Title Return) -->
     <div class="hud-actions">
-      <a class="hud-btn hud-btn-primary" href="assets/CV_Bruno_Maldonado_EN.pdf" download>
+      <button class="hud-btn hud-btn-primary js-open-pdf" type="button"
+              data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
+              data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)">
         <span>RESUME (EN)</span>
-      </a>
-      <a class="hud-btn" href="assets/CV_Bruno_Maldonado_ES.pdf" download>
+      </button>
+      <button class="hud-btn js-open-pdf" type="button"
+              data-pdf="assets/CV_Bruno_Maldonado_ES.pdf"
+              data-pdf-title="CURRÍCULUM — BRUNO MALDONADO (ESPAÑOL)">
         <span>CV (ES)</span>
-      </a>
+      </button>
+      <button id="bgmToggle" class="hud-btn hud-btn-audio" type="button" aria-pressed="false" title="Toggle Original Acid-Jazz BGM">
+        <span id="bgmLabel">&#9834; BGM: OFF</span>
+      </button>
       <button id="sfxToggle" class="hud-btn hud-btn-icon" type="button" aria-pressed="true" title="Toggle UI Sound Effects">
         <span id="sfxLabel">SFX: ON</span>
       </button>
@@ -114,18 +148,18 @@
   </header>
 
   <!-- =========================================================
-       INTRO / PERSONA 5-STYLE TITLE SCREEN
+       TITLE SCREEN (PERSONA 5 SUBWAY PLATFORM INTRO)
        ========================================================= -->
   <section id="title-screen" class="title-screen" aria-label="Title Screen">
     <div class="title-stage-content">
       <div class="title-eyebrow">
-        <span class="eyebrow-tag">LINE 03 // SANTIAGO EXPRESS</span>
+        <span class="eyebrow-tag">PORTFOLIO // SANTIAGO EXPRESS</span>
         <span class="eyebrow-status"><span class="live-dot"></span> OPEN TO REMOTE JR / TRAINEE ROLES</span>
       </div>
 
-      <h1 class="title-hero-name" aria-label="Bruno R. Maldonado">
+      <h1 class="title-hero-name" aria-label="Bruno Maldonado">
         <span class="title-line-1">
-          <span class="ransom-char">B</span>RUNO R.
+          <span class="ransom-char">B</span>RUNO
         </span>
         <span class="title-line-2">
           MALDONAD<span class="ransom-char alt">O</span>
@@ -137,7 +171,7 @@
         <span class="ribbon-sep">//</span>
         <span>PYTHON &middot; BACKEND &middot; FULL-STACK</span>
         <span class="ribbon-sep">//</span>
-        <span class="mono">@JINBE03</span>
+        <span>EX-HUAWEI INTERN</span>
       </div>
 
       <div class="title-cta-wrap">
@@ -146,422 +180,518 @@
           <span class="board-btn-text">BOARD THE STATION</span>
           <span class="board-btn-arrow">&rarr;</span>
         </button>
-        <p class="title-hint mono">CLICK OR PRESS [ENTER] / [SPACE] TO START</p>
+        <p class="title-hint mono">CLICK OR PRESS [ENTER] / [SPACE] TO START &middot; TURN ON &#9834; BGM FOR FULL VIBE</p>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       MAIN INTERACTIVE STATION INTERFACE (MENU + DOSSIER)
+       MAIN INTERACTIVE STATION INTERFACE (MENU + DOSSIER + DIALOGUE)
        ========================================================= -->
   <main id="app-shell" class="app-shell" aria-hidden="true">
-    <!-- Left Persona Slanted Navigation Rail -->
-    <nav class="station-nav" aria-label="Portfolio Stations">
-      <div class="nav-header-stamp">
-        <span class="stamp-jp">路線</span>
-        <span class="stamp-en">SELECT STOP</span>
-      </div>
-
-      <ul class="station-menu" role="tablist">
-        <li>
-          <button class="menu-item active" type="button" role="tab" aria-selected="true"
-                  data-view="profile" data-scene="station" data-cam="cam-profile" data-loc="SANTIAGO · PLATFORM 01">
-            <span class="menu-bg"></span>
-            <span class="menu-num mono">01</span>
-            <span class="menu-label"><em class="k-pop">P</em>ROFILE</span>
-            <span class="menu-sub mono">PLATFORM VIEW</span>
-          </button>
-        </li>
-        <li>
-          <button class="menu-item" type="button" role="tab" aria-selected="false"
-                  data-view="experience" data-scene="interior" data-cam="cam-experience" data-loc="EXPRESS CAR 01 · HUAWEI">
-            <span class="menu-bg"></span>
-            <span class="menu-num mono">02</span>
-            <span class="menu-label"><em class="k-pop">E</em>XPERIENCE</span>
-            <span class="menu-sub mono">INSIDE CAR 01</span>
-          </button>
-        </li>
-        <li>
-          <button class="menu-item" type="button" role="tab" aria-selected="false"
-                  data-view="projects" data-scene="interior" data-cam="cam-projects" data-loc="EXPRESS CAR 02 · BUILDS">
-            <span class="menu-bg"></span>
-            <span class="menu-num mono">03</span>
-            <span class="menu-label"><em class="k-pop">P</em>ROJECTS</span>
-            <span class="menu-sub mono">INSIDE CAR 02</span>
-          </button>
-        </li>
-        <li>
-          <button class="menu-item" type="button" role="tab" aria-selected="false"
-                  data-view="skills" data-scene="station" data-cam="cam-skills" data-loc="CONCOURSE · TECH LOADOUT">
-            <span class="menu-bg"></span>
-            <span class="menu-num mono">04</span>
-            <span class="menu-label"><em class="k-pop">S</em>KILLS</span>
-            <span class="menu-sub mono">TECH LOADOUT</span>
-          </button>
-        </li>
-        <li>
-          <button class="menu-item" type="button" role="tab" aria-selected="false"
-                  data-view="education" data-scene="interior" data-cam="cam-education" data-loc="ARCHIVE CAR · INACAP">
-            <span class="menu-bg"></span>
-            <span class="menu-num mono">05</span>
-            <span class="menu-label"><em class="k-pop">C</em>ERTS &amp; EDU</span>
-            <span class="menu-sub mono">CREDENTIALS</span>
-          </button>
-        </li>
-        <li>
-          <button class="menu-item" type="button" role="tab" aria-selected="false"
-                  data-view="contact" data-scene="station" data-cam="cam-contact" data-loc="TERMINAL · FINAL STOP">
-            <span class="menu-bg"></span>
-            <span class="menu-num mono">06</span>
-            <span class="menu-label"><em class="k-pop">C</em>ONTACT</span>
-            <span class="menu-sub mono">FINAL STOP</span>
-          </button>
-        </li>
-      </ul>
-
-      <div class="nav-controls-hint mono">
-        <span>[&uarr;/&darr;] MOVE</span>
-        <span>[1-6] JUMP</span>
-        <span>[ESC] TITLE</span>
-      </div>
-    </nav>
-
-    <!-- Right Dynamic Dossier Viewport -->
-    <section class="dossier-stage" aria-live="polite">
-
-      <!-- VIEW 01: PROFILE -->
-      <article id="view-profile" class="dossier-panel active" role="tabpanel">
-        <div class="panel-header-ribbon">
-          <span class="panel-code mono">STOP 01 // DOSSIER</span>
-          <h2>BRUNO R. MALDONADO</h2>
+    <div class="shell-main-grid">
+      <!-- Left Persona Slanted Navigation Rail -->
+      <nav class="station-nav" aria-label="Portfolio Stations">
+        <div class="nav-header-stamp">
+          <span class="stamp-jp">路線</span>
+          <span class="stamp-en">SELECT STOP</span>
         </div>
 
-        <div class="dossier-card">
-          <div class="profile-role-bar">
-            <span class="role-badge">SOFTWARE ENGINEER</span>
-            <span class="role-stack mono">PYTHON &middot; BACKEND &middot; FULL-STACK</span>
-          </div>
-
-          <p class="lead-copy">
-            Computer Engineering senior at <strong>INACAP</strong> (graduating Dec 2026) based in <strong>Santiago, Chile</strong>.
-            Former Software &amp; Data Engineering Intern at <strong>Huawei Technologies</strong>.
-            I build reliable backend systems, automate manual data workflows, optimize SQL at national scale, and ship clean full-stack applications.
-          </p>
-
-          <div class="stat-strips">
-            <div class="stat-box">
-              <span class="stat-label mono">EXPERIENCE</span>
-              <strong class="stat-val">Huawei Technologies</strong>
-              <span class="stat-note">Software &amp; Data Eng. Intern</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label mono">LANGUAGES</span>
-              <strong class="stat-val">ES (Native) / EN (B1)</strong>
-              <span class="stat-note">Technical &amp; Conversational</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label mono">AVAILABILITY</span>
-              <strong class="stat-val">100% Remote</strong>
-              <span class="stat-note">Santiago, Chile (UTC-3)</span>
-            </div>
-          </div>
-
-          <div class="panel-actions">
-            <button class="action-btn action-primary" type="button" data-jump="experience">
-              BOARD EXPERIENCE CAR &rarr;
+        <ul class="station-menu" role="tablist">
+          <li>
+            <button class="menu-item active" type="button" role="tab" aria-selected="true"
+                    data-view="profile" data-scene="station" data-loc="BRUNO MALDONADO · PLATFORM 01" data-sub="STOP 01 // PLATFORM">
+              <span class="menu-bg"></span>
+              <span class="menu-num mono">01</span>
+              <span class="menu-label"><em class="k-pop">P</em>ROFILE</span>
+              <span class="menu-sub mono">UNDERGROUND PLATFORM</span>
             </button>
-            <button class="action-btn action-dark" type="button" data-jump="projects">
-              INSPECT PROJECTS &rarr;
+          </li>
+          <li>
+            <button class="menu-item" type="button" role="tab" aria-selected="false"
+                    data-view="experience" data-scene="interior" data-cutin="true" data-loc="EXPRESS CAR 01 · HUAWEI" data-sub="STOP 02 // BOARDING CAR 01">
+              <span class="menu-bg"></span>
+              <span class="menu-num mono">02</span>
+              <span class="menu-label"><em class="k-pop">E</em>XPERIENCE</span>
+              <span class="menu-sub mono">INSIDE EXPRESS CAR</span>
             </button>
-            <a class="action-btn action-outline" href="https://github.com/Jinbe03" target="_blank" rel="noopener noreferrer">
-              GITHUB &nearr;
-            </a>
-            <a class="action-btn action-outline" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
-              LINKEDIN &nearr;
-            </a>
+          </li>
+          <li>
+            <button class="menu-item" type="button" role="tab" aria-selected="false"
+                    data-view="projects" data-scene="interior" data-cutin="true" data-loc="EXPRESS CAR 02 · BUILDS" data-sub="STOP 03 // BOARDING CAR 02">
+              <span class="menu-bg"></span>
+              <span class="menu-num mono">03</span>
+              <span class="menu-label"><em class="k-pop">P</em>ROJECTS</span>
+              <span class="menu-sub mono">INSIDE EXPRESS CAR</span>
+            </button>
+          </li>
+          <li>
+            <button class="menu-item" type="button" role="tab" aria-selected="false"
+                    data-view="skills" data-scene="night" data-loc="SKYLINE OVERPASS · LOADOUT" data-sub="STOP 04 // NIGHT OVERPASS">
+              <span class="menu-bg"></span>
+              <span class="menu-num mono">04</span>
+              <span class="menu-label"><em class="k-pop">S</em>KILLS</span>
+              <span class="menu-sub mono">NIGHT SKYLINE VIEW</span>
+            </button>
+          </li>
+          <li>
+            <button class="menu-item" type="button" role="tab" aria-selected="false"
+                    data-view="education" data-scene="station" data-loc="ARCHIVE PLATFORM · INACAP" data-sub="STOP 05 // CREDENTIALS">
+              <span class="menu-bg"></span>
+              <span class="menu-num mono">05</span>
+              <span class="menu-label"><em class="k-pop">C</em>ERTS &amp; EDU</span>
+              <span class="menu-sub mono">VERIFIABLE PDFS</span>
+            </button>
+          </li>
+          <li>
+            <button class="menu-item" type="button" role="tab" aria-selected="false"
+                    data-view="contact" data-scene="night" data-loc="FINAL STOP · DIRECT SNS" data-sub="STOP 06 // PHONE MESSAGE">
+              <span class="menu-bg"></span>
+              <span class="menu-num mono">06</span>
+              <span class="menu-label"><em class="k-pop">C</em>ONTACT</span>
+              <span class="menu-sub mono">DIRECT MESSAGE</span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="nav-controls-hint mono">
+          <span>[&uarr;/&darr;] MOVE</span>
+          <span>[1-6] JUMP</span>
+          <span>[ESC] TITLE</span>
+        </div>
+      </nav>
+
+      <!-- Right Dynamic Dossier Viewport -->
+      <section class="dossier-stage" aria-live="polite">
+
+        <!-- VIEW 01: PROFILE -->
+        <article id="view-profile" class="dossier-panel active" role="tabpanel">
+          <div class="panel-header-ribbon">
+            <span class="panel-code mono">STOP 01 // ENGINEER DOSSIER</span>
+            <h2>BRUNO MALDONADO</h2>
           </div>
-        </div>
-      </article>
 
-      <!-- VIEW 02: EXPERIENCE -->
-      <article id="view-experience" class="dossier-panel" role="tabpanel">
-        <div class="panel-header-ribbon">
-          <span class="panel-code mono">STOP 02 // EXPRESS CAR 01</span>
-          <h2>EXPERIENCE</h2>
-        </div>
-
-        <div class="dossier-card">
-          <div class="exp-head">
-            <div>
-              <span class="company-kicker mono">ENTERPRISE INTERNSHIP</span>
-              <h3>Software &amp; Data Engineering Intern</h3>
-              <p class="exp-company">Huawei Technologies &mdash; Santiago, Chile</p>
+          <div class="dossier-card">
+            <div class="profile-role-bar">
+              <span class="role-badge">SOFTWARE ENGINEER</span>
+              <span class="role-stack mono">PYTHON &middot; BACKEND &middot; FULL-STACK</span>
             </div>
-            <span class="date-stamp mono">JAN 2026 &ndash; MAY 2026</span>
-          </div>
 
-          <ul class="impact-list">
-            <li>
-              <span class="impact-metric mono">~90% AUTO</span>
-              <div>
-                Built internal automation applications in <strong>Python and SQL</strong> to generate business reports and analytical insights, compressing workflows that previously took <strong>weeks of manual effort</strong> (saving ~15 hrs/week).
-              </div>
-            </li>
-            <li>
-              <span class="impact-metric mono">CHURN DATA</span>
-              <div>
-                Contributed to data processing and exploratory analysis for <strong>customer churn</strong> initiatives, cleaning and transforming large-scale datasets into actionable retention metrics.
-              </div>
-            </li>
-            <li>
-              <span class="impact-metric mono">-35% TIME</span>
-              <div>
-                Optimized complex SQL queries and relational database models at national scale, <strong>cutting data processing time by 35%</strong> while safeguarding integrity across mission-critical reports.
-              </div>
-            </li>
-          </ul>
+            <p class="lead-copy">
+              Computer Engineering senior at <strong>INACAP</strong> (graduating Dec 2026) based in <strong>Santiago, Chile</strong>.
+              Former Software &amp; Data Engineering Intern at <strong>Huawei Technologies</strong>.
+              I build reliable backend systems, automate manual workflows, optimize SQL at national scale, and ship clean full-stack applications.
+            </p>
 
-          <div class="chip-row">
-            <span class="chip">Python</span>
-            <span class="chip">SQL</span>
-            <span class="chip">ETL &amp; Automation</span>
-            <span class="chip">Query Optimization</span>
-            <span class="chip">Data Analysis</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- VIEW 03: PROJECTS -->
-      <article id="view-projects" class="dossier-panel" role="tabpanel">
-        <div class="panel-header-ribbon">
-          <span class="panel-code mono">STOP 03 // EXPRESS CAR 02</span>
-          <h2>SELECTED PROJECTS</h2>
-        </div>
-
-        <div class="projects-stack">
-          <div class="dossier-card project-box">
-            <div class="proj-top">
-              <div>
-                <span class="proj-role mono">01 // TECH LEAD</span>
-                <h3>Multinational Financial Compliance Engine</h3>
+            <div class="stat-strips">
+              <div class="stat-box">
+                <span class="stat-label mono">EXPERIENCE</span>
+                <strong class="stat-val">Huawei Technologies</strong>
+                <span class="stat-note">Software &amp; Data Eng. Intern</span>
               </div>
-              <a class="repo-stamp mono" href="https://github.com/Jinbe03/Nuam" target="_blank" rel="noopener noreferrer">
-                GITHUB REPO &nearr;
+              <div class="stat-box">
+                <span class="stat-label mono">LANGUAGES</span>
+                <strong class="stat-val">ES (Native) / EN (B1)</strong>
+                <span class="stat-note">Technical &amp; Conversational</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label mono">WORK MODE</span>
+                <strong class="stat-val">100% Remote</strong>
+                <span class="stat-note">Santiago, Chile (UTC-3)</span>
+              </div>
+            </div>
+
+            <div class="panel-actions">
+              <button class="action-btn action-primary" type="button" data-jump="experience">
+                BOARD EXPERIENCE CAR &rarr;
+              </button>
+              <button class="action-btn action-dark js-open-pdf" type="button"
+                      data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
+                      data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)">
+                VIEW RESUME PDF
+              </button>
+              <a class="action-btn action-outline" href="https://github.com/Jinbe03" target="_blank" rel="noopener noreferrer">
+                GITHUB &nearr;
+              </a>
+              <a class="action-btn action-outline" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
+                LINKEDIN &nearr;
               </a>
             </div>
-            <p class="proj-copy">
-              Full-stack platform managing complex tax compliance workflows across <strong>Chile, Peru, and Colombia</strong>. Includes brute-force lockout protection, RBAC admin dashboard, automated tax reporting (<strong>40% fewer manual errors</strong>), and a <strong>Jenkins CI/CD</strong> pipeline.
-            </p>
+          </div>
+        </article>
+
+        <!-- VIEW 02: EXPERIENCE -->
+        <article id="view-experience" class="dossier-panel" role="tabpanel">
+          <div class="panel-header-ribbon">
+            <span class="panel-code mono">STOP 02 // EXPRESS CAR 01</span>
+            <h2>EXPERIENCE</h2>
+          </div>
+
+          <div class="dossier-card">
+            <div class="exp-head">
+              <div>
+                <span class="company-kicker mono">ENTERPRISE INTERNSHIP</span>
+                <h3>Software &amp; Data Engineering Intern</h3>
+                <p class="exp-company">Huawei Technologies &mdash; Santiago, Chile</p>
+              </div>
+              <span class="date-stamp mono">JAN 2026 &ndash; MAY 2026</span>
+            </div>
+
+            <ul class="impact-list">
+              <li>
+                <span class="impact-metric mono">~90% AUTO</span>
+                <div>
+                  Built internal automation applications in <strong>Python and SQL</strong> to generate business reports and analytical insights, compressing workflows that previously took <strong>weeks of manual effort</strong> (saving ~15 hrs/week).
+                </div>
+              </li>
+              <li>
+                <span class="impact-metric mono">CHURN DATA</span>
+                <div>
+                  Contributed to data processing and exploratory analysis for <strong>customer churn</strong> initiatives, cleaning and transforming large-scale datasets into actionable retention metrics.
+                </div>
+              </li>
+              <li>
+                <span class="impact-metric mono">-35% TIME</span>
+                <div>
+                  Optimized complex SQL queries and relational database models at national scale, <strong>cutting data processing time by 35%</strong> while safeguarding integrity across mission-critical reports.
+                </div>
+              </li>
+            </ul>
+
             <div class="chip-row">
               <span class="chip">Python</span>
-              <span class="chip">Django</span>
-              <span class="chip">JavaScript</span>
-              <span class="chip">PostgreSQL</span>
-              <span class="chip">Jenkins CI/CD</span>
+              <span class="chip">SQL</span>
+              <span class="chip">ETL &amp; Automation</span>
+              <span class="chip">Query Optimization</span>
+              <span class="chip">Data Analysis</span>
             </div>
           </div>
+        </article>
 
-          <div class="dossier-card project-box">
-            <div class="proj-top">
-              <div>
-                <span class="proj-role mono">02 // BACKEND LEAD</span>
-                <h3>Life Harmony &mdash; AI Mobile Nutrition App</h3>
+        <!-- VIEW 03: PROJECTS -->
+        <article id="view-projects" class="dossier-panel" role="tabpanel">
+          <div class="panel-header-ribbon">
+            <span class="panel-code mono">STOP 03 // EXPRESS CAR 02</span>
+            <h2>SELECTED PROJECTS</h2>
+          </div>
+
+          <div class="projects-stack">
+            <div class="dossier-card project-box">
+              <div class="proj-top">
+                <div>
+                  <span class="proj-role mono">01 // TECH LEAD</span>
+                  <h3>Multinational Financial Compliance Engine</h3>
+                </div>
+                <a class="repo-stamp mono" href="https://github.com/Jinbe03/Nuam" target="_blank" rel="noopener noreferrer">
+                  GITHUB REPO &nearr;
+                </a>
               </div>
-              <span class="repo-stamp muted mono">MOBILE &amp; AI</span>
-            </div>
-            <p class="proj-copy">
-              Cross-platform mobile app combining <strong>AI-assisted calorie tracking</strong> with a real-time <strong>Firebase / Firestore</strong> backend, offline persistence, granular security rules for sensitive health records, and <strong>+25% navigation efficiency</strong>.
-            </p>
-            <div class="chip-row">
-              <span class="chip">Dart</span>
-              <span class="chip">Flutter</span>
-              <span class="chip">AI Integration</span>
-              <span class="chip">Firebase</span>
-              <span class="chip">Firestore Rules</span>
-            </div>
-          </div>
-
-          <div class="dossier-card project-box">
-            <div class="proj-top">
-              <div>
-                <span class="proj-role mono">03 // CONTINUOUS PRACTICE</span>
-                <h3>Algorithms &amp; Engineering Fundamentals</h3>
+              <p class="proj-copy">
+                Full-stack platform managing complex tax compliance workflows across <strong>Chile, Peru, and Colombia</strong>. Includes brute-force lockout protection, RBAC admin dashboard, automated tax reporting (<strong>40% fewer manual errors</strong>), and a <strong>Jenkins CI/CD</strong> pipeline.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Python</span>
+                <span class="chip">Django</span>
+                <span class="chip">JavaScript</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">Jenkins CI/CD</span>
               </div>
-              <a class="repo-stamp mono" href="https://github.com/Jinbe03/Ruta_Google_2026" target="_blank" rel="noopener noreferrer">
-                GITHUB REPO &nearr;
-              </a>
             </div>
-            <p class="proj-copy">
-              Open Python repository documenting algorithmic problem-solving, clean code patterns, time/space complexity optimization, and core computer science fundamentals written from scratch.
-            </p>
-            <div class="chip-row">
-              <span class="chip">Python</span>
-              <span class="chip">Algorithms</span>
-              <span class="chip">Data Structures</span>
-              <span class="chip">Clean Code</span>
-            </div>
-          </div>
-        </div>
-      </article>
 
-      <!-- VIEW 04: SKILLS -->
-      <article id="view-skills" class="dossier-panel" role="tabpanel">
-        <div class="panel-header-ribbon">
-          <span class="panel-code mono">STOP 04 // CONCOURSE LOADOUT</span>
-          <h2>TECHNICAL SKILLS</h2>
-        </div>
-
-        <div class="skills-columns">
-          <div class="dossier-card skill-box">
-            <div class="skill-head">
-              <span class="skill-idx mono">I</span>
-              <h3>Backend &amp; Data</h3>
-            </div>
-            <div class="chip-row">
-              <span class="chip">Python</span>
-              <span class="chip">Django</span>
-              <span class="chip">Node.js</span>
-              <span class="chip">REST APIs</span>
-              <span class="chip">PostgreSQL</span>
-              <span class="chip">SQL Optimization</span>
-              <span class="chip">Firebase / Firestore</span>
-              <span class="chip">ETL Pipelines</span>
-            </div>
-          </div>
-
-          <div class="dossier-card skill-box">
-            <div class="skill-head">
-              <span class="skill-idx mono">II</span>
-              <h3>Frontend &amp; Mobile</h3>
-            </div>
-            <div class="chip-row">
-              <span class="chip">JavaScript (ES6+)</span>
-              <span class="chip">React</span>
-              <span class="chip">HTML5 &amp; CSS3</span>
-              <span class="chip">Tailwind CSS</span>
-              <span class="chip">Dart</span>
-              <span class="chip">Flutter</span>
-            </div>
-          </div>
-
-          <div class="dossier-card skill-box">
-            <div class="skill-head">
-              <span class="skill-idx mono">III</span>
-              <h3>Cloud &amp; DevOps</h3>
-            </div>
-            <div class="chip-row">
-              <span class="chip">AWS / Azure</span>
-              <span class="chip">Docker</span>
-              <span class="chip">Jenkins (CI/CD)</span>
-              <span class="chip">Git &amp; GitHub</span>
-              <span class="chip">App Security</span>
-              <span class="chip">Agile (Scrum)</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- VIEW 05: EDUCATION & CERTS -->
-      <article id="view-education" class="dossier-panel" role="tabpanel">
-        <div class="panel-header-ribbon">
-          <span class="panel-code mono">STOP 05 // ARCHIVE CAR</span>
-          <h2>EDUCATION &amp; CERTIFICATIONS</h2>
-        </div>
-
-        <div class="dossier-card">
-          <div class="exp-head">
-            <div>
-              <span class="company-kicker mono">DEGREE</span>
-              <h3>B.S. in Computer Engineering</h3>
-              <p class="exp-company">Ingenier&iacute;a en Inform&aacute;tica &mdash; Instituto Profesional INACAP</p>
-            </div>
-            <span class="date-stamp mono">EXPECTED DEC 2026</span>
-          </div>
-
-          <p class="certs-caption mono">OFFICIAL VERIFIABLE CREDENTIALS (CLICK TO OPEN PDF)</p>
-
-          <div class="certs-grid">
-            <a class="cert-card clickable" href="assets/certificados/Arquitectura_Cloud.pdf" target="_blank" rel="noopener noreferrer">
-              <div>
-                <strong>Cloud Architecture</strong>
-                <span class="mono">INACAP &middot; 198 HRS</span>
+            <div class="dossier-card project-box">
+              <div class="proj-top">
+                <div>
+                  <span class="proj-role mono">02 // BACKEND LEAD</span>
+                  <h3>Life Harmony &mdash; AI Mobile Nutrition App</h3>
+                </div>
+                <span class="repo-stamp muted mono">MOBILE &amp; AI</span>
               </div>
-              <span class="cert-pdf-tag mono">PDF &nearr;</span>
-            </a>
-
-            <a class="cert-card clickable" href="assets/certificados/Full_Stack.pdf" target="_blank" rel="noopener noreferrer">
-              <div>
-                <strong>Full-Stack Developer</strong>
-                <span class="mono">INACAP &middot; 162 HRS</span>
+              <p class="proj-copy">
+                Cross-platform mobile app combining <strong>AI-assisted calorie tracking</strong> with a real-time <strong>Firebase / Firestore</strong> backend, offline persistence, granular security rules for sensitive health records, and <strong>+25% navigation efficiency</strong>.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Dart</span>
+                <span class="chip">Flutter</span>
+                <span class="chip">AI Integration</span>
+                <span class="chip">Firebase</span>
+                <span class="chip">Firestore Rules</span>
               </div>
-              <span class="cert-pdf-tag mono">PDF &nearr;</span>
-            </a>
+            </div>
 
-            <a class="cert-card clickable" href="assets/certificados/Gestion_BD.pdf" target="_blank" rel="noopener noreferrer">
-              <div>
-                <strong>Database Design &amp; Mgmt</strong>
-                <span class="mono">INACAP &middot; 126 HRS</span>
+            <div class="dossier-card project-box">
+              <div class="proj-top">
+                <div>
+                  <span class="proj-role mono">03 // CONTINUOUS PRACTICE</span>
+                  <h3>Algorithms &amp; Engineering Fundamentals</h3>
+                </div>
+                <a class="repo-stamp mono" href="https://github.com/Jinbe03/Ruta_Google_2026" target="_blank" rel="noopener noreferrer">
+                  GITHUB REPO &nearr;
+                </a>
               </div>
-              <span class="cert-pdf-tag mono">PDF &nearr;</span>
-            </a>
-
-            <a class="cert-card clickable" href="assets/certificados/Diseno_Agil.pdf" target="_blank" rel="noopener noreferrer">
-              <div>
-                <strong>Agile Systems Design</strong>
-                <span class="mono">INACAP &middot; 126 HRS</span>
+              <p class="proj-copy">
+                Open Python repository documenting algorithmic problem-solving, clean code patterns, time/space complexity optimization, and core computer science fundamentals written from scratch.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Python</span>
+                <span class="chip">Algorithms</span>
+                <span class="chip">Data Structures</span>
+                <span class="chip">Clean Code</span>
               </div>
-              <span class="cert-pdf-tag mono">PDF &nearr;</span>
-            </a>
-
-            <div class="cert-card">
-              <div>
-                <strong>Python</strong>
-                <span class="mono">SANTANDER OPEN ACADEMY &middot; 2026</span>
-              </div>
-              <span class="cert-pdf-tag muted mono">2026</span>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- VIEW 06: CONTACT -->
-      <article id="view-contact" class="dossier-panel" role="tabpanel">
-        <div class="panel-header-ribbon">
-          <span class="panel-code mono">STOP 06 // FINAL STOP</span>
-          <h2>SEND A CALLING CARD</h2>
-        </div>
-
-        <div class="dossier-card contact-box">
-          <p class="lead-copy">
-            Looking for a remote Junior / Trainee Software Engineer focused on <strong>Python, Backend, Automation, AI Engineering, or Full-Stack</strong>? Reach out directly &mdash; fast response guaranteed.
-          </p>
-
-          <div class="contact-email-strip">
-            <span class="mono">brunomaldonado04@gmail.com</span>
-            <button id="copyEmailBtn" class="action-btn action-primary" type="button" data-email="brunomaldonado04@gmail.com">
-              COPY EMAIL
-            </button>
+        <!-- VIEW 04: SKILLS -->
+        <article id="view-skills" class="dossier-panel" role="tabpanel">
+          <div class="panel-header-ribbon">
+            <span class="panel-code mono">STOP 04 // NIGHT SKYLINE LOADOUT</span>
+            <h2>TECHNICAL SKILLS</h2>
           </div>
 
-          <div class="panel-actions">
-            <a class="action-btn action-dark" href="mailto:brunomaldonado04@gmail.com">
-              OPEN MAIL APP &nearr;
-            </a>
-            <a class="action-btn action-outline" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
-              LINKEDIN &nearr;
-            </a>
-            <a class="action-btn action-outline" href="https://github.com/Jinbe03" target="_blank" rel="noopener noreferrer">
-              GITHUB (@JINBE03) &nearr;
-            </a>
-            <a class="action-btn action-outline" href="assets/CV_Bruno_Maldonado_EN.pdf" download>
-              RESUME EN (PDF)
-            </a>
-          </div>
-        </div>
-      </article>
+          <div class="skills-columns">
+            <div class="dossier-card skill-box">
+              <div class="skill-head">
+                <span class="skill-idx mono">I</span>
+                <h3>Backend &amp; Data</h3>
+              </div>
+              <div class="chip-row">
+                <span class="chip">Python</span>
+                <span class="chip">Django</span>
+                <span class="chip">Node.js</span>
+                <span class="chip">REST APIs</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">SQL Optimization</span>
+                <span class="chip">Firebase / Firestore</span>
+                <span class="chip">ETL Pipelines</span>
+              </div>
+            </div>
 
-    </section>
+            <div class="dossier-card skill-box">
+              <div class="skill-head">
+                <span class="skill-idx mono">II</span>
+                <h3>Frontend &amp; Mobile</h3>
+              </div>
+              <div class="chip-row">
+                <span class="chip">JavaScript (ES6+)</span>
+                <span class="chip">React</span>
+                <span class="chip">HTML5 &amp; CSS3</span>
+                <span class="chip">Tailwind CSS</span>
+                <span class="chip">Dart</span>
+                <span class="chip">Flutter</span>
+              </div>
+            </div>
+
+            <div class="dossier-card skill-box">
+              <div class="skill-head">
+                <span class="skill-idx mono">III</span>
+                <h3>Cloud &amp; DevOps</h3>
+              </div>
+              <div class="chip-row">
+                <span class="chip">AWS / Azure</span>
+                <span class="chip">Docker</span>
+                <span class="chip">Jenkins (CI/CD)</span>
+                <span class="chip">Git &amp; GitHub</span>
+                <span class="chip">App Security</span>
+                <span class="chip">Agile (Scrum)</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- VIEW 05: EDUCATION & CERTS (IN-PAGE PDF VIEWER) -->
+        <article id="view-education" class="dossier-panel" role="tabpanel">
+          <div class="panel-header-ribbon">
+            <span class="panel-code mono">STOP 05 // ARCHIVE CREDENTIALS</span>
+            <h2>EDUCATION &amp; CERTIFICATIONS</h2>
+          </div>
+
+          <div class="dossier-card">
+            <div class="exp-head">
+              <div>
+                <span class="company-kicker mono">DEGREE</span>
+                <h3>B.S. in Computer Engineering</h3>
+                <p class="exp-company">Ingenier&iacute;a en Inform&aacute;tica &mdash; Instituto Profesional INACAP</p>
+              </div>
+              <span class="date-stamp mono">EXPECTED DEC 2026</span>
+            </div>
+
+            <p class="certs-caption mono">CLICK ANY CREDENTIAL TO INSPECT PDF RIGHT INSIDE THIS PAGE</p>
+
+            <div class="certs-grid">
+              <button class="cert-card clickable js-open-pdf" type="button"
+                      data-pdf="assets/certificados/Arquitectura_Cloud.pdf"
+                      data-pdf-title="CREDENTIAL // CLOUD ARCHITECTURE (INACAP · 198 HRS)">
+                <div>
+                  <strong>Cloud Architecture</strong>
+                  <span class="mono">INACAP &middot; 198 HRS</span>
+                </div>
+                <span class="cert-pdf-tag mono">VIEW PDF</span>
+              </button>
+
+              <button class="cert-card clickable js-open-pdf" type="button"
+                      data-pdf="assets/certificados/Full_Stack.pdf"
+                      data-pdf-title="CREDENTIAL // FULL-STACK DEVELOPER (INACAP · 162 HRS)">
+                <div>
+                  <strong>Full-Stack Developer</strong>
+                  <span class="mono">INACAP &middot; 162 HRS</span>
+                </div>
+                <span class="cert-pdf-tag mono">VIEW PDF</span>
+              </button>
+
+              <button class="cert-card clickable js-open-pdf" type="button"
+                      data-pdf="assets/certificados/Gestion_BD.pdf"
+                      data-pdf-title="CREDENTIAL // DATABASE DESIGN & MGMT (INACAP · 126 HRS)">
+                <div>
+                  <strong>Database Design &amp; Mgmt</strong>
+                  <span class="mono">INACAP &middot; 126 HRS</span>
+                </div>
+                <span class="cert-pdf-tag mono">VIEW PDF</span>
+              </button>
+
+              <button class="cert-card clickable js-open-pdf" type="button"
+                      data-pdf="assets/certificados/Diseno_Agil.pdf"
+                      data-pdf-title="CREDENTIAL // AGILE SYSTEMS DESIGN (INACAP · 126 HRS)">
+                <div>
+                  <strong>Agile Systems Design</strong>
+                  <span class="mono">INACAP &middot; 126 HRS</span>
+                </div>
+                <span class="cert-pdf-tag mono">VIEW PDF</span>
+              </button>
+
+              <div class="cert-card">
+                <div>
+                  <strong>Python</strong>
+                  <span class="mono">SANTANDER OPEN ACADEMY &middot; 2026</span>
+                </div>
+                <span class="cert-pdf-tag muted mono">2026</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- VIEW 06: CONTACT (PERSONA 5 SMARTPHONE SNS CHAT!) -->
+        <article id="view-contact" class="dossier-panel" role="tabpanel">
+          <div class="panel-header-ribbon">
+            <span class="panel-code mono">STOP 06 // DIRECT SNS LINE</span>
+            <h2>CONTACT BRUNO</h2>
+          </div>
+
+          <div class="contact-phone-layout">
+            <!-- Stylized Persona 5 Phone Chat UI -->
+            <div class="p5-phone">
+              <div class="phone-top-bar">
+                <span class="phone-im-badge">IM</span>
+                <span class="phone-title mono">BRUNO MALDONADO</span>
+                <span class="phone-signal mono">5G</span>
+              </div>
+
+              <div class="phone-thread">
+                <div class="chat-msg msg-1">
+                  <div class="chat-avatar">
+                    <img src="assets/art/engineer-cutin.jpg" alt="Bruno Maldonado" />
+                  </div>
+                  <div class="chat-bubble">
+                    Hey! Looking for a remote Junior / Trainee Software Engineer?
+                  </div>
+                </div>
+
+                <div class="chat-msg msg-2">
+                  <div class="chat-avatar">
+                    <img src="assets/art/engineer-cutin.jpg" alt="Bruno Maldonado" />
+                  </div>
+                  <div class="chat-bubble">
+                    Python, Backend, SQL &amp; Full-Stack &mdash; ex-Huawei Intern, shipping from <strong>Santiago, Chile (UTC-3)</strong>.
+                  </div>
+                </div>
+
+                <div class="chat-msg msg-3">
+                  <div class="chat-avatar">
+                    <img src="assets/art/engineer-cutin.jpg" alt="Bruno Maldonado" />
+                  </div>
+                  <div class="chat-bubble accent-bubble">
+                    Drop me an email at <strong>brunomaldonado04@gmail.com</strong> &mdash; fast response guaranteed.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Reply Action Dossier -->
+            <div class="dossier-card contact-actions-card">
+              <span class="company-kicker mono">QUICK ACTIONS</span>
+              <h3>CONNECT DIRECTLY</h3>
+              <p class="proj-copy">Choose a channel below or open my updated resume right inside the page.</p>
+
+              <div class="contact-btn-stack">
+                <button id="copyEmailBtn" class="action-btn action-primary" type="button" data-email="brunomaldonado04@gmail.com">
+                  COPY EMAIL ADDRESS
+                </button>
+                <a class="action-btn action-dark" href="mailto:brunomaldonado04@gmail.com">
+                  SEND EMAIL &nearr;
+                </a>
+                <a class="action-btn action-outline" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
+                  LINKEDIN PROFILE &nearr;
+                </a>
+                <a class="action-btn action-outline" href="https://github.com/Jinbe03" target="_blank" rel="noopener noreferrer">
+                  GITHUB REPOSITORIES &nearr;
+                </a>
+                <button class="action-btn action-outline js-open-pdf" type="button"
+                        data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
+                        data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)">
+                  INSPECT RESUME PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </section>
+    </div>
+
+    <!-- =========================================================
+         ANIMATED PERSONA 5 DIALOGUE BOX (BOTTOM BAR)
+         ========================================================= -->
+    <aside id="dialogue-box" class="dialogue-dock" aria-label="Interactive Commentary">
+      <div class="dialogue-portrait-wrap">
+        <img src="assets/art/engineer-cutin.jpg" alt="Bruno Maldonado stylized cut-in" class="dialogue-portrait" />
+      </div>
+      <div class="dialogue-body" id="dialogueClickable" title="Click for next line">
+        <div class="dialogue-nameplate">
+          <span>BRUNO MALDONADO</span>
+        </div>
+        <p id="dialogue-text" class="dialogue-text"></p>
+        <span class="dialogue-next-arrow" aria-hidden="true">&#9660;</span>
+      </div>
+    </aside>
   </main>
+
+  <!-- =========================================================
+       CUSTOM IN-PAGE PERSONA 5 PDF VIEWER MODAL
+       ========================================================= -->
+  <div id="pdf-modal" class="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pdfModalTitle">
+    <div class="pdf-modal-backdrop" id="pdfBackdrop"></div>
+    <div class="pdf-modal-window">
+      <div class="pdf-modal-header">
+        <div class="pdf-header-left">
+          <span class="pdf-stamp mono">CONFIDENTIAL // IN-PAGE VIEWER</span>
+          <h3 id="pdfModalTitle">DOCUMENT PREVIEW</h3>
+        </div>
+        <div class="pdf-header-actions">
+          <a id="pdfDownloadBtn" class="hud-btn hud-btn-primary" href="#" download>
+            <span>DOWNLOAD PDF</span>
+          </a>
+          <a id="pdfNewTabBtn" class="hud-btn" href="#" target="_blank" rel="noopener noreferrer">
+            <span>NEW TAB &nearr;</span>
+          </a>
+          <button id="pdfCloseBtn" class="hud-btn hud-btn-close" type="button" aria-label="Close PDF viewer">
+            <span>CLOSE &times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="pdf-frame-wrap">
+        <iframe id="pdfFrame" src="" title="Document PDF Viewer"></iframe>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
