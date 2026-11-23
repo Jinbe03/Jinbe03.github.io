@@ -129,8 +129,8 @@
           'I also optimized national-scale SQL queries and relational models, cutting processing times by 35% while supporting customer churn analytics.'
         ],
         projects: [
-          'Five featured builds: PhantomSW & my deployed 24/7 Salon booking platform, plus a multinational tax engine, Life Harmony (AI), and my Python algorithms repo.',
-          'Scroll through the dossier cards or click any LIVE / REPO stamp to inspect them directly.'
+          'Five featured builds: PhantomSW & my deployed 24/7 Salon booking platform, plus a multinational tax engine, Life Harmony (AI), and my Python algorithms suite.',
+          'Scroll through the dossier cards or click LIVE SITE on PhantomSW to see it running in production.'
         ],
         skills: [
           'My primary loadout centers on Python, Django, Node.js, PostgreSQL, and Firebase — backed by Docker, Jenkins CI/CD, and cloud fundamentals.',
@@ -230,8 +230,8 @@
           'También optimicé consultas SQL a escala nacional reduciendo el tiempo de procesamiento en un 35% y apoyé análisis de fuga de clientes.'
         ],
         projects: [
-          'Cinco proyectos clave: PhantomSW y la app desplegada de peluquerías 24/7, más el motor tributario multinacional, Life Harmony (IA) y mi repo de algoritmos.',
-          'Haz scroll en las tarjetas o clic en SITIO EN VIVO / VER REPO para revisarlos directamente.'
+          'Cinco proyectos clave: PhantomSW y la app desplegada de peluquerías 24/7, más el motor tributario multinacional, Life Harmony (IA) y mi práctica de algoritmos.',
+          'Haz scroll en las tarjetas o clic en SITIO EN VIVO en PhantomSW para verlo funcionando en producción.'
         ],
         skills: [
           'Mi stack principal gira en torno a Python, Django, Node.js, PostgreSQL y Firebase — respaldado por Docker, Jenkins CI/CD y Cloud.',
@@ -332,7 +332,7 @@
         ],
         projects: [
           '本番稼働中のPhantomSW＆美容室24時間予約アプリに加え、多国籍税務基盤・AI栄養アプリ・Pythonアルゴリズム集の5本を掲載しています。',
-          'スクロールして各カードを確認し、公開サイトやGitHubリポジトリも直接チェックできます。'
+          'スクロールして各カードを確認し、PhantomSWの公開サイトも直接チェックできます。'
         ],
         skills: [
           'Python・Django・Node.js・PostgreSQL・Firebaseを軸に、DockerとJenkins CI/CDで堅実な開発を行います。',
