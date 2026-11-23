@@ -8,9 +8,14 @@
   const hudLoc = document.getElementById('hud-location');
   const hudDate = document.getElementById('hud-date');
   const hudDay = document.getElementById('hud-day');
+  const hudDateBox = document.getElementById('hudDateBox');
+  const hankoSeal = document.getElementById('hankoSeal');
+  const jpSecretBtn = document.getElementById('jpSecretBtn');
   const boardBtn = document.getElementById('boardBtn');
   const titleReturnBtn = document.getElementById('titleReturnBtn');
   const appShell = document.getElementById('app-shell');
+  const langToggle = document.getElementById('langToggle');
+  const langLabel = document.getElementById('langLabel');
   const sfxToggle = document.getElementById('sfxToggle');
   const sfxLabel = document.getElementById('sfxLabel');
   const bgmToggle = document.getElementById('bgmToggle');
@@ -18,11 +23,16 @@
   const menuItems = Array.from(document.querySelectorAll('.menu-item'));
   const panels = Array.from(document.querySelectorAll('.dossier-panel'));
 
-  // Dialogue Box elements
+  // Dialogue & Easter Egg Elements
   const dialogueTextEl = document.getElementById('dialogue-text');
   const dialogueClickable = document.getElementById('dialogueClickable');
+  const dialogueEmblemBtn = document.getElementById('dialogueEmblemBtn');
+  const alloutOverlay = document.getElementById('allout-overlay');
+  const callingCardOverlay = document.getElementById('calling-card-overlay');
+  const ccCloseBtn = document.getElementById('ccCloseBtn');
+  const ccBackdrop = document.getElementById('ccBackdrop');
 
-  // PDF Modal elements
+  // PDF Modal Elements
   const pdfModal = document.getElementById('pdf-modal');
   const pdfFrame = document.getElementById('pdfFrame');
   const pdfModalTitle = document.getElementById('pdfModalTitle');
@@ -32,7 +42,340 @@
   const pdfBackdrop = document.getElementById('pdfBackdrop');
 
   // ---------------------------------------------------------
-  // 1. First-Entry Motion Graphics Opener (~1.6s auto-dismiss)
+  // 1. TRILINGUAL DICTIONARY (EN / ES + SECRET JP EASTER EGG!)
+  // ---------------------------------------------------------
+  const I18N = {
+    en: {
+      hud_resume_en: 'RESUME (EN)', hud_resume_es: 'CV (ES)', hud_title: 'TITLE',
+      title_eyebrow: 'PORTFOLIO // SANTIAGO EXPRESS',
+      title_status: 'OPEN TO REMOTE JR / TRAINEE ROLES',
+      title_role: 'SOFTWARE ENGINEER',
+      title_huawei: 'EX-HUAWEI INTERN',
+      title_board: 'BOARD THE STATION',
+      title_hint: 'CLICK OR PRESS [ENTER] / [SPACE] TO START · TURN ON ♪ BGM FOR FULL VIBE',
+      nav_select: 'SELECT STOP',
+      nav_hint: '[↑/↓] MOVE   [1-6] JUMP   [ESC] TITLE',
+      menu: {
+        profile: ['P', 'ROFILE'], experience: ['E', 'XPERIENCE'], projects: ['P', 'ROJECTS'],
+        skills: ['S', 'KILLS'], education: ['C', 'ERTS & EDU'], contact: ['C', 'ONTACT']
+      },
+      locs: {
+        profile: 'BRUNO MALDONADO · PLATFORM 01', experience: 'EXPRESS CAR 01 · HUAWEI',
+        projects: 'EXPRESS CAR 02 · BUILDS', skills: 'SKYLINE OVERPASS · LOADOUT',
+        education: 'ARCHIVE PLATFORM · INACAP', contact: 'FINAL STOP · DIRECT SNS'
+      },
+      subs: {
+        profile: 'STOP 01 // PLATFORM', experience: 'STOP 02 // BOARDING CAR 01',
+        projects: 'STOP 03 // BOARDING CAR 02', skills: 'STOP 04 // NIGHT OVERPASS',
+        education: 'STOP 05 // CREDENTIALS', contact: 'STOP 06 // PHONE MESSAGE'
+      },
+      sub_profile: 'UNDERGROUND PLATFORM', sub_experience: 'INSIDE EXPRESS CAR',
+      sub_projects: 'INSIDE EXPRESS CAR', sub_skills: 'NIGHT SKYLINE VIEW',
+      sub_education: 'VERIFIABLE PDFS', sub_contact: 'DIRECT MESSAGE',
+      code_profile: 'STOP 01 // ENGINEER DOSSIER',
+      profile_bio: 'Final-year Computer Engineering student at <strong>INACAP</strong> (graduating Dec 2026) based in <strong>Santiago, Chile</strong>. Former Software &amp; Data Engineering Intern at <strong>Huawei Technologies</strong>. I build reliable backend systems, automate manual workflows, optimize SQL at national scale, and ship clean full-stack applications.',
+      stat1_lbl: 'EXPERIENCE', stat1_note: 'Software & Data Eng. Intern',
+      stat2_lbl: 'LANGUAGES', stat2_val: 'ES (Native) / EN (B1)', stat2_note: 'Technical & Conversational',
+      stat3_lbl: 'WORK MODE', stat3_val: '100% Remote',
+      btn_board_exp: 'BOARD EXPERIENCE CAR →', btn_view_resume: 'VIEW RESUME PDF',
+      code_exp: 'STOP 02 // EXPRESS CAR 01', hdr_exp: 'EXPERIENCE', exp_kicker: 'ENTERPRISE INTERNSHIP',
+      exp_date: 'JAN 2026 – MAY 2026', exp_m1: '~90% AUTO', exp_m2: 'CHURN DATA', exp_m3: '-35% TIME',
+      exp_b1: 'Built internal automation applications in <strong>Python and SQL</strong> to generate business reports and analytical insights, compressing workflows that previously took <strong>weeks of manual effort</strong> (saving ~15 hrs/week).',
+      exp_b2: 'Contributed to data processing and exploratory analysis for <strong>customer churn</strong> initiatives, cleaning and transforming large-scale datasets into actionable retention metrics.',
+      exp_b3: 'Optimized complex SQL queries and relational database models at national scale, <strong>cutting data processing time by 35%</strong> while safeguarding integrity across mission-critical reports.',
+      code_proj: 'STOP 03 // EXPRESS CAR 02', hdr_proj: 'SELECTED PROJECTS', btn_repo: 'GITHUB REPO ↗',
+      p1_role: '01 // TECH LEAD', p1_title: 'Multinational Financial Compliance Engine',
+      p1_copy: 'Full-stack platform managing complex tax compliance workflows across <strong>Chile, Peru, and Colombia</strong>. Includes brute-force lockout protection, RBAC admin dashboard, automated tax reporting (<strong>40% fewer manual errors</strong>), and a <strong>Jenkins CI/CD</strong> pipeline.',
+      p2_role: '02 // BACKEND LEAD', p2_title: 'Life Harmony — AI Mobile Nutrition App',
+      p2_copy: 'Cross-platform mobile app combining <strong>AI-assisted calorie tracking</strong> with a real-time <strong>Firebase / Firestore</strong> backend, offline persistence, granular security rules for sensitive health records, and <strong>+25% navigation efficiency</strong>.',
+      p3_role: '03 // CONTINUOUS PRACTICE', p3_title: 'Algorithms & Engineering Fundamentals',
+      p3_copy: 'Open Python repository documenting algorithmic problem-solving, clean code patterns, time/space complexity optimization, and core computer science fundamentals written from scratch.',
+      code_skills: 'STOP 04 // NIGHT SKYLINE LOADOUT', hdr_skills: 'TECHNICAL SKILLS',
+      sk1: 'Backend & Data', sk2: 'Frontend & Mobile', sk3: 'Cloud & DevOps',
+      code_edu: 'STOP 05 // ARCHIVE CREDENTIALS', hdr_edu: 'EDUCATION & CERTIFICATIONS',
+      edu_kicker: 'DEGREE', edu_degree: 'B.S. in Computer Engineering', edu_date: 'EXPECTED DEC 2026',
+      certs_caption: 'CLICK ANY CREDENTIAL TO INSPECT PDF RIGHT INSIDE THIS PAGE',
+      c1_t: 'Cloud Architecture', c2_t: 'Full-Stack Developer', c3_t: 'Database Design & Mgmt', c4_t: 'Agile Systems Design',
+      btn_view_pdf: 'VIEW PDF',
+      code_contact: 'STOP 06 // DIRECT SNS LINE', hdr_contact: 'CONTACT BRUNO',
+      chat1: 'Hey! Looking for a remote Junior / Trainee Software Engineer?',
+      chat2: 'Python, Backend, SQL &amp; Full-Stack &mdash; ex-Huawei Intern, shipping from <strong>Santiago, Chile (UTC-3)</strong>.',
+      chat3: 'Drop me an email at <strong>brunomaldonado04@gmail.com</strong> &mdash; fast response guaranteed.',
+      contact_kicker: 'QUICK ACTIONS', contact_h3: 'CONNECT DIRECTLY',
+      contact_copy: 'Choose a channel below or open my updated resume right inside the page.',
+      btn_copy_email: 'COPY EMAIL ADDRESS', btn_copied: 'EMAIL COPIED!',
+      btn_send_mail: 'SEND EMAIL ↗', btn_linkedin: 'LINKEDIN PROFILE ↗',
+      btn_github: 'GITHUB REPOSITORIES ↗', btn_inspect_resume: 'INSPECT RESUME PDF',
+      pdf_stamp: 'CONFIDENTIAL // IN-PAGE VIEWER', pdf_download: 'DOWNLOAD PDF', pdf_newtab: 'NEW TAB ↗', pdf_close: 'CLOSE ×',
+      aoa_kicker: 'ALL-OUT ATTACK // FINISHER', aoa_headline: 'THE CODE IS CLEAN.', aoa_sub: 'BRUNO MALDONADO · MISSION COMPLETE · CLICK TO CONTINUE',
+      cc_title: 'TO: YOUR ENGINEERING TEAM',
+      cc_body: 'We have noticed your backlog of slow queries, manual processes, and unshipped features. I will arrive remotely from Santiago to automate the chaos and ship clean production software.',
+      cc_close: 'ACCEPT CARD',
+      dialogues: {
+        profile: [
+          'Welcome to Line 03. I’m Bruno Maldonado — Software Engineer focused on Python, Backend, and clean full-stack systems.',
+          'Tip: Use keys 1–6 or ↑/↓ to jump stops. And yes... there are a few Persona 5 Easter Eggs hidden around this station.'
+        ],
+        experience: [
+          'At Huawei Technologies I built Python & SQL automation apps that compressed multi-week manual reporting (~90% automated, saving ~15 hrs/week).',
+          'I also optimized national-scale SQL queries and relational models, cutting processing times by 35% while supporting customer churn analytics.'
+        ],
+        projects: [
+          'Three core builds: a multinational financial compliance engine (Chile/Peru/Colombia), Life Harmony (AI mobile nutrition app), and my Python algorithms repo.',
+          'Click any GITHUB REPO stamp to jump straight into the source code.'
+        ],
+        skills: [
+          'My primary loadout centers on Python, Django, Node.js, PostgreSQL, and Firebase — backed by Docker, Jenkins CI/CD, and cloud fundamentals.',
+          'I prefer building reliable architectures and writing clean code over chasing hype.'
+        ],
+        education: [
+          'Finishing my Computer Engineering degree at INACAP this December 2026 — click any certificate card above to inspect the official PDF inside this page.',
+          'You can also open my English or Spanish Resume anytime from the top HUD bar without leaving the site.'
+        ],
+        contact: [
+          'Final stop! Looking for a remote Junior / Trainee Software Engineer? Hit COPY EMAIL or shoot me a message on LinkedIn.',
+          'Based in Santiago, Chile (UTC-3) — aligned with US/Americas time zones and ready to ship.'
+        ]
+      }
+    },
+    es: {
+      hud_resume_en: 'CV (EN)', hud_resume_es: 'CV (ES)', hud_title: 'INICIO',
+      title_eyebrow: 'PORTAFOLIO // SANTIAGO EXPRESS',
+      title_status: 'DISPONIBLE PARA ROLES JR / TRAINEE 100% REMOTOS',
+      title_role: 'INGENIERO DE SOFTWARE',
+      title_huawei: 'EX-PRACTICANTE HUAWEI',
+      title_board: 'ENTRAR A LA ESTACIÓN',
+      title_hint: 'HAZ CLIC O PRESIONA [ENTER] / [ESPACIO] · ACTIVA ♪ BGM PARA EL RITMO',
+      nav_select: 'ELIGE PARADA',
+      nav_hint: '[↑/↓] MOVER   [1-6] SALTAR   [ESC] INICIO',
+      menu: {
+        profile: ['P', 'ERFIL'], experience: ['E', 'XPERIENCIA'], projects: ['P', 'ROYECTOS'],
+        skills: ['S', 'KILLS'], education: ['E', 'DUCACIÓN'], contact: ['C', 'ONTACTO']
+      },
+      locs: {
+        profile: 'BRUNO MALDONADO · ANDÉN 01', experience: 'VAGÓN EXPRESO 01 · HUAWEI',
+        projects: 'VAGÓN EXPRESO 02 · PROYECTOS', skills: 'ESTACIÓN NOCTURNA · STACK',
+        education: 'ANDÉN ARCHIVO · INACAP', contact: 'PARADA FINAL · MENSAJE'
+      },
+      subs: {
+        profile: 'PARADA 01 // ANDÉN', experience: 'PARADA 02 // SUBIENDO VAGÓN 01',
+        projects: 'PARADA 03 // SUBIENDO VAGÓN 02', skills: 'PARADA 04 // ESTACIÓN NOCTURNA',
+        education: 'PARADA 05 // CREDENCIALES', contact: 'PARADA 06 // MENSAJE SNS'
+      },
+      sub_profile: 'ANDÉN SUBTERRÁNEO', sub_experience: 'ADENTRO DEL VAGÓN',
+      sub_projects: 'ADENTRO DEL VAGÓN', sub_skills: 'VISTA NOCTURNA',
+      sub_education: 'PDFS VERIFICABLES', sub_contact: 'MENSAJE DIRECTO',
+      code_profile: 'PARADA 01 // PERFIL INGENIERO',
+      profile_bio: 'Estudiante de último año de Ingeniería en Informática en <strong>INACAP</strong> (titulación Dic. 2026), basado en <strong>Santiago, Chile</strong>. Ex-practicante de Ingeniería de Software y Datos en <strong>Huawei Technologies</strong>. Construyo sistemas backend confiables, automatizo procesos manuales, optimizo SQL a escala y desarrollo aplicaciones full-stack limpias.',
+      stat1_lbl: 'EXPERIENCIA', stat1_note: 'Practicante Software & Datos',
+      stat2_lbl: 'IDIOMAS', stat2_val: 'ES (Nativo) / EN (B1)', stat2_note: 'Técnico y Conversacional',
+      stat3_lbl: 'MODALIDAD', stat3_val: '100% Remoto',
+      btn_board_exp: 'IR A EXPERIENCIA →', btn_view_resume: 'VER CV EN PDF',
+      code_exp: 'PARADA 02 // VAGÓN EXPRESO 01', hdr_exp: 'EXPERIENCIA', exp_kicker: 'PRÁCTICA PROFESIONAL',
+      exp_date: 'ENE 2026 – MAY 2026', exp_m1: '~90% AUTO', exp_m2: 'DATOS CHURN', exp_m3: '-35% TIEMPO',
+      exp_b1: 'Desarrollé aplicaciones internas de automatización en <strong>Python y SQL</strong> para reportes e insights de negocio, comprimiendo procesos que tomaban <strong>semanas de trabajo manual</strong> (~15 h/semana ahorradas).',
+      exp_b2: 'Participé en el procesamiento y análisis de datos para iniciativas de <strong>churn (fuga de clientes)</strong>, limpiando y transformando grandes volúmenes de datos en métricas accionables.',
+      exp_b3: 'Optimicé consultas SQL complejas y modelos relacionales a escala nacional, <strong>reduciendo el tiempo de procesamiento en un 35%</strong> y asegurando integridad en reportes críticos.',
+      code_proj: 'PARADA 03 // VAGÓN EXPRESO 02', hdr_proj: 'PROYECTOS DESTACADOS', btn_repo: 'VER REPO ↗',
+      p1_role: '01 // LÍDER TÉCNICO', p1_title: 'Motor de Cumplimiento Financiero Multinacional',
+      p1_copy: 'Plataforma full-stack para gestionar flujos impositivos complejos en <strong>Chile, Perú y Colombia</strong>. Incluye protección contra fuerza bruta, panel administrativo RBAC, automatización tributaria (<strong>40% menos errores manuales</strong>) y pipeline <strong>CI/CD con Jenkins</strong>.',
+      p2_role: '02 // LÍDER BACKEND', p2_title: 'Life Harmony — App Móvil de Nutrición con IA',
+      p2_copy: 'App móvil multiplataforma que combina <strong>control calórico asistido con IA</strong> y base de datos en tiempo real <strong>Firebase / Firestore</strong>, persistencia offline, reglas de seguridad granulares y <strong>+25% eficiencia de navegación</strong>.',
+      p3_role: '03 // PRÁCTICA CONTINUA', p3_title: 'Algoritmos y Fundamentos de Ingeniería',
+      p3_copy: 'Repositorio abierto en Python documentando resolución de problemas algorítmicos, código limpio, optimización de complejidad y fundamentos de ciencias de la computación escritos desde cero.',
+      code_skills: 'PARADA 04 // EQUIPAMIENTO TÉCNICO', hdr_skills: 'HABILIDADES TÉCNICAS',
+      sk1: 'Backend y Datos', sk2: 'Frontend y Móvil', sk3: 'Cloud y DevOps',
+      code_edu: 'PARADA 05 // CREDENCIALES', hdr_edu: 'EDUCACIÓN Y CERTIFICACIONES',
+      edu_kicker: 'CARRERA', edu_degree: 'Ingeniería en Informática', edu_date: 'TITULACIÓN DIC 2026',
+      certs_caption: 'HAZ CLIC EN CUALQUIER CERTIFICADO PARA VER EL PDF AQUÍ MISMO',
+      c1_t: 'Arquitectura Cloud', c2_t: 'Desarrollador Full-Stack', c3_t: 'Diseño y Gestión de BD', c4_t: 'Diseño Ágil de Sistemas',
+      btn_view_pdf: 'VER PDF',
+      code_contact: 'PARADA 06 // LÍNEA DIRECTA SNS', hdr_contact: 'CONTACTO',
+      chat1: '¡Hola! ¿Buscas un Ingeniero de Software Jr / Trainee 100% remoto?',
+      chat2: 'Python, Backend, SQL y Full-Stack &mdash; ex-practicante en Huawei, trabajando desde <strong>Santiago, Chile (UTC-3)</strong>.',
+      chat3: 'Escríbeme directo a <strong>brunomaldonado04@gmail.com</strong> &mdash; respondo rápido.',
+      contact_kicker: 'ACCIONES RÁPIDAS', contact_h3: 'CONECTEMOS',
+      contact_copy: 'Elige un canal o abre mi CV actualizado directamente dentro de esta página.',
+      btn_copy_email: 'COPIAR CORREO', btn_copied: '¡CORREO COPIADO!',
+      btn_send_mail: 'ENVIAR CORREO ↗', btn_linkedin: 'PERFIL LINKEDIN ↗',
+      btn_github: 'REPOSITORIOS GITHUB ↗', btn_inspect_resume: 'VER CV EN PDF',
+      pdf_stamp: 'CONFIDENCIAL // VISOR INTEGRADO', pdf_download: 'DESCARGAR PDF', pdf_newtab: 'NUEVA PESTAÑA ↗', pdf_close: 'CERRAR ×',
+      aoa_kicker: 'ALL-OUT ATTACK // REMATE', aoa_headline: 'EL CÓDIGO ESTÁ LIMPIO.', aoa_sub: 'BRUNO MALDONADO · MISIÓN CUMPLIDA · CLIC PARA SEGUIR',
+      cc_title: 'PARA: TU EQUIPO DE INGENIERÍA',
+      cc_body: 'Detectamos consultas lentas, reportes manuales y features pendientes en su backlog. Llego 100% remoto desde Santiago para automatizar el caos y entregar software limpio en producción.',
+      cc_close: 'ACEPTAR TARJETA',
+      dialogues: {
+        profile: [
+          'Bienvenido a la Línea 03. Soy Bruno Maldonado — Ingeniero de Software enfocado en Python, Backend y sistemas full-stack limpios.',
+          'Tip: Usa las teclas 1–6 o ↑/↓ para moverte. Y sí... hay varios Easter Eggs de Persona 5 escondidos en esta estación.'
+        ],
+        experience: [
+          'En Huawei Technologies creé apps de automatización en Python y SQL que comprimieron reportes de semanas (~90% automatizado, ~15 h/semana ahorradas).',
+          'También optimicé consultas SQL a escala nacional reduciendo el tiempo de procesamiento en un 35% y apoyé análisis de fuga de clientes.'
+        ],
+        projects: [
+          'Tres proyectos clave: motor tributario multinacional (Chile/Perú/Colombia), Life Harmony (app móvil con IA) y mi repo de algoritmos en Python.',
+          'Haz clic en VER REPO en cualquiera para revisar el código directo en GitHub.'
+        ],
+        skills: [
+          'Mi stack principal gira en torno a Python, Django, Node.js, PostgreSQL y Firebase — respaldado por Docker, Jenkins CI/CD y Cloud.',
+          'Prefiero arquitecturas sólidas y código mantenible antes que modas pasajeras.'
+        ],
+        education: [
+          'Cerrando Ingeniería en Informática en INACAP este diciembre 2026 — haz clic en cualquier certificado para abrir el PDF oficial sin salir de la página.',
+          'También puedes abrir mi CV en inglés o español desde la barra superior cuando quieras.'
+        ],
+        contact: [
+          '¡Última parada! Si buscas un desarrollador Jr / Trainee remoto, copia mi correo o escríbeme por LinkedIn.',
+          'Desde Santiago, Chile (UTC-3) — mismo huso horario que EE.UU./América y listo para aportar.'
+        ]
+      }
+    },
+    jp: {
+      hud_resume_en: '履歴書 (EN)', hud_resume_es: '履歴書 (ES)', hud_title: 'タイトル',
+      title_eyebrow: 'ポートフォリオ // サンティアゴ急行',
+      title_status: 'フルリモート ジュニア開発者 募集中',
+      title_role: 'ソフトウェアエンジニア',
+      title_huawei: '元 HUAWEI インターン',
+      title_board: 'ホームに入る',
+      title_hint: 'クリック または [ENTER] で開始 · ♪ BGM で音楽再生 (秘密の日本語モード発動中！)',
+      nav_select: '停車駅を選択',
+      nav_hint: '[↑/↓] 移動   [1-6] 駅選択   [ESC] タイトル',
+      menu: {
+        profile: ['プ', 'ロフィール'], experience: ['経', '歴'], projects: ['実', '績'],
+        skills: ['技', '術'], education: ['学', '歴・資格'], contact: ['連', '絡先']
+      },
+      locs: {
+        profile: 'ブルーノ・マルドナド · 1番線ホーム', experience: '急行1号車 · HUAWEI',
+        projects: '急行2号車 · プロジェクト', skills: '夜間高架駅 · 技術装備',
+        education: '記録車両 · INACAP', contact: '終点 · ダイレクトSNS'
+      },
+      subs: {
+        profile: '第1駅 // プラットフォーム', experience: '第2駅 // 急行1号車へ乗車',
+        projects: '第3駅 // 急行2号車へ乗車', skills: '第4駅 // 夜間高架ホーム',
+        education: '第5駅 // 認定証アーカイブ', contact: '終点 // スマートフォン通信'
+      },
+      sub_profile: '地下ホーム', sub_experience: '急行車内',
+      sub_projects: '急行車内', sub_skills: '夜景高架駅',
+      sub_education: '公式PDF証明書', sub_contact: 'ダイレクト連絡',
+      code_profile: '第1駅 // エンジニア・ファイル',
+      profile_bio: 'チリ・サンティアゴ在住、<strong>INACAP</strong> 情報工学部 最終学年（2026年12月卒業予定）。<strong>Huawei Technologies</strong> 元ソフトウェア＆データエンジニア・インターン。Python・SQL最適化・業務自動化・堅牢なバックエンド開発を専門としています。',
+      stat1_lbl: '実務経験', stat1_note: 'ソフトウェア＆データ インターン',
+      stat2_lbl: '対応言語', stat2_val: '西語(母語) / 英語(B1)', stat2_note: '技術読解・ビジネス会話',
+      stat3_lbl: '勤務形態', stat3_val: '100% リモート',
+      btn_board_exp: '経歴車両へ乗車 →', btn_view_resume: '履歴書PDFを表示',
+      code_exp: '第2駅 // 急行1号車', hdr_exp: '実務経歴', exp_kicker: '企業インターンシップ',
+      exp_date: '2026年1月 – 2026年5月', exp_m1: '約90% 自動化', exp_m2: '離脱分析', exp_m3: '処理 -35%',
+      exp_b1: '<strong>Python と SQL</strong> を用いて社内向け業務レポート自動化アプリを開発。数週間かかっていた手作業を <strong>約90%自動化</strong>（週約15時間削減）。',
+      exp_b2: '顧客離脱（<strong>チャーン分析</strong>）プロジェクトにて大規模データセットの前処理・探索的分析を担当し、施策に直結する指標を整備。',
+      exp_b3: '全国規模の複雑なSQLクエリおよびリレーショナル設計を最適化し、<strong>データ処理時間を35%短縮</strong>。',
+      code_proj: '第3駅 // 急行2号車', hdr_proj: '主要プロジェクト', btn_repo: 'GITHUBを見る ↗',
+      p1_role: '01 // テックリード', p1_title: '多国籍 金融・税務コンプライアンスエンジン',
+      p1_copy: '<strong>チリ・ペルー・コロンビア</strong>の税務ワークフローを統合管理するフルスタック基盤。ブルートフォース防御、RBAC管理画面、税務レポート自動化（<strong>手作業ミス40%削減</strong>）、<strong>Jenkins CI/CD</strong> を構築。',
+      p2_role: '02 // バックエンドリード', p2_title: 'Life Harmony — AI栄養管理モバイルアプリ',
+      p2_copy: '<strong>AIカロリー管理</strong>とリアルタイム <strong>Firebase / Firestore</strong> バックエンドを統合したモバイルアプリ。オフライン永続化、厳格なセキュリティルール、<strong>操作効率+25%向上</strong>を実現。',
+      p3_role: '03 // 継続トレーニング', p3_title: 'アルゴリズム＆計算機科学の基礎',
+      p3_copy: 'Pythonでゼロから実装したアルゴリズム問題解決、計算量最適化、クリーンコード設計を記録する公開リポジトリ。',
+      code_skills: '第4駅 // 技術ロードアウト', hdr_skills: 'テクニカルスキル',
+      sk1: 'バックエンド＆データ', sk2: 'フロント＆モバイル', sk3: 'クラウド＆DevOps',
+      code_edu: '第5駅 // 資格・学歴アーカイブ', hdr_edu: '学歴・公式認定資格',
+      edu_kicker: '学位', edu_degree: '情報工学 学士（Computer Engineering）', edu_date: '2026年12月 卒業予定',
+      certs_caption: '各認定カードをクリックすると、このページ内で公式PDFを確認できます',
+      c1_t: 'クラウドアーキテクチャ', c2_t: 'フルスタック開発者', c3_t: 'データベース設計・管理', c4_t: 'アジャイルシステム設計',
+      btn_view_pdf: 'PDF表示',
+      code_contact: '終点 // ダイレクト通信', hdr_contact: 'お問い合わせ',
+      chat1: 'こんにちは！フルリモートのジュニア・ソフトウェアエンジニアをお探しですか？',
+      chat2: 'Python・バックエンド・SQL・フルスタック対応 — 元Huaweiインターン、<strong>チリ・サンティアゴ (UTC-3)</strong> より参画可能です。',
+      chat3: 'ご連絡は <strong>brunomaldonado04@gmail.com</strong> まで — 迅速に返信します！',
+      contact_kicker: 'クイックアクション', contact_h3: 'ダイレクト連絡',
+      contact_copy: '下のボタンからメールコピーや履歴書PDFの閲覧ができます。',
+      btn_copy_email: 'メールアドレスをコピー', btn_copied: 'コピー完了！',
+      btn_send_mail: 'メールを送る ↗', btn_linkedin: 'LINKEDIN を見る ↗',
+      btn_github: 'GITHUB リポジトリ ↗', btn_inspect_resume: '履歴書PDFを確認',
+      pdf_stamp: '極秘資料 // ページ内ビューア', pdf_download: 'PDF保存', pdf_newtab: '別タブで開く ↗', pdf_close: '閉じる ×',
+      aoa_kicker: '総攻撃 // フィニッシュ', aoa_headline: 'コードは完璧だ。', aoa_sub: 'BRUNO MALDONADO · ミッション完了 · クリックで戻る',
+      cc_title: '貴社エンジニアリングチーム殿',
+      cc_body: '遅いSQLクエリや手作業レポートの山を観測した。サンティアゴからフルリモートで参上し、自動化とクリーンな本番コードで課題を鮮やかに解決する。',
+      cc_close: '予告状を受け取る',
+      dialogues: {
+        profile: [
+          'シークレット日本語モードへようこそ！ブルーノ・マルドナドです。Pythonとバックエンド開発が得意なエンジニアです。',
+          '隠しコマンド発見おめでとう！ジョッキーロゴを3回クリックすると…「総攻撃」が見られるかも？'
+        ],
+        experience: [
+          'Huawei TechnologiesではPythonとSQLで社内レポートを約90%自動化し、毎週約15時間の工数を削減しました。',
+          '全国規模のSQL最適化によりデータ処理速度を35%高速化しました。'
+        ],
+        projects: [
+          '多国籍税務システム、AI栄養管理アプリ「Life Harmony」、Pythonアルゴリズム集の3本を厳選しています。',
+          '「GITHUBを見る」から実際のソースコードを確認できます。'
+        ],
+        skills: [
+          'Python・Django・Node.js・PostgreSQL・Firebaseを軸に、DockerとJenkins CI/CDで堅実な開発を行います。',
+          '流行り言葉より、安定して動くクリーンな設計を大切にしています。'
+        ],
+        education: [
+          '2026年12月にINACAPを卒業予定です。上のカードをクリックすると、ページを離れずに公式PDF証明書を閲覧できます。',
+          '上部のバーから英語・スペイン語の履歴書PDFもすぐ開けます。'
+        ],
+        contact: [
+          '終点に到着しました！リモート開発の案件や採用のご相談は、メールまたはLinkedInまでお気軽にどうぞ。',
+          '上の日付ボックスを3回クリックすると、秘密の「予告状」が出現しますよ。'
+        ]
+      }
+    }
+  };
+
+  let currentLang = 'en';
+
+  function applyLanguage(lang) {
+    if (!I18N[lang]) return;
+    currentLang = lang;
+    body.setAttribute('data-lang', lang);
+    const dict = I18N[lang];
+
+    if (langLabel && langToggle) {
+      langLabel.textContent = lang === 'jp' ? '日本語 ★' : (lang === 'es' ? 'ES / EN' : 'EN / ES');
+      langToggle.classList.toggle('is-jp', lang === 'jp');
+    }
+
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) el.textContent = dict[key];
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-html');
+      if (dict[key]) el.innerHTML = dict[key];
+    });
+
+    document.querySelectorAll('[data-i18n-menu]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-menu');
+      if (dict.menu && dict.menu[key]) {
+        const [first, rest] = dict.menu[key];
+        el.innerHTML = `<em class="k-pop">${first}</em>${rest}`;
+      }
+    });
+
+    // Update current HUD location & dialogue text immediately
+    const activeView = body.getAttribute('data-view') || 'profile';
+    if (hudLoc && dict.locs[activeView]) {
+      hudLoc.textContent = body.classList.contains('mode-title') ? dict.locs.profile : dict.locs[activeView];
+    }
+    if (!body.classList.contains('mode-title')) {
+      startDialogue(activeView, 0);
+    }
+  }
+
+  if (langToggle) {
+    langToggle.addEventListener('click', () => {
+      playSelectSnap();
+      applyLanguage(currentLang === 'en' ? 'es' : 'en');
+    });
+  }
+
+  // ---------------------------------------------------------
+  // 2. First-Entry Motion Graphics Opener
   // ---------------------------------------------------------
   const hashView = window.location.hash.replace('#', '');
   if (introOpener) {
@@ -45,7 +388,7 @@
   }
 
   // ---------------------------------------------------------
-  // 2. Live Persona HUD Date Widget
+  // 3. Live Persona HUD Date Widget
   // ---------------------------------------------------------
   const now = new Date();
   const mm = String(now.getMonth() + 1).padStart(2, '0');
@@ -55,7 +398,7 @@
   if (hudDay) hudDay.textContent = days[now.getDay()];
 
   // ---------------------------------------------------------
-  // 3. Web Audio Engine: UI SFX + Original Acid-Jazz BGM Groove
+  // 4. Web Audio Engine: UI SFX + 122 BPM Jazztronik Nu-Jazz BGM
   // ---------------------------------------------------------
   let sfxEnabled = true;
   let bgmEnabled = false;
@@ -81,14 +424,14 @@
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(540, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(860, ctx.currentTime + 0.04);
+    osc.frequency.setValueAtTime(560, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(920, ctx.currentTime + 0.038);
     gain.gain.setValueAtTime(0.032, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.045);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.042);
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.start();
-    osc.stop(ctx.currentTime + 0.05);
+    osc.stop(ctx.currentTime + 0.046);
   }
 
   function playSelectSnap() {
@@ -96,81 +439,131 @@
     const ctx = ensureAudio();
     if (!ctx) return;
     const t = ctx.currentTime;
-    [330, 660].forEach((freq, idx) => {
+    [349.23, 698.46].forEach((freq, idx) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = idx === 0 ? 'sawtooth' : 'triangle';
-      osc.frequency.setValueAtTime(freq, t + idx * 0.035);
-      osc.frequency.exponentialRampToValueAtTime(freq * 1.48, t + 0.12 + idx * 0.035);
-      gain.gain.setValueAtTime(0.042, t + idx * 0.035);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.16 + idx * 0.035);
+      osc.frequency.setValueAtTime(freq, t + idx * 0.03);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, t + 0.11 + idx * 0.03);
+      gain.gain.setValueAtTime(0.042, t + idx * 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15 + idx * 0.03);
       osc.connect(gain);
       gain.connect(ctx.destination);
-      osc.start(t + idx * 0.035);
-      osc.stop(t + 0.18 + idx * 0.035);
+      osc.start(t + idx * 0.03);
+      osc.stop(t + 0.17 + idx * 0.03);
     });
   }
 
-  // Original Royalty-Free Acid-Jazz / Shibuya Groove (Rhodes chords + funky bass + hat)
-  const JAZZ_CHORDS = [
-    [293.66, 349.23, 440.00, 523.25], // Dm7
-    [392.00, 493.88, 587.33, 659.25], // G13
-    [261.63, 329.63, 392.00, 493.88], // Cmaj7
-    [220.00, 261.63, 329.63, 392.00]  // Am7
+  function playAllOutHit() {
+    if (!sfxEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    // Dramatic brassy power chord hit + sub punch
+    [110, 220, 329.63, 440, 523.25].forEach((freq) => {
+      const osc = ctx.createOscillator();
+      const filter = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(freq, t);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(2400, t);
+      filter.frequency.exponentialRampToValueAtTime(320, t + 0.55);
+      gain.gain.setValueAtTime(0.038, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.62);
+    });
+  }
+
+  // Upbeat 122 BPM Jazztronik-style Nu-Jazz House Groove (100% Original Synth)
+  const NUJAZZ_CHORDS = [
+    [293.66, 349.23, 440.00, 523.25, 659.25], // Dm9
+    [392.00, 493.88, 587.33, 659.25, 783.99], // G13
+    [261.63, 329.63, 392.00, 493.88, 587.33], // Cmaj9
+    [220.00, 261.63, 329.63, 392.00, 493.88]  // Am9
   ];
-  const BASS_LINE = [
-    146.83, 0, 146.83, 174.61,  196.00, 0, 174.61, 164.81,
-    130.81, 0, 130.81, 164.81,  110.00, 0, 130.81, 146.83
+  const FUNK_BASS = [
+    146.83, 0, 293.66, 146.83,  0, 174.61, 196.00, 0,
+    196.00, 0, 392.00, 174.61,  164.81, 0, 146.83, 130.81,
+    130.81, 0, 261.63, 130.81,  0, 146.83, 164.81, 0,
+    110.00, 0, 220.00, 130.81,  146.83, 0, 164.81, 130.81
   ];
 
-  function playJazzStep() {
+  function playNuJazzStep() {
     if (!bgmEnabled) return;
     const ctx = ensureAudio();
     if (!ctx) return;
     const t = ctx.currentTime;
-    const step16 = bgmStep % 16;
+    const s32 = bgmStep % 32;
+    const s16 = bgmStep % 16;
 
-    // Electric piano stab on beats 0, 4, 8, 12 (plus syncopated offbeat 6 & 14)
-    if (step16 % 4 === 0 || step16 === 6 || step16 === 14) {
-      const chordIdx = Math.floor(step16 / 4) % JAZZ_CHORDS.length;
-      const chord = JAZZ_CHORDS[chordIdx];
-      const dur = step16 % 4 === 0 ? 0.42 : 0.2;
+    // Four-on-the-floor punchy house kick (steps 0, 4, 8, 12)
+    if (s16 % 4 === 0) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(128, t);
+      osc.frequency.exponentialRampToValueAtTime(42, t + 0.09);
+      gain.gain.setValueAtTime(0.09, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.13);
+    }
+
+    // Syncopated electric piano Jazztronik stabs
+    if (s16 === 0 || s16 === 3 || s16 === 6 || s16 === 10 || s16 === 14) {
+      const chordIdx = Math.floor(s32 / 8) % NUJAZZ_CHORDS.length;
+      const chord = NUJAZZ_CHORDS[chordIdx];
+      const dur = (s16 === 0 || s16 === 10) ? 0.34 : 0.16;
       chord.forEach((freq) => {
         const osc = ctx.createOscillator();
+        const filter = ctx.createBiquadFilter();
         const gain = ctx.createGain();
-        osc.type = 'sine';
+        osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, t);
-        gain.gain.setValueAtTime(0.014, t);
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1900, t);
+        gain.gain.setValueAtTime(0.011, t);
         gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-        osc.connect(gain);
+        osc.connect(filter);
+        filter.connect(gain);
         gain.connect(ctx.destination);
         osc.start(t);
         osc.stop(t + dur + 0.02);
       });
     }
 
-    // Walking funky bass
-    const bassFreq = BASS_LINE[step16];
+    // Octave funky bassline
+    const bassFreq = FUNK_BASS[s32];
     if (bassFreq > 0) {
       const osc = ctx.createOscillator();
       const filter = ctx.createBiquadFilter();
       const gain = ctx.createGain();
-      osc.type = 'triangle';
+      osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(bassFreq, t);
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(420, t);
-      gain.gain.setValueAtTime(0.055, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+      filter.frequency.setValueAtTime(520, t);
+      filter.frequency.exponentialRampToValueAtTime(190, t + 0.14);
+      gain.gain.setValueAtTime(0.048, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
       osc.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
       osc.start(t);
-      osc.stop(t + 0.24);
+      osc.stop(t + 0.18);
     }
 
-    // Soft jazz hi-hat pulse
-    if (step16 % 2 === 0 || step16 % 4 === 3) {
-      const bufferSize = ctx.sampleRate * 0.03;
+    // Crispy offbeat house hi-hat + snare/clap on 4 & 12
+    if (s16 % 4 === 2 || s16 % 4 === 0) {
+      const isOffbeat = s16 % 4 === 2;
+      const len = isOffbeat ? 0.055 : 0.02;
+      const bufferSize = Math.floor(ctx.sampleRate * len);
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
@@ -178,10 +571,10 @@
       noise.buffer = buffer;
       const hp = ctx.createBiquadFilter();
       hp.type = 'highpass';
-      hp.frequency.setValueAtTime(6800, t);
+      hp.frequency.setValueAtTime(isOffbeat ? 7200 : 8800, t);
       const gain = ctx.createGain();
-      gain.gain.setValueAtTime(step16 % 4 === 2 ? 0.018 : 0.009, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+      gain.gain.setValueAtTime(isOffbeat ? 0.022 : 0.008, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + len);
       noise.connect(hp);
       hp.connect(gain);
       gain.connect(ctx.destination);
@@ -201,14 +594,12 @@
     }
     if (on) {
       ensureAudio();
-      playJazzStep();
-      bgmTimer = setInterval(playJazzStep, 145); // ~103 BPM acid-jazz swing
+      playNuJazzStep();
+      bgmTimer = setInterval(playNuJazzStep, 123); // ~122 BPM Nu-Jazz House
     }
   }
 
-  if (bgmToggle) {
-    bgmToggle.addEventListener('click', () => setBgm(!bgmEnabled));
-  }
+  if (bgmToggle) bgmToggle.addEventListener('click', () => setBgm(!bgmEnabled));
 
   if (sfxToggle) {
     sfxToggle.addEventListener('click', () => {
@@ -220,35 +611,8 @@
   }
 
   // ---------------------------------------------------------
-  // 4. Persona 5 Animated Dialogue Box (Typewriter + Lines)
+  // 5. Animated Dialogue Box
   // ---------------------------------------------------------
-  const DIALOGUES = {
-    profile: [
-      'Welcome to Line 03. I’m Bruno Maldonado — Software Engineer focused on Python, Backend, and clean full-stack systems.',
-      'Tip: Use the station menu on the left (or press keys 1–6) to shift perspective between the platform, inside the express car, and the night overpass.'
-    ],
-    experience: [
-      'At Huawei Technologies I built Python & SQL automation apps that compressed multi-week manual reporting (~90% automated, saving ~15 hrs/week).',
-      'I also optimized national-scale SQL queries and relational models, cutting processing times by 35% while supporting customer churn analytics.'
-    ],
-    projects: [
-      'Three core builds: a multinational financial compliance engine (Chile/Peru/Colombia), Life Harmony (AI mobile nutrition app), and my Python algorithms repo.',
-      'Click any GITHUB REPO stamp to jump straight into the source code.'
-    ],
-    skills: [
-      'My primary loadout centers on Python, Django, Node.js, PostgreSQL, and Firebase — backed by Docker, Jenkins CI/CD, and cloud fundamentals.',
-      'I prefer building reliable architectures and writing clean code over chasing hype.'
-    ],
-    education: [
-      'Finishing my B.S. in Computer Engineering at INACAP this December 2026 — click any certificate card above to inspect the official PDF right inside this page.',
-      'You can also open my English or Spanish Resume anytime from the top HUD bar without leaving the site.'
-    ],
-    contact: [
-      'That’s the final stop! Looking for a remote Junior / Trainee Software Engineer? Hit COPY EMAIL or shoot me a message on LinkedIn.',
-      'Based in Santiago, Chile (UTC-3) — aligned with US/Americas time zones and ready to ship.'
-    ]
-  };
-
   let currentViewKey = 'profile';
   let dialogueIdx = 0;
   let typeTimer = null;
@@ -257,7 +621,7 @@
 
   function startDialogue(viewKey, lineIndex = 0) {
     currentViewKey = viewKey;
-    const lines = DIALOGUES[viewKey] || DIALOGUES.profile;
+    const lines = (I18N[currentLang].dialogues[viewKey]) || I18N.en.dialogues.profile;
     dialogueIdx = lineIndex % lines.length;
     fullLine = lines[dialogueIdx];
     if (typeTimer) clearInterval(typeTimer);
@@ -273,7 +637,7 @@
         clearInterval(typeTimer);
         isTyping = false;
       }
-    }, 20);
+    }, 18);
   }
 
   if (dialogueClickable) {
@@ -290,7 +654,104 @@
   }
 
   // ---------------------------------------------------------
-  // 5. Smooth Spring-Damped Mouse 3D Camera Parallax
+  // 6. SECRET PERSONA 5 EASTER EGGS!
+  //    - All-Out Attack: Click Jockey Emblem 3x OR Shift+A OR type "take"
+  //    - Calling Card:   Click Date HUD 3x OR Shift+C
+  //    - Secret Japanese: Click "路線" stamp OR Hanko BM 3x OR press J
+  // ---------------------------------------------------------
+  let emblemClicks = 0, emblemTimer = null;
+  let dateClicks = 0, dateTimer = null;
+  let hankoClicks = 0, hankoTimer = null;
+  let allOutTimeout = null;
+  let secretBuffer = '';
+
+  function triggerAllOutAttack() {
+    if (!alloutOverlay) return;
+    playAllOutHit();
+    alloutOverlay.classList.add('active');
+    alloutOverlay.setAttribute('aria-hidden', 'false');
+    if (allOutTimeout) clearTimeout(allOutTimeout);
+    allOutTimeout = setTimeout(closeAllOutAttack, 3600);
+  }
+
+  function closeAllOutAttack() {
+    if (!alloutOverlay) return;
+    alloutOverlay.classList.remove('active');
+    alloutOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  if (alloutOverlay) alloutOverlay.addEventListener('click', closeAllOutAttack);
+
+  function openCallingCard() {
+    if (!callingCardOverlay) return;
+    playSelectSnap();
+    callingCardOverlay.classList.add('active');
+    callingCardOverlay.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeCallingCard() {
+    if (!callingCardOverlay) return;
+    playHoverTick();
+    callingCardOverlay.classList.remove('active');
+    callingCardOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  if (ccCloseBtn) ccCloseBtn.addEventListener('click', closeCallingCard);
+  if (ccBackdrop) ccBackdrop.addEventListener('click', closeCallingCard);
+
+  function triggerJapaneseMode() {
+    playAllOutHit();
+    const target = currentLang === 'jp' ? 'en' : 'jp';
+    triggerWipe(target === 'jp' ? '日本語モード' : 'ENGLISH MODE', 'SECRET LANGUAGE // 秘密', true, () => {
+      applyLanguage(target);
+    });
+  }
+
+  if (dialogueEmblemBtn) {
+    dialogueEmblemBtn.addEventListener('click', () => {
+      playHoverTick();
+      emblemClicks++;
+      clearTimeout(emblemTimer);
+      emblemTimer = setTimeout(() => { emblemClicks = 0; }, 1200);
+      if (emblemClicks >= 3) {
+        emblemClicks = 0;
+        triggerAllOutAttack();
+      }
+    });
+  }
+
+  if (hudDateBox) {
+    hudDateBox.addEventListener('click', (e) => {
+      if (e.target === hankoSeal) return;
+      dateClicks++;
+      clearTimeout(dateTimer);
+      dateTimer = setTimeout(() => { dateClicks = 0; }, 1200);
+      if (dateClicks >= 3) {
+        dateClicks = 0;
+        openCallingCard();
+      }
+    });
+  }
+
+  if (hankoSeal) {
+    hankoSeal.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hankoClicks++;
+      clearTimeout(hankoTimer);
+      hankoTimer = setTimeout(() => { hankoClicks = 0; }, 1200);
+      if (hankoClicks >= 3) {
+        hankoClicks = 0;
+        triggerJapaneseMode();
+      }
+    });
+  }
+
+  if (jpSecretBtn) {
+    jpSecretBtn.addEventListener('click', triggerJapaneseMode);
+  }
+
+  // ---------------------------------------------------------
+  // 7. Smooth Spring-Damped Mouse 3D Camera Parallax
   // ---------------------------------------------------------
   let targetMX = 0, targetMY = 0;
   let currMX = 0, currMY = 0;
@@ -298,8 +759,8 @@
   window.addEventListener('mousemove', (e) => {
     const nx = (e.clientX / window.innerWidth) - 0.5;
     const ny = (e.clientY / window.innerHeight) - 0.5;
-    targetMY = nx * 4.8;
-    targetMX = -ny * 3.0;
+    targetMY = nx * 4.5;
+    targetMX = -ny * 2.8;
   });
 
   function animateCamera() {
@@ -314,7 +775,7 @@
   requestAnimationFrame(animateCamera);
 
   // ---------------------------------------------------------
-  // 6. Paper-Crumple & Cut-In Transition Engine (~900ms!)
+  // 8. Paper-Crumple & Cut-In Transition Engine (~900ms)
   // ---------------------------------------------------------
   let isTransitioning = false;
   let activeIndex = 0;
@@ -333,11 +794,7 @@
     if (withCutin) wipeEl.classList.add('with-cutin');
     wipeEl.classList.add('active');
 
-    // Swap scene cleanly right at midpoint while shards fully cover the screen
-    setTimeout(() => {
-      onMidpoint();
-    }, 390);
-
+    setTimeout(() => { onMidpoint(); }, 390);
     setTimeout(() => {
       wipeEl.classList.remove('active', 'with-cutin');
       isTransitioning = false;
@@ -347,7 +804,8 @@
   function enterStation(initialView) {
     if (!body.classList.contains('mode-title')) return;
     playSelectSnap();
-    triggerWipe('BOARDING', 'SANTIAGO EXPRESS // LINE 03', true, () => {
+    const label = currentLang === 'jp' ? '乗車中' : (currentLang === 'es' ? 'INGRESANDO' : 'BOARDING');
+    triggerWipe(label, 'SANTIAGO EXPRESS // LINE 03', true, () => {
       body.classList.remove('mode-title');
       if (appShell) appShell.setAttribute('aria-hidden', 'false');
       switchView(initialView || 'profile', true);
@@ -357,10 +815,11 @@
   function returnToTitle() {
     if (body.classList.contains('mode-title')) return;
     playSelectSnap();
-    triggerWipe('TITLE SCREEN', 'SANTIAGO · PLATFORM 01', false, () => {
+    const label = currentLang === 'jp' ? 'タイトル' : (currentLang === 'es' ? 'INICIO' : 'TITLE SCREEN');
+    triggerWipe(label, I18N[currentLang].locs.profile, false, () => {
       body.classList.add('mode-title');
       body.setAttribute('data-scene', 'station');
-      if (hudLoc) hudLoc.textContent = 'BRUNO MALDONADO · PLATFORM 01';
+      if (hudLoc) hudLoc.textContent = I18N[currentLang].locs.profile;
       if (appShell) appShell.setAttribute('aria-hidden', 'true');
     });
   }
@@ -373,9 +832,10 @@
     if (alreadyActive && !skipWipe) return;
 
     activeIndex = idx;
+    const dict = I18N[currentLang];
     const scene = item.dataset.scene || 'station';
-    const loc = item.dataset.loc || 'BRUNO MALDONADO · PLATFORM 01';
-    const sub = item.dataset.sub || 'NEXT STATION';
+    const loc = dict.locs[viewName] || dict.locs.profile;
+    const sub = dict.subs[viewName] || 'NEXT STATION';
     const withCutin = item.dataset.cutin === 'true';
     const labelText = item.querySelector('.menu-label')?.textContent?.trim() || viewName.toUpperCase();
 
@@ -412,8 +872,7 @@
     item.addEventListener('mouseenter', () => {
       playHoverTick();
       if (!isTransitioning && !body.classList.contains('mode-title')) {
-        const hoverScene = item.dataset.scene;
-        targetMY = hoverScene === 'interior' ? Math.min(targetMY + 2.0, 6) : Math.max(targetMY - 2.0, -6);
+        targetMY = item.dataset.scene === 'interior' ? Math.min(targetMY + 2.0, 6) : Math.max(targetMY - 2.0, -6);
       }
     });
     item.addEventListener('click', () => switchView(item.dataset.view, false));
@@ -424,7 +883,7 @@
   });
 
   // ---------------------------------------------------------
-  // 7. Custom In-Page Persona 5 PDF Viewer Modal
+  // 9. Custom In-Page PDF Viewer Modal
   // ---------------------------------------------------------
   function openPdfModal(pdfPath, titleText) {
     if (!pdfModal || !pdfFrame) return;
@@ -456,13 +915,36 @@
   if (pdfBackdrop) pdfBackdrop.addEventListener('click', closePdfModal);
 
   // ---------------------------------------------------------
-  // 8. Keyboard Controls + Copy Email
+  // 10. Keyboard Controls + Easter Egg Hotkeys + Copy Email
   // ---------------------------------------------------------
   window.addEventListener('keydown', (e) => {
     if (pdfModal && pdfModal.classList.contains('open')) {
       if (e.key === 'Escape') closePdfModal();
       return;
     }
+    if (callingCardOverlay && callingCardOverlay.classList.contains('active')) {
+      if (e.key === 'Escape') closeCallingCard();
+      return;
+    }
+    if (alloutOverlay && alloutOverlay.classList.contains('active')) {
+      closeAllOutAttack();
+      return;
+    }
+
+    // Secret word buffer ("take" -> All-Out Attack!)
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      secretBuffer = (secretBuffer + e.key.toLowerCase()).slice(-8);
+      if (secretBuffer.endsWith('take')) {
+        secretBuffer = '';
+        triggerAllOutAttack();
+        return;
+      }
+    }
+
+    // Direct Easter Egg shortcuts
+    if (e.shiftKey && (e.key === 'A' || e.key === 'a')) { e.preventDefault(); triggerAllOutAttack(); return; }
+    if (e.shiftKey && (e.key === 'C' || e.key === 'c')) { e.preventDefault(); openCallingCard(); return; }
+    if (!e.shiftKey && (e.key === 'j' || e.key === 'J')) { triggerJapaneseMode(); return; }
 
     if (body.classList.contains('mode-title')) {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -491,20 +973,29 @@
   if (copyBtn) {
     copyBtn.addEventListener('click', async () => {
       const email = copyBtn.getAttribute('data-email');
-      const orig = copyBtn.textContent;
       playSelectSnap();
       try {
         await navigator.clipboard.writeText(email);
-        copyBtn.textContent = 'EMAIL COPIED!';
-        setTimeout(() => { copyBtn.textContent = orig; }, 1800);
+        copyBtn.textContent = I18N[currentLang].btn_copied;
+        setTimeout(() => { copyBtn.textContent = I18N[currentLang].btn_copy_email; }, 1800);
       } catch {
         window.location.href = 'mailto:' + email;
       }
     });
   }
 
-  // Hash deep-linking (#profile, #experience, #projects, #skills, #education, #contact)
-  if (hashView && menuItems.some((m) => m.dataset.view === hashView)) {
+  // Deep-link hash support (also supports #jp and #allout for instant QA verification!)
+  if (hashView === 'jp') {
+    body.classList.remove('mode-title');
+    if (appShell) appShell.setAttribute('aria-hidden', 'false');
+    applyLanguage('jp');
+    switchView('profile', true);
+  } else if (hashView === 'allout') {
+    body.classList.remove('mode-title');
+    if (appShell) appShell.setAttribute('aria-hidden', 'false');
+    switchView('profile', true);
+    alloutOverlay.classList.add('active');
+  } else if (hashView && menuItems.some((m) => m.dataset.view === hashView)) {
     body.classList.remove('mode-title');
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
     switchView(hashView, true);
