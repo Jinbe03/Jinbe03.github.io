@@ -119,23 +119,33 @@
   </div>
 
   <!-- =========================================================
-       SECRET EASTER EGG #2: PERSONA 5 CALLING CARD DROP
+       SECRET EASTER EGG #2: AUTHENTIC PERSONA 5 CALLING CARD
        ========================================================= -->
   <div id="calling-card-overlay" class="calling-card-overlay" aria-hidden="true">
     <div class="cc-backdrop" id="ccBackdrop"></div>
-    <div class="cc-card">
-      <div class="cc-header">
-        <img src="assets/art/jockey-logo.jpg" alt="" class="cc-logo" />
-        <span class="cc-tag mono">CALLING CARD // SECRET</span>
+    <div class="cc-sheet" role="dialog" aria-modal="true" aria-label="Persona 5 Calling Card">
+      <button id="ccCloseBtn" class="cc-x-btn" type="button" aria-label="Close Calling Card">&times;</button>
+
+      <!-- TOP HALF: Concentric Red/Black Bullseye + Floating Jockey Emblem + Slogan -->
+      <div class="cc-half cc-front">
+        <div class="cc-emblem-float">
+          <img src="assets/art/jockey-logo.png" alt="Bruno Maldonado Jockey Emblem" />
+        </div>
+        <div id="ccSlogan" class="cc-slogan" aria-label="Ship Your Code"></div>
       </div>
-      <h3 class="cc-title" data-i18n="cc_title">TO: YOUR ENGINEERING TEAM</h3>
-      <p class="cc-body" data-i18n="cc_body">
-        We have noticed your backlog of slow queries, manual processes, and unshipped features.
-        I will arrive remotely from Santiago to automate the chaos and ship clean production software.
-      </p>
-      <div class="cc-footer">
-        <span class="cc-sign">&mdash; BRUNO MALDONADO</span>
-        <button id="ccCloseBtn" class="action-btn action-primary" type="button" data-i18n="cc_close">ACCEPT CARD</button>
+
+      <!-- Horizontal Fold Crease -->
+      <div class="cc-crease" aria-hidden="true"></div>
+
+      <!-- BOTTOM HALF: Concentric Red/Black Bullseye + Authentic Ransom-Note Cutout Letters -->
+      <div class="cc-half cc-back">
+        <div id="ccTarget" class="cc-ransom-target"></div>
+        <div id="ccSubtitle" class="cc-ransom-sub"></div>
+        <div id="ccBodyRansom" class="cc-ransom-body"></div>
+        <div class="cc-ransom-footer">
+          <div id="ccFrom" class="cc-ransom-from"></div>
+          <div id="ccSignature" class="cc-ransom-sign"></div>
+        </div>
       </div>
     </div>
   </div>

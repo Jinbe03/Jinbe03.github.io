@@ -113,9 +113,12 @@
       btn_github: 'GITHUB REPOSITORIES ↗', btn_inspect_resume: 'INSPECT RESUME PDF',
       pdf_stamp: 'CONFIDENTIAL // IN-PAGE VIEWER', pdf_download: 'DOWNLOAD PDF', pdf_newtab: 'NEW TAB ↗', pdf_close: 'CLOSE ×',
       aoa_kicker: 'ALL-OUT ATTACK // FINISHER', aoa_headline: 'THE CODE IS CLEAN.', aoa_sub: 'BRUNO MALDONADO · MISSION COMPLETE · CLICK TO CONTINUE',
-      cc_title: 'TO: YOUR ENGINEERING TEAM',
-      cc_body: 'We have noticed your backlog of slow queries, manual processes, and unshipped features. I will arrive remotely from Santiago to automate the chaos and ship clean production software.',
-      cc_close: 'ACCEPT CARD',
+      cc_slogan: 'SHIP YOUR CODE',
+      cc_target: 'Your Team',
+      cc_sub: '- The builders of great software',
+      cc_body: 'We know your backlog is full of slow queries and manual chaos. That is why I will arrive remotely from Chile to automate it and ship clean production code.',
+      cc_from: 'FROM,',
+      cc_sign: 'Bruno Maldonado',
       dialogues: {
         profile: [
           'Welcome to Line 03. I’m Bruno Maldonado — Software Engineer focused on Python, Backend, and clean full-stack systems.',
@@ -211,9 +214,12 @@
       btn_github: 'REPOSITORIOS GITHUB ↗', btn_inspect_resume: 'VER CV EN PDF',
       pdf_stamp: 'CONFIDENCIAL // VISOR INTEGRADO', pdf_download: 'DESCARGAR PDF', pdf_newtab: 'NUEVA PESTAÑA ↗', pdf_close: 'CERRAR ×',
       aoa_kicker: 'ALL-OUT ATTACK // REMATE', aoa_headline: 'EL CÓDIGO ESTÁ LIMPIO.', aoa_sub: 'BRUNO MALDONADO · MISIÓN CUMPLIDA · CLIC PARA SEGUIR',
-      cc_title: 'PARA: TU EQUIPO DE INGENIERÍA',
-      cc_body: 'Detectamos consultas lentas, reportes manuales y features pendientes en su backlog. Llego 100% remoto desde Santiago para automatizar el caos y entregar software limpio en producción.',
-      cc_close: 'ACEPTAR TARJETA',
+      cc_slogan: 'SHIP YOUR CODE',
+      cc_target: 'Tu Equipo',
+      cc_sub: '- Los creadores de software',
+      cc_body: 'Sabemos que su backlog tiene consultas lentas y tareas manuales. Por eso llegaré remoto desde Chile a automatizar el caos y entregar código limpio en producción.',
+      cc_from: 'DE PARTE DE,',
+      cc_sign: 'Bruno Maldonado',
       dialogues: {
         profile: [
           'Bienvenido a la Línea 03. Soy Bruno Maldonado — Ingeniero de Software enfocado en Python, Backend y sistemas full-stack limpios.',
@@ -309,9 +315,12 @@
       btn_github: 'GITHUB リポジトリ ↗', btn_inspect_resume: '履歴書PDFを確認',
       pdf_stamp: '極秘資料 // ページ内ビューア', pdf_download: 'PDF保存', pdf_newtab: '別タブで開く ↗', pdf_close: '閉じる ×',
       aoa_kicker: '総攻撃 // フィニッシュ', aoa_headline: 'コードは完璧だ。', aoa_sub: 'BRUNO MALDONADO · ミッション完了 · クリックで戻る',
-      cc_title: '貴社エンジニアリングチーム殿',
-      cc_body: '遅いSQLクエリや手作業レポートの山を観測した。サンティアゴからフルリモートで参上し、自動化とクリーンな本番コードで課題を鮮やかに解決する。',
-      cc_close: '予告状を受け取る',
+      cc_slogan: 'SHIP YOUR CODE',
+      cc_target: '貴社開発チーム殿',
+      cc_sub: '- 未来を創るエンジニアへ',
+      cc_body: '遅いSQLと手作業のバックログを確認した。サンティアゴからフルリモートで参上し、自動化とクリーンなコードで課題を鮮やかに解決する。',
+      cc_from: '差出人：',
+      cc_sign: 'Bruno Maldonado',
       dialogues: {
         profile: [
           'シークレット日本語モードへようこそ！ブルーノ・マルドナドです。Pythonとバックエンド開発が得意なエンジニアです。',
@@ -343,11 +352,51 @@
 
   let currentLang = 'en';
 
+  // Authentic Persona 5 Ransom-Note Cutout Letter Generator
+  const RANSOM_STYLES = ['r-bw', 'r-wb', 'r-bw', 'r-br', 'r-wb', 'r-bw', 'r-wr', 'r-wb'];
+  const RANSOM_FONTS = ['r-f0', 'r-f1', 'r-f2', 'r-f3'];
+  const RANSOM_ROT = [-7, 5, -4, 7, -6, 3, -8, 6, -3, 4];
+
+  function renderRansomHtml(text, isSlogan) {
+    const words = String(text || '').split(' ');
+    let charIdx = 0;
+    return words.map((word) => {
+      const tiles = Array.from(word).map((ch) => {
+        const i = charIdx++;
+        const rot = RANSOM_ROT[i % RANSOM_ROT.length];
+        const dy = ((i % 3) - 1) * 1.5;
+        const font = RANSOM_FONTS[(i * 3 + 1) % RANSOM_FONTS.length];
+        if (isSlogan) {
+          const alt = (i % 5 === 2) ? ' r-alt' : '';
+          return `<span class="r-tile ${font}${alt}" style="transform:rotate(${rot}deg) translateY(${dy}px)">${ch}</span>`;
+        }
+        const style = RANSOM_STYLES[(i * 7 + ch.charCodeAt(0)) % RANSOM_STYLES.length];
+        return `<span class="r-tile ${style} ${font}" style="transform:rotate(${rot}deg) translateY(${dy}px)">${ch}</span>`;
+      }).join('');
+      return `<span class="r-word">${tiles}</span>`;
+    }).join('');
+  }
+
+  function renderCallingCard(lang) {
+    const dict = I18N[lang] || I18N.en;
+    const set = (id, text, isSlogan) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = renderRansomHtml(text, isSlogan);
+    };
+    set('ccSlogan', dict.cc_slogan, true);
+    set('ccTarget', dict.cc_target, false);
+    set('ccSubtitle', dict.cc_sub, false);
+    set('ccBodyRansom', dict.cc_body, false);
+    set('ccFrom', dict.cc_from, false);
+    set('ccSignature', dict.cc_sign, false);
+  }
+
   function applyLanguage(lang) {
     if (!I18N[lang]) return;
     currentLang = lang;
     body.setAttribute('data-lang', lang);
     const dict = I18N[lang];
+    renderCallingCard(lang);
 
     if (langLabel && langToggle) {
       langLabel.textContent = lang === 'jp' ? '日本語 ★' : (lang === 'es' ? 'ES / EN' : 'EN / ES');
@@ -1158,7 +1207,10 @@
     });
   }
 
-  // Deep-link hash support (also supports #jp and #allout for instant QA verification!)
+  // Render default Calling Card ransom letters on init
+  renderCallingCard('en');
+
+  // Deep-link hash support (also supports #jp, #allout, #callingcard for instant QA!)
   if (hashView === 'jp') {
     body.classList.remove('mode-title');
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
@@ -1169,6 +1221,11 @@
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
     switchView('profile', true);
     alloutOverlay.classList.add('active');
+  } else if (hashView === 'callingcard') {
+    body.classList.remove('mode-title');
+    if (appShell) appShell.setAttribute('aria-hidden', 'false');
+    switchView('profile', true);
+    callingCardOverlay.classList.add('active');
   } else if (hashView && menuItems.some((m) => m.dataset.view === hashView)) {
     body.classList.remove('mode-title');
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
