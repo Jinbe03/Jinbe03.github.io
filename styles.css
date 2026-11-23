@@ -2606,45 +2606,157 @@ body[data-lang="jp"] .arc-word .big-first {
 }
 
 /* =========================================================
-   RESPONSIVE / MOBILE MODE
+   FULL MULTI-SCREEN RESPONSIVE ARCHITECTURE
+   (1920px+ Ultrawide | 1366x768 & 1280x720 Laptops | Tablets | Mobile 320px+)
    ========================================================= */
-@media (max-width: 1020px) {
+
+/* 1. Large / Ultrawide Monitors (1680px - 4K) */
+@media (min-width: 1680px) {
+  .shell-main-grid {
+    max-width: 1420px;
+    width: 100%;
+    margin: 0 auto;
+    grid-template-columns: 390px minmax(0, 1fr);
+    gap: 44px;
+  }
+
+  .dossier-panel {
+    max-width: 920px;
+  }
+
+  .dialogue-dock {
+    max-width: 1040px;
+  }
+}
+
+/* 2. Compact & Short Laptops (1366x768, 1280x720, 1280x800) */
+@media (max-width: 1366px), (max-height: 790px) {
+  .hud-top {
+    padding: 10px 18px;
+  }
+
+  .hud-date-num { font-size: 24px; }
+  .hud-day-badge { font-size: 13px; }
+  .hud-station-sub { font-size: 9.5px; }
+  .hud-btn { padding: 5px 10px; font-size: 14px; }
+
+  .app-shell {
+    padding: 66px 22px 10px 14px;
+    gap: 6px;
+  }
+
+  .shell-main-grid {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .station-nav { padding-left: 30px; gap: 5px; }
+  .nav-header-stamp { margin-left: 34px; padding: 2px 9px; }
+
+  .arc-li-1 .arc-item { transform: translateX(40px) rotate(13deg); }
+  .arc-li-2 .arc-item { transform: translateX(14px) rotate(6deg); }
+  .arc-li-3 .arc-item { transform: translateX(0px)  rotate(1deg); }
+  .arc-li-4 .arc-item { transform: translateX(5px)  rotate(-5deg); }
+  .arc-li-5 .arc-item { transform: translateX(15px) rotate(-10deg); }
+  .arc-li-6 .arc-item { transform: translateX(34px) rotate(-15deg); }
+
+  .arc-word { font-size: 36px; -webkit-text-stroke: 3px var(--black); }
+  .arc-word .big-first { font-size: 47px; }
+  .arc-sub-tag { font-size: 9.5px; margin-left: 16px; }
+  .arc-pt-badge { left: -66px; font-size: 13px; padding: 2px 10px 2px 7px; }
+  .nav-controls-hint { font-size: 9px; margin-left: 24px; margin-top: 2px; }
+
+  .status-id-plate { padding: 15px 18px; }
+  .status-id-plate h2 { font-size: 32px; margin-bottom: 6px; }
+  .status-bio { font-size: 12.8px; line-height: 1.48; margin-bottom: 10px; }
+  .status-mini-pills { margin-bottom: 11px; }
+  .status-radar-panel svg { max-width: 270px; }
+
+  .mission-board { padding: 16px 20px; }
+  .mission-head { padding-bottom: 8px; margin-bottom: 11px; }
+  .mission-head h2 { font-size: 30px; }
+  .medal-card { padding: 10px 12px; }
+  .medal-card > strong { font-size: 20px; margin-bottom: 4px; }
+  .medal-card p { font-size: 11.5px; }
+
+  .compendium-wrap { grid-template-columns: 200px minmax(0, 1fr); gap: 12px; }
+  .deck-tab { padding: 7px 11px; font-size: 16px; }
+  .compendium-plate { padding: 16px 18px; gap: 10px; }
+  .compendium-plate h3 { font-size: 25px; }
+  .compendium-plate p { font-size: 13px; }
+
+  .slot-ribbon { grid-template-columns: 150px 1fr; }
+  .slot-cat { font-size: 17px; padding: 12px 10px; }
+  .slot-pills { padding: 10px 12px; gap: 6px; }
+  .slot-pill { font-size: 11px; padding: 3px 8px; }
+
+  .edu-banner-ribbon { padding: 9px 14px; }
+  .edu-banner-ribbon h2 { font-size: 20px; }
+  .tarot-card { min-height: 182px; padding: 11px 8px; }
+  .tarot-roman { font-size: 22px; }
+  .tarot-title { font-size: 16px; }
+
+  .sns-phone-wrap { width: min(455px, 92%); }
+  .sns-phone { padding: 10px 14px 12px; border-width: 7px; }
+  .sns-logo { font-size: 38px; }
+  .sns-thread { gap: 8px; margin-bottom: 10px; }
+  .sns-bubble-white { font-size: 12px; padding: 5px 12px; }
+  .sns-bubble-black { font-size: 12px; padding: 6px 11px; }
+  .sns-avatar { width: 44px; height: 38px; }
+  .sns-reply-btn { padding: 6px 10px; font-size: 14px; }
+
+  .dialogue-portrait-wrap { width: 82px; height: 70px; }
+  .dialogue-body { min-height: 64px; padding: 15px 34px 9px 18px; }
+  .dialogue-nameplate { font-size: 14px; top: -14px; }
+  .dialogue-text { font-size: 12.8px; }
+}
+
+/* 3. Tablets & Narrow Desktops (<= 1040px) */
+@media (max-width: 1040px) {
   html, body {
     overflow-y: auto;
+    overflow-x: hidden;
     height: auto;
     min-height: 100%;
   }
 
   .hud-top {
-    padding: 10px 12px;
-    background: linear-gradient(180deg, rgba(9, 9, 11, 0.94), transparent);
+    padding: 10px 14px;
+    background: linear-gradient(180deg, rgba(9, 9, 11, 0.94) 65%, transparent);
+    align-items: center;
   }
 
-  .hud-date-num { font-size: 20px; }
-  .hud-station-sub { font-size: 9px; }
-  .hud-btn { padding: 5px 9px; font-size: 13px; }
+  .title-screen {
+    position: relative;
+    min-height: 100vh;
+    padding: 112px 24px 48px;
+  }
 
   .app-shell {
     position: relative;
-    padding: 88px 14px 24px;
+    padding: 92px 18px 28px;
     min-height: 100vh;
     grid-template-rows: auto auto;
+    gap: 16px;
   }
 
   .shell-main-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
+    align-items: start;
   }
 
-  .station-nav { padding-left: 0; }
-  .nav-header-stamp, .nav-controls-hint { display: none; }
+  .station-nav { padding-left: 0; width: 100%; overflow: hidden; }
+  .nav-controls-hint { display: none; }
+  .nav-header-stamp { margin-left: 0; margin-bottom: 2px; }
 
   .p5-arc-menu {
     flex-direction: row;
     overflow-x: auto;
-    padding: 12px 6px 14px;
-    gap: 14px;
+    padding: 14px 8px 16px;
+    gap: 16px;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
   .p5-arc-menu::-webkit-scrollbar { display: none; }
 
@@ -2658,38 +2770,48 @@ body[data-lang="jp"] .arc-word .big-first {
   }
 
   .arc-word { font-size: 28px; }
-  .arc-word .big-first { font-size: 34px; }
+  .arc-word .big-first { font-size: 35px; }
   .arc-sub-tag, .arc-pt-badge { display: none; }
 
-  .dossier-stage, .dossier-panel {
+  .dossier-stage, .dossier-panel,
+  #view-experience, #view-skills, #view-education, #view-projects {
     overflow: visible;
     max-height: none;
+    padding: 4px 2px;
   }
 
-  .status-skin-grid,
-  .status-mini-pills,
-  .mission-medals,
-  .compendium-wrap,
-  .tarot-fan,
-  .sns-replies {
+  .status-skin-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
+
+  .status-radar-panel svg { max-width: 290px; }
+
+  .mission-board { transform: none; }
+  .mission-medals { grid-template-columns: 1fr; }
+
+  .compendium-wrap { grid-template-columns: 1fr; }
+  .deck-tabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .deck-caption { width: 100%; }
+  .deck-tab { flex: 1 1 160px; font-size: 16px; }
+  .deck-tab:hover, .deck-tab.active { transform: skewX(-8deg); }
 
   .slot-ribbon, .slot-2, .slot-3 {
     grid-template-columns: 1fr;
     transform: none;
   }
-
   .slot-cat {
     border-right: none;
     border-bottom: 3px solid var(--cream);
     padding: 10px;
   }
 
-  .tarot-card:nth-child(n) {
-    transform: none;
-    min-height: 150px;
-  }
+  .tarot-fan { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tarot-card:nth-child(n) { transform: none; min-height: 165px; }
 
   .edu-banner-ribbon {
     flex-direction: column;
@@ -2697,13 +2819,103 @@ body[data-lang="jp"] .arc-word .big-first {
     transform: none;
   }
 
-  .sns-hand { display: none; }
-  .sns-phone-wrap { padding: 0; width: 100%; }
-  .sns-phone { transform: rotate(0deg); }
+  .sns-phone-wrap { width: min(500px, 100%); padding: 0 18px; }
+  .sns-phone { transform: rotate(1deg); }
+  .sns-hand { width: 48px; }
+}
 
-  .dialogue-portrait-wrap { width: 78px; height: 74px; }
-  .dialogue-body { padding: 18px 28px 12px 14px; }
-  .dialogue-text { font-size: 12.8px; }
+/* 4. Mobile Phones (<= 640px, down to 320px) */
+@media (max-width: 640px) {
+  .hud-top {
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 12px 6px;
+  }
+
+  .hud-date-box {
+    align-self: flex-start;
+    padding: 5px 11px;
+    box-shadow: 4px 4px 0 var(--red);
+  }
+
+  .hud-date-num { font-size: 19px; }
+  .hud-day-badge { font-size: 12px; padding: 1px 5px; }
+  .hud-station-sub { font-size: 9px; }
+
+  .hud-actions {
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .hud-btn {
+    padding: 4px 8px;
+    font-size: 12.5px;
+    border-width: 1.5px;
+  }
+
+  .title-screen {
+    min-height: auto;
+    padding: 28px 16px 40px;
+  }
+
+  .title-hero-name {
+    font-size: clamp(40px, 12vw, 62px);
+    text-shadow: 4px 4px 0 var(--black), 7px 7px 0 var(--red);
+  }
+
+  .title-line-2 { margin-left: 8px; }
+  .title-subtitle-ribbon { font-size: 15px; padding: 7px 12px; }
+  .board-btn { padding: 12px 22px; font-size: 20px; }
+  .title-hint { font-size: 10px; }
+
+  .app-shell {
+    padding: 8px 12px 24px;
+    min-height: auto;
+  }
+
+  .status-id-plate {
+    padding: 16px 14px;
+    clip-path: none;
+  }
+
+  .status-mini-pills,
+  .sns-replies {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-tape {
+    position: static;
+    display: inline-block;
+    margin-bottom: 10px;
+    transform: rotate(-1deg);
+    font-size: 15px;
+  }
+
+  .sns-hand { display: none; }
+  .sns-phone-wrap { padding: 0; }
+  .sns-phone { transform: none; border-width: 6px; padding: 10px 11px 12px; }
+  .sns-logo { font-size: 32px; }
+  .sns-bubble-white, .sns-bubble-black { transform: none; }
+
+  .dialogue-portrait-wrap { width: 66px; height: 64px; }
+  .dialogue-body { padding: 16px 24px 10px 12px; transform: skewX(-4deg); }
+  .dialogue-text { font-size: 12px; transform: skewX(4deg); }
+
+  .pdf-modal { padding: 8px; }
+  .pdf-modal-window { height: 94dvh; border-width: 3px; box-shadow: 6px 6px 0 var(--red); }
+  .pdf-modal-header { padding: 9px 12px; }
+  .pdf-modal-header h3 { font-size: 17px; }
+
+  .cc-emblem-float { width: 150px; height: 150px; }
+  .cc-slogan .r-tile { font-size: 20px; }
+  .cc-ransom-target .r-tile { font-size: 24px; }
+  .cc-ransom-body .r-tile { font-size: 13px; }
+}
+
+@media (max-width: 380px) {
+  .tarot-fan { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   .train-consist, .train-car-sprite, .board-btn-arrow, .title-hint, .dialogue-next-arrow {
