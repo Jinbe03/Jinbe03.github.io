@@ -90,10 +90,21 @@ a {
 
 .intro-star-burst {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 210px;
+  height: 210px;
   z-index: 2;
+  border: 5px solid var(--cream);
+  box-shadow: 0 0 0 6px var(--red);
+  background: var(--black);
+  overflow: hidden;
   animation: star-pop 1.15s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.intro-emblem-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .intro-slash-bar {
@@ -225,23 +236,24 @@ body[data-scene="interior"]:not(.mode-title) .world-interior { opacity: 1; }
 body[data-scene="night"]:not(.mode-title) .world-night { opacity: 1; }
 
 /* =========================================================
-   TRUE 3D TRACK-ALIGNED PASSING TRAIN (ALONG THE RIGHT RAILS!)
+   TRUE 3D TRACK-ALIGNED PASSING TRAIN (EMERGES FROM TUNNEL!)
    ========================================================= */
 .track-corridor {
   position: absolute;
-  /* Aligned strictly to the right-side track tunnel in subway-station.jpg & concourse-night.jpg */
-  left: 48.5%;
-  right: -4%;
-  top: 22%;
-  bottom: 11%;
-  perspective: 720px;
-  perspective-origin: 6% 52%;
+  /* Anchored right at the tunnel vanishing point (x=48.5%, y=51%) down along the right tracks */
+  left: 48.2%;
+  right: -2%;
+  top: 0;
+  bottom: 0;
+  perspective: 370px;
+  perspective-origin: 2% 51%;
   overflow: hidden;
   pointer-events: none;
   z-index: 2;
-  /* Soft mask so the train emerges cleanly out of the central vanishing tunnel */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.92) 14%, #000 30%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.92) 14%, #000 30%, #000 100%);
+  /* Crisp clip along the crimson platform edge + tunnel roof so train stays strictly inside the track bed */
+  clip-path: polygon(0% 42%, 100% 4%, 100% 100%, 14% 100%, 2% 58%, 0% 54%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.88) 9%, #000 22%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.88) 9%, #000 22%, #000 100%);
   transition: opacity 0.55s ease;
 }
 
@@ -251,52 +263,55 @@ body[data-scene="interior"]:not(.mode-title) .track-corridor {
 
 .track-3d-plane {
   position: absolute;
-  inset: 0;
-  transform-origin: left center;
-  transform: rotateY(-58deg) rotateZ(1.2deg) translateY(8%);
+  left: 0;
+  top: 39.5%;
+  width: 100%;
+  height: 20.5%;
+  transform-origin: 0% 54%;
+  transform: rotateY(-69deg) rotateZ(0.8deg);
   display: flex;
   align-items: flex-end;
 }
 
 .track-speed-lines {
   position: absolute;
-  inset: 0;
+  inset: -15% 0;
   background: repeating-linear-gradient(
     0deg,
     transparent 0px,
-    transparent 18px,
-    rgba(230, 0, 18, 0.22) 18px,
-    rgba(230, 0, 18, 0.22) 20px,
-    transparent 20px,
-    transparent 44px,
-    rgba(246, 243, 236, 0.1) 44px,
-    rgba(246, 243, 236, 0.1) 45px
+    transparent 14px,
+    rgba(230, 0, 18, 0.22) 14px,
+    rgba(230, 0, 18, 0.22) 15.5px,
+    transparent 15.5px,
+    transparent 34px,
+    rgba(246, 243, 236, 0.1) 34px,
+    rgba(246, 243, 236, 0.1) 35px
   );
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 .train-consist {
   display: flex;
   align-items: flex-end;
-  height: 82%;
+  height: 100%;
   width: max-content;
   will-change: transform;
-  animation: train-along-rails 8.8s linear -2.6s infinite;
-  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.92));
+  animation: train-along-rails 8.5s linear -3.1s infinite;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.95));
 }
 
 .train-car-sprite {
   height: 100%;
   width: auto;
   display: block;
-  margin-left: -4px;
-  animation: rail-rattle 0.3s steps(2) infinite;
+  margin-left: -3px;
+  animation: rail-rattle 0.28s steps(2) infinite;
 }
 
 @keyframes train-along-rails {
-  0%   { transform: translateX(135%); }
-  68%  { transform: translateX(-165%); }
-  100% { transform: translateX(-165%); }
+  0%   { transform: translateX(115%); }
+  72%  { transform: translateX(-145%); }
+  100% { transform: translateX(-145%); }
 }
 
 @keyframes rail-rattle {
@@ -456,12 +471,11 @@ body[data-scene="interior"]:not(.mode-title) .track-corridor {
 }
 
 .cutin-strip img {
-  width: 440px;
+  width: 210px;
   height: 100%;
-  object-fit: cover;
-  object-position: center 22%;
-  margin-left: 14%;
-  filter: contrast(1.12);
+  object-fit: contain;
+  margin-left: 16%;
+  background: var(--black);
 }
 
 .transition-wipe.active.with-cutin .cutin-strip {
@@ -1398,8 +1412,9 @@ a.repo-stamp:hover { background: var(--red); border-color: var(--red); }
 .chat-avatar img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
+  object-fit: contain;
+  padding: 2px;
+  background: var(--black);
 }
 
 .chat-bubble {
@@ -1454,7 +1469,7 @@ a.repo-stamp:hover { background: var(--red); border-color: var(--red); }
 }
 
 .dialogue-portrait-wrap {
-  width: 112px;
+  width: 104px;
   height: 92px;
   flex-shrink: 0;
   border: 3px solid var(--cream);
@@ -1464,14 +1479,16 @@ a.repo-stamp:hover { background: var(--red); border-color: var(--red); }
   overflow: hidden;
   box-shadow: -5px 5px 0 var(--red);
   z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 4px;
 }
 
 .dialogue-portrait {
-  width: 118%;
+  width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-  transform: skewX(10deg) translateX(-6%);
+  object-fit: contain;
+  transform: skewX(10deg);
 }
 
 .dialogue-body {
