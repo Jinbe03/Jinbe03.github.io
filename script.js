@@ -56,9 +56,40 @@
       nav_select: 'SELECT STOP',
       nav_hint: '[↑/↓] MOVE   [1-6] JUMP   [ESC] TITLE',
       menu: {
-        profile: ['P', 'ROFILE'], experience: ['E', 'XPERIENCE'], projects: ['P', 'ROJECTS'],
-        skills: ['S', 'KILLS'], education: ['C', 'ERTS & EDU'], contact: ['C', 'ONTACT']
+        profile: ['P', 'ROFILE', true], experience: ['E', 'XPERIENCE', false], projects: ['P', 'ROJECTS', false],
+        skills: ['S', 'KILLS', false], education: ['C', 'ERTS', true], contact: ['C', 'ONTACT', false]
       },
+      radar: ['BACKEND', 'SQL', 'AUTOMATION', 'CLOUD', 'FULL-STACK'],
+      mission_cleared: 'MISSION CLEARED',
+      tab_p1: '02 · SALON 24/7 APP', tab_p2: '03 · FINANCIAL ENGINE', tab_p3: '04 · LIFE HARMONY AI', tab_p4: '05 · ALGORITHMS',
+      deck: [
+        {
+          role: '01 // PRODUCTION DEPLOY', title: 'PHANTOMSW — MULTI-VERTICAL SAAS',
+          copy: 'Production web platform built in a <strong>React, Vite &amp; Serverless Functions</strong> architecture featuring <strong>Flow.cl</strong> live payments, automatic IP currency detection (CLP/USD), automated PDF receipts, and transactional emails with attachments.',
+          chips: ['REACT', 'VITE', 'NODE SERVERLESS', 'FLOW.CL', 'PDF & EMAIL'],
+          link: 'https://phantomsw.vercel.app/', linkLabel: 'OPEN LIVE SITE ↗'
+        },
+        {
+          role: '02 // PRODUCTION WEB APP', title: 'SALON & BARBERSHOP 24/7 BOOKING',
+          copy: 'Deployed booking &amp; management web app for salons and service businesses with <strong>24/7 online scheduling</strong>, real-time admin dashboard, cash-flow tracking, and <strong>Firebase / Firestore</strong> authentication &amp; security rules.',
+          chips: ['REACT', 'FIREBASE AUTH', 'FIRESTORE RULES', 'ADMIN DASHBOARD', '24/7 BOOKING']
+        },
+        {
+          role: '03 // TECH LEAD', title: 'MULTINATIONAL FINANCIAL ENGINE',
+          copy: 'Full-stack platform managing complex tax compliance workflows across <strong>Chile, Peru, and Colombia</strong>. Includes brute-force lockout protection, RBAC admin dashboard, automated tax reporting (<strong>40% fewer manual errors</strong>), and a <strong>Jenkins CI/CD</strong> pipeline.',
+          chips: ['PYTHON', 'DJANGO', 'JAVASCRIPT', 'POSTGRESQL', 'JENKINS CI/CD']
+        },
+        {
+          role: '04 // BACKEND LEAD · AI', title: 'LIFE HARMONY — AI NUTRITION APP',
+          copy: 'Cross-platform mobile app combining <strong>AI-assisted calorie tracking</strong> with a real-time <strong>Firebase / Firestore</strong> backend, offline persistence, granular security rules for sensitive health records, and <strong>+25% navigation efficiency</strong>.',
+          chips: ['DART', 'FLUTTER', 'AI INTEGRATION', 'FIREBASE', 'FIRESTORE RULES']
+        },
+        {
+          role: '05 // CONTINUOUS PRACTICE', title: 'ALGORITHMS & CS FUNDAMENTALS',
+          copy: 'Python engineering practice covering algorithmic problem-solving, clean code patterns, time/space complexity optimization, and core computer science fundamentals written from scratch.',
+          chips: ['PYTHON', 'ALGORITHMS', 'DATA STRUCTURES', 'CLEAN CODE']
+        }
+      ],
       locs: {
         profile: 'BRUNO MALDONADO · PLATFORM 01', experience: 'EXPRESS CAR 01 · EXPERIENCE',
         projects: 'EXPRESS CAR 02 · BUILDS', skills: 'SKYLINE OVERPASS · LOADOUT',
@@ -158,9 +189,40 @@
       nav_select: 'ELIGE PARADA',
       nav_hint: '[↑/↓] MOVER   [1-6] SALTAR   [ESC] INICIO',
       menu: {
-        profile: ['P', 'ERFIL'], experience: ['E', 'XPERIENCIA'], projects: ['P', 'ROYECTOS'],
-        skills: ['S', 'KILLS'], education: ['E', 'DUCACIÓN'], contact: ['C', 'ONTACTO']
+        profile: ['P', 'ERFIL', true], experience: ['E', 'XPERIENCIA', false], projects: ['P', 'ROYECTOS', false],
+        skills: ['S', 'KILLS', false], education: ['C', 'ERTS', true], contact: ['C', 'ONTACTO', false]
       },
+      radar: ['BACKEND', 'SQL', 'AUTOMATIZACIÓN', 'CLOUD', 'FULL-STACK'],
+      mission_cleared: 'MISIÓN COMPLETADA',
+      tab_p1: '02 · APP PELUQUERÍA 24/7', tab_p2: '03 · MOTOR TRIBUTARIO', tab_p3: '04 · LIFE HARMONY IA', tab_p4: '05 · ALGORITMOS',
+      deck: [
+        {
+          role: '01 // DESPLEGADO EN PRODUCCIÓN', title: 'PHANTOMSW — PLATAFORMA SAAS',
+          copy: 'Plataforma web en producción construida con <strong>React, Vite y Serverless Functions</strong> con pagos reales vía <strong>Flow.cl</strong>, detección automática de divisa por IP (CLP/USD), comprobantes PDF automáticos y correos transaccionales con adjuntos.',
+          chips: ['REACT', 'VITE', 'NODE SERVERLESS', 'FLOW.CL', 'PDF Y CORREOS'],
+          link: 'https://phantomsw.vercel.app/', linkLabel: 'ABRIR SITIO EN VIVO ↗'
+        },
+        {
+          role: '02 // APP EN PRODUCCIÓN', title: 'RESERVAS 24/7 PARA PELUQUERÍAS',
+          copy: 'Aplicación web desplegada para salones y negocios de servicios con <strong>agenda online 24/7</strong>, panel administrativo en tiempo real, control de caja y autenticación + reglas de seguridad en <strong>Firebase / Firestore</strong>.',
+          chips: ['REACT', 'FIREBASE AUTH', 'FIRESTORE RULES', 'PANEL ADMIN', 'AGENDA 24/7']
+        },
+        {
+          role: '03 // LÍDER TÉCNICO', title: 'MOTOR FINANCIERO MULTINACIONAL',
+          copy: 'Plataforma full-stack para gestionar flujos impositivos complejos en <strong>Chile, Perú y Colombia</strong>. Incluye protección contra fuerza bruta, panel administrativo RBAC, automatización tributaria (<strong>40% menos errores manuales</strong>) y pipeline <strong>CI/CD con Jenkins</strong>.',
+          chips: ['PYTHON', 'DJANGO', 'JAVASCRIPT', 'POSTGRESQL', 'JENKINS CI/CD']
+        },
+        {
+          role: '04 // LÍDER BACKEND · IA', title: 'LIFE HARMONY — APP NUTRICIÓN IA',
+          copy: 'App móvil multiplataforma que combina <strong>control calórico asistido con IA</strong> y base de datos en tiempo real <strong>Firebase / Firestore</strong>, persistencia offline, reglas de seguridad granulares y <strong>+25% eficiencia de navegación</strong>.',
+          chips: ['DART', 'FLUTTER', 'INTEGRACIÓN IA', 'FIREBASE', 'FIRESTORE RULES']
+        },
+        {
+          role: '05 // PRÁCTICA CONTINUA', title: 'ALGORITMOS Y FUNDAMENTOS CS',
+          copy: 'Práctica continua en Python resolviendo problemas algorítmicos, estructuras de datos, optimización de complejidad temporal/espacial y código limpio escrito desde cero.',
+          chips: ['PYTHON', 'ALGORITMOS', 'ESTRUCTURAS', 'CLEAN CODE']
+        }
+      ],
       locs: {
         profile: 'BRUNO MALDONADO · ANDÉN 01', experience: 'VAGÓN EXPRESO 01 · EXPERIENCIA',
         projects: 'VAGÓN EXPRESO 02 · PROYECTOS', skills: 'ESTACIÓN NOCTURNA · STACK',
@@ -260,9 +322,40 @@
       nav_select: '停車駅を選択',
       nav_hint: '[↑/↓] 移動   [1-6] 駅選択   [ESC] タイトル',
       menu: {
-        profile: ['プ', 'ロフィール'], experience: ['経', '歴'], projects: ['実', '績'],
-        skills: ['技', '術'], education: ['学', '歴・資格'], contact: ['連', '絡先']
+        profile: ['プ', 'ロフィール', true], experience: ['経', '歴', false], projects: ['実', '績', false],
+        skills: ['技', '術', false], education: ['資', '格', true], contact: ['連', '絡先', false]
       },
+      radar: ['バックエンド', 'SQL', '自動化', 'クラウド', 'フルスタック'],
+      mission_cleared: 'ミッション達成',
+      tab_p1: '02 · サロン24時間予約', tab_p2: '03 · 多国籍税務基盤', tab_p3: '04 · LIFE HARMONY AI', tab_p4: '05 · アルゴリズム',
+      deck: [
+        {
+          role: '01 // 本番運用中', title: 'PHANTOMSW — マルチ業種SAAS',
+          copy: '<strong>React・Vite・Serverless Functions</strong>で構築した本番Web基盤。<strong>Flow.cl</strong>決済連携、IP通貨自動切替(CLP/USD)、PDF領収書自動生成、添付付きトランザクションメールを実装。',
+          chips: ['REACT', 'VITE', 'SERVERLESS', 'FLOW.CL', 'PDF自動化'],
+          link: 'https://phantomsw.vercel.app/', linkLabel: '公開サイトを開く ↗'
+        },
+        {
+          role: '02 // 本番運用中', title: '美容室・サロン24時間予約アプリ',
+          copy: 'サロン・サービス業向けに本番デプロイ済みの予約管理アプリ。<strong>24時間Web予約</strong>、リアルタイム管理画面、収支管理、<strong>Firebase / Firestore</strong>認証＆セキュリティルールを搭載。',
+          chips: ['REACT', 'FIREBASE AUTH', 'FIRESTORE', '管理画面', '24時間予約']
+        },
+        {
+          role: '03 // テックリード', title: '多国籍 金融・税務エンジン',
+          copy: '<strong>チリ・ペルー・コロンビア</strong>の税務ワークフローを統合管理するフルスタック基盤。ブルートフォース防御、RBAC管理画面、税務レポート自動化（<strong>手作業ミス40%削減</strong>）、<strong>Jenkins CI/CD</strong> を構築。',
+          chips: ['PYTHON', 'DJANGO', 'POSTGRESQL', 'JENKINS CI/CD']
+        },
+        {
+          role: '04 // バックエンドリード · AI', title: 'LIFE HARMONY — AI栄養管理アプリ',
+          copy: '<strong>AIカロリー管理</strong>とリアルタイム <strong>Firebase / Firestore</strong> バックエンドを統合したモバイルアプリ。オフライン永続化、厳格なセキュリティルール、<strong>操作効率+25%向上</strong>を実現。',
+          chips: ['DART', 'FLUTTER', 'AI連携', 'FIREBASE', 'FIRESTORE']
+        },
+        {
+          role: '05 // 継続トレーニング', title: 'アルゴリズム＆計算機科学の基礎',
+          copy: 'Pythonでゼロから実装したアルゴリズム問題解決、計算量最適化、データ構造とクリーンコード設計の継続トレーニング。',
+          chips: ['PYTHON', 'アルゴリズム', 'データ構造', 'CLEAN CODE']
+        }
+      ],
       locs: {
         profile: 'ブルーノ・マルドナド · 1番線ホーム', experience: '急行1号車 · 実務経歴',
         projects: '急行2号車 · プロジェクト', skills: '夜間高架駅 · 技術装備',
@@ -419,10 +512,22 @@
     document.querySelectorAll('[data-i18n-menu]').forEach((el) => {
       const key = el.getAttribute('data-i18n-menu');
       if (dict.menu && dict.menu[key]) {
-        const [first, rest] = dict.menu[key];
-        el.innerHTML = `<em class="k-pop">${first}</em>${rest}`;
+        const [first, rest, hasStar] = dict.menu[key];
+        const star = hasStar ? '<span class="arc-star">&#9733;</span>' : '';
+        el.innerHTML = `<span class="big-first">${first}</span>${rest}${star}`;
       }
     });
+
+    // Update Radar Pentagon labels
+    if (dict.radar) {
+      dict.radar.forEach((lbl, i) => {
+        const tEl = document.getElementById('rad' + (i + 1));
+        if (tEl) tEl.textContent = lbl;
+      });
+    }
+
+    // Re-render Compendium active project plate in current language
+    renderCompendiumPlate(activeProjectIdx);
 
     // Update current HUD location & dialogue text immediately
     const activeView = body.getAttribute('data-view') || 'profile';
@@ -1464,8 +1569,41 @@
     });
   }
 
-  // Render default Calling Card ransom letters on init
+  // ---------------------------------------------------------
+  // 1B. Interactive Projects Compendium Deck
+  // ---------------------------------------------------------
+  let activeProjectIdx = 0;
+  const deckTabs = Array.from(document.querySelectorAll('.deck-tab'));
+  const compendiumPlate = document.getElementById('compendiumPlate');
+
+  function renderCompendiumPlate(idx) {
+    if (!compendiumPlate) return;
+    const list = (I18N[currentLang] && I18N[currentLang].deck) || I18N.en.deck;
+    const item = list[idx] || list[0];
+    activeProjectIdx = idx;
+    deckTabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+    compendiumPlate.innerHTML = `
+      <div>
+        <span class="plate-role mono">${item.role}</span>
+        <h3>${item.title}</h3>
+      </div>
+      <p>${item.copy}</p>
+      <div class="deck-chips">${item.chips.map((c) => `<span class="deck-chip">${c}</span>`).join('')}</div>
+      ${item.link ? `<div><a class="skin-btn skin-btn-red" href="${item.link}" target="_blank" rel="noopener noreferrer">${item.linkLabel}</a></div>` : ''}
+    `;
+  }
+
+  deckTabs.forEach((tab) => {
+    tab.addEventListener('mouseenter', playHoverTick);
+    tab.addEventListener('click', () => {
+      playSelectSnap();
+      renderCompendiumPlate(Number(tab.dataset.proj));
+    });
+  });
+
+  // Render default Calling Card ransom letters & Compendium Deck on init
   renderCallingCard('en');
+  renderCompendiumPlate(0);
 
   // Deep-link hash support (also supports #jp, #allout, #callingcard for instant QA!)
   if (hashView === 'jp') {
