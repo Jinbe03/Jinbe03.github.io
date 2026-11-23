@@ -1,5 +1,5 @@
 (function () {
-  // Theme toggle
+  // Toggle Washi (Light) / Sumi (Dark) mode
   const toggleBtn = document.getElementById('themeToggle');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {

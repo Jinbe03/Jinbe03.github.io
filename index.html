@@ -10,24 +10,38 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Shippori+Mincho:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>
     (function () {
+      const param = new URLSearchParams(window.location.search).get('theme');
       const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (saved === 'dark' || (!saved && prefersDark)) {
+      if (param === 'dark' || (!param && saved === 'dark')) {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
 </head>
 <body>
+  <!-- Subtle SVG filters for authentic organic Sumi-e brush edges -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="sumi-brush" x="-12%" y="-12%" width="124%" height="124%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5.5" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="sumi-stroke" x="-5%" y="-40%" width="110%" height="180%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04 0.16" numOctaves="2" seed="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
   <header class="site-header">
     <div class="container nav-inner">
       <a href="#top" class="brand" aria-label="Home">
-        <span class="brand-dot" aria-hidden="true"></span>
-        <span class="mono">jinbe03</span>
+        <span class="hanko" aria-hidden="true">BM</span>
+        <span class="mono brand-handle">jinbe03</span>
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
@@ -39,12 +53,12 @@
       </nav>
 
       <div class="nav-actions">
-        <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode" title="Toggle theme">
-          <svg class="icon-sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle light/dark ink mode" title="Toggle Washi / Sumi mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
           </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
           </svg>
         </button>
@@ -55,46 +69,100 @@
   <main id="top" class="container">
     <!-- HERO -->
     <section class="hero">
-      <div class="status-badge">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        Open to Remote Software Engineering Roles (Jr / Trainee)
-      </div>
+      <!-- Organic Sumi-e Enso brush wash accent (tapered fude stroke) -->
+      <svg class="hero-enso" viewBox="0 0 280 280" fill="none" aria-hidden="true">
+        <g filter="url(#sumi-brush)">
+          <!-- Main variable-width ink body: thick press entry, sweeping curve, dry taper -->
+          <path
+            d="M 164 34
+               C 112 20, 44 58, 30 124
+               C 16 190, 62 246, 134 246
+               C 202 246, 250 192, 240 124
+               C 234 90, 214 66, 194 52
+               C 208 68, 224 94, 226 126
+               C 230 182, 188 224, 134 224
+               C 78 224, 42 182, 52 128
+               C 62 76, 114 44, 160 52
+               C 172 54, 174 37, 164 34 Z"
+            fill="currentColor"
+            opacity="0.92"
+          />
+          <!-- Dry-brush kasure bristle wisps at the release tail -->
+          <path
+            d="M 196 54 C 218 70, 234 96, 236 126"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-dasharray="18 7 9 6 14 10"
+            opacity="0.55"
+          />
+          <path
+            d="M 184 44 C 206 56, 224 76, 232 102"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-dasharray="10 8 22 9"
+            opacity="0.4"
+          />
+        </g>
+      </svg>
 
-      <h1>Bruno R. Maldonado</h1>
-      <p class="hero-role">Software Engineer &middot; Python, Backend &amp; Full-Stack</p>
+      <div class="hero-content">
+        <div class="status-badge">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          Open to Remote Software Engineering Roles (Jr / Trainee)
+        </div>
 
-      <p class="hero-bio">
-        Computer Engineering senior (INACAP, Dec 2026) based in <strong>Santiago, Chile</strong>.
-        Former Software &amp; Data Engineering Intern at <strong>Huawei Technologies</strong>.
-        I build reliable backend systems, automate data workflows, optimize SQL at scale, and ship clean full-stack software.
-      </p>
+        <h1>Bruno R. Maldonado</h1>
+        <p class="hero-role">Software Engineer &middot; Python, Backend &amp; Full-Stack</p>
 
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="assets/CV_Bruno_Maldonado_EN.pdf" download>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Resume (EN)
-        </a>
-        <a class="btn btn-secondary" href="assets/CV_Bruno_Maldonado_ES.pdf" download>
-          CV (ES)
-        </a>
-        <a class="btn btn-ghost" href="https://github.com/Jinbe03" target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
-          LinkedIn
-        </a>
-      </div>
+        <p class="hero-bio">
+          Computer Engineering senior (INACAP, Dec 2026) based in <strong>Santiago, Chile</strong>.
+          Former Software &amp; Data Engineering Intern at <strong>Huawei Technologies</strong>.
+          I build reliable backend systems, automate data workflows, optimize SQL at scale, and ship clean full-stack software.
+        </p>
 
-      <div class="quick-meta mono">
-        <span>Santiago, Chile (UTC-3)</span>
-        <span aria-hidden="true">&middot;</span>
-        <span>Spanish (Native) &amp; English (B1 Technical/Conversational)</span>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="assets/CV_Bruno_Maldonado_EN.pdf" download>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Resume (EN)
+          </a>
+          <a class="btn btn-secondary" href="assets/CV_Bruno_Maldonado_ES.pdf" download>
+            CV (ES)
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/Jinbe03" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/bruno-maldonado-software-engineer" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+        </div>
+
+        <div class="quick-meta mono">
+          <span>Santiago, Chile (UTC-3)</span>
+          <span class="meta-sep" aria-hidden="true">/</span>
+          <span>Spanish (Native) &amp; English (B1 Technical)</span>
+        </div>
       </div>
     </section>
+
+    <!-- Tapered Sumi-e dry-brush horizontal divider -->
+    <div class="ink-divider" aria-hidden="true">
+      <svg viewBox="0 0 800 18" preserveAspectRatio="none">
+        <path
+          d="M 4 9 Q 190 6, 410 9.5 T 796 8.5"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          fill="none"
+          filter="url(#sumi-stroke)"
+        />
+      </svg>
+    </div>
 
     <!-- EXPERIENCE -->
     <section id="experience" class="section">
@@ -149,7 +217,7 @@
               <h3>Multinational Financial Compliance Engine</h3>
             </div>
             <a class="repo-link mono" href="https://github.com/Jinbe03/Nuam" target="_blank" rel="noopener noreferrer">
-              Source &nearr;
+              Repository &nearr;
             </a>
           </div>
 
@@ -176,17 +244,17 @@
           <div class="card-top">
             <div>
               <span class="role-label mono">Backend Lead</span>
-              <h3>Mobile Nutrition Tracking App</h3>
+              <h3>Life Harmony &mdash; AI Mobile Nutrition App</h3>
             </div>
-            <span class="repo-muted mono">Academic / Team</span>
+            <span class="repo-muted mono">Mobile &amp; AI</span>
           </div>
 
           <p class="project-desc">
-            Cross-platform mobile application backed by a real-time cloud database designed for fast synchronization and offline persistence.
+            Cross-platform mobile application combining <strong>AI-assisted calorie tracking</strong> with a real-time cloud backend built for fast synchronization and offline persistence.
           </p>
 
           <ul class="bullet-list compact">
-            <li>Architected real-time <strong>Firebase / Firestore</strong> data models with offline support.</li>
+            <li>Architected real-time <strong>Firebase / Firestore</strong> data models supporting seamless mobile sync and offline persistence.</li>
             <li>Configured granular Firestore security rules and scalable authentication to protect sensitive user health records.</li>
             <li>Optimized API response latency and navigation flows, improving navigation efficiency by <strong>25%</strong>.</li>
           </ul>
@@ -194,6 +262,7 @@
           <div class="tags">
             <span class="tag">Dart</span>
             <span class="tag">Flutter</span>
+            <span class="tag">AI Integration</span>
             <span class="tag">Firebase</span>
             <span class="tag">Firestore Security Rules</span>
           </div>
@@ -206,7 +275,7 @@
               <h3>Algorithms &amp; Engineering Fundamentals</h3>
             </div>
             <a class="repo-link mono" href="https://github.com/Jinbe03/Ruta_Google_2026" target="_blank" rel="noopener noreferrer">
-              Source &nearr;
+              Repository &nearr;
             </a>
           </div>
 
@@ -289,14 +358,48 @@
         </div>
 
         <div class="certs-block">
-          <p class="certs-label mono">Official Certifications (2025&ndash;2026)</p>
-          <ul class="certs-list">
-            <li><strong>Python</strong> <span>Santander Open Academy, 2026</span></li>
-            <li><strong>Cloud Architecture</strong> <span>INACAP &middot; 198 hrs</span></li>
-            <li><strong>Full-Stack Developer</strong> <span>INACAP &middot; 162 hrs</span></li>
-            <li><strong>Database Design &amp; Management</strong> <span>INACAP &middot; 126 hrs</span></li>
-            <li><strong>Agile Systems Design</strong> <span>INACAP &middot; 126 hrs</span></li>
-          </ul>
+          <p class="certs-label mono">Official Certifications (2025&ndash;2026) &middot; Click to view credential</p>
+          <div class="certs-grid">
+            <a class="cert-item cert-clickable" href="assets/certificados/Arquitectura_Cloud.pdf" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>Cloud Architecture</strong>
+                <span>INACAP &middot; 198 hrs</span>
+              </div>
+              <span class="cert-badge mono">PDF &nearr;</span>
+            </a>
+
+            <a class="cert-item cert-clickable" href="assets/certificados/Full_Stack.pdf" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>Full-Stack Developer</strong>
+                <span>INACAP &middot; 162 hrs</span>
+              </div>
+              <span class="cert-badge mono">PDF &nearr;</span>
+            </a>
+
+            <a class="cert-item cert-clickable" href="assets/certificados/Gestion_BD.pdf" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>Database Design &amp; Management</strong>
+                <span>INACAP &middot; 126 hrs</span>
+              </div>
+              <span class="cert-badge mono">PDF &nearr;</span>
+            </a>
+
+            <a class="cert-item cert-clickable" href="assets/certificados/Diseno_Agil.pdf" target="_blank" rel="noopener noreferrer">
+              <div>
+                <strong>Agile Systems Design</strong>
+                <span>INACAP &middot; 126 hrs</span>
+              </div>
+              <span class="cert-badge mono">PDF &nearr;</span>
+            </a>
+
+            <div class="cert-item">
+              <div>
+                <strong>Python</strong>
+                <span>Santander Open Academy &middot; 2026</span>
+              </div>
+              <span class="cert-badge muted mono">2026</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -332,9 +435,26 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <span class="mono">&copy; 2026 Bruno R. Maldonado (@Jinbe03)</span>
-      <span class="mono">Santiago, Chile &middot; Hosted on GitHub Pages</span>
+    <div class="container">
+      <div class="ink-divider footer-divider" aria-hidden="true">
+        <svg viewBox="0 0 800 18" preserveAspectRatio="none">
+          <path
+            d="M 8 9.5 Q 240 12, 460 8.5 T 792 9"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            fill="none"
+            filter="url(#sumi-stroke)"
+          />
+        </svg>
+      </div>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="hanko hanko-sm" aria-hidden="true">BM</span>
+          <span class="mono">&copy; 2026 Bruno R. Maldonado (@Jinbe03)</span>
+        </div>
+        <span class="mono">Santiago, Chile &middot; GitHub Pages</span>
+      </div>
     </div>
   </footer>
 
