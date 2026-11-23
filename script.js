@@ -417,65 +417,223 @@
     return audioCtx;
   }
 
+  // Reusable noise buffer for tactile paper-flick / slash / shatter foley
+  let cachedNoiseBuf = null;
+  function getNoiseBuffer(ctx) {
+    if (!cachedNoiseBuf || cachedNoiseBuf.sampleRate !== ctx.sampleRate) {
+      const len = Math.floor(ctx.sampleRate * 0.4);
+      cachedNoiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = cachedNoiseBuf.getChannelData(0);
+      for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+    }
+    return cachedNoiseBuf;
+  }
+
+  // 1. Iconic Persona-style Hover: crisp card/paper flick + metallic micro-snap
   function playHoverTick() {
     if (!sfxEnabled) return;
     const ctx = ensureAudio();
     if (!ctx) return;
+    const t = ctx.currentTime;
+
+    // Layer A: razor-sharp paper-flick transient
+    const noise = ctx.createBufferSource();
+    noise.buffer = getNoiseBuffer(ctx);
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.setValueAtTime(3400, t);
+    bp.Q.setValueAtTime(2.6, t);
+    const nGain = ctx.createGain();
+    nGain.gain.setValueAtTime(0.09, t);
+    nGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
+    noise.connect(bp);
+    bp.connect(nGain);
+    nGain.connect(ctx.destination);
+    noise.start(t);
+    noise.stop(t + 0.028);
+
+    // Layer B: snappy woody/metallic pitch drop
     const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const oGain = ctx.createGain();
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(560, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(920, ctx.currentTime + 0.038);
-    gain.gain.setValueAtTime(0.032, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.042);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.046);
+    osc.frequency.setValueAtTime(1450, t);
+    osc.frequency.exponentialRampToValueAtTime(460, t + 0.032);
+    oGain.gain.setValueAtTime(0.045, t);
+    oGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.036);
+    osc.connect(oGain);
+    oGain.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.04);
   }
 
+  // 2. Iconic Confirm Click: diagonal blade/card whip + sub-thump + stylish 2-note jazz stab
   function playSelectSnap() {
     if (!sfxEnabled) return;
     const ctx = ensureAudio();
     if (!ctx) return;
     const t = ctx.currentTime;
-    [349.23, 698.46].forEach((freq, idx) => {
+
+    // Layer A: tactile slash / card-whip swoosh
+    const noise = ctx.createBufferSource();
+    noise.buffer = getNoiseBuffer(ctx);
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.setValueAtTime(900, t);
+    bp.frequency.exponentialRampToValueAtTime(4600, t + 0.055);
+    bp.frequency.exponentialRampToValueAtTime(1200, t + 0.14);
+    bp.Q.setValueAtTime(1.8, t);
+    const nGain = ctx.createGain();
+    nGain.gain.setValueAtTime(0.11, t);
+    nGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+    noise.connect(bp);
+    bp.connect(nGain);
+    nGain.connect(ctx.destination);
+    noise.start(t);
+    noise.stop(t + 0.16);
+
+    // Layer B: physical sub-bass punch
+    const sub = ctx.createOscillator();
+    const subGain = ctx.createGain();
+    sub.type = 'sine';
+    sub.frequency.setValueAtTime(165, t);
+    sub.frequency.exponentialRampToValueAtTime(44, t + 0.09);
+    subGain.gain.setValueAtTime(0.14, t);
+    subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+    sub.connect(subGain);
+    subGain.connect(ctx.destination);
+    sub.start(t);
+    sub.stop(t + 0.12);
+
+    // Layer C: stylish 2-note staccato jazz-horn accent (D5 -> A5)
+    const notes = [
+      { f: 587.33, delay: 0.0, dur: 0.075 },
+      { f: 880.00, delay: 0.045, dur: 0.14 }
+    ];
+    notes.forEach(({ f, delay, dur }) => {
       const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = idx === 0 ? 'sawtooth' : 'triangle';
-      osc.frequency.setValueAtTime(freq, t + idx * 0.03);
-      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, t + 0.11 + idx * 0.03);
-      gain.gain.setValueAtTime(0.042, t + idx * 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15 + idx * 0.03);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(t + idx * 0.03);
-      osc.stop(t + 0.17 + idx * 0.03);
+      const filter = ctx.createBiquadFilter();
+      const g = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(f, t + delay);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(2600, t + delay);
+      filter.frequency.exponentialRampToValueAtTime(780, t + delay + dur);
+      g.gain.setValueAtTime(0.038, t + delay);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + delay + dur);
+      osc.connect(filter);
+      filter.connect(g);
+      g.connect(ctx.destination);
+      osc.start(t + delay);
+      osc.stop(t + delay + dur + 0.01);
     });
   }
 
+  // 3. Iconic Cancel / Close / Back: reverse downward whip + muted drop
+  function playBackCancel() {
+    if (!sfxEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = getNoiseBuffer(ctx);
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.setValueAtTime(3400, t);
+    bp.frequency.exponentialRampToValueAtTime(620, t + 0.11);
+    const nGain = ctx.createGain();
+    nGain.gain.setValueAtTime(0.075, t);
+    nGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    noise.connect(bp);
+    bp.connect(nGain);
+    nGain.connect(ctx.destination);
+    noise.start(t);
+    noise.stop(t + 0.13);
+
+    [440, 293.66].forEach((f, idx) => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(f, t + idx * 0.04);
+      g.gain.setValueAtTime(0.045, t + idx * 0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.04 + 0.08);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(t + idx * 0.04);
+      osc.stop(t + idx * 0.04 + 0.09);
+    });
+  }
+
+  // 4. Ultra-subtle Dialogue Typewriter micro-tick
+  function playTypeTick() {
+    if (!sfxEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(920 + Math.random() * 140, t);
+    g.gain.setValueAtTime(0.007, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.014);
+    osc.connect(g);
+    g.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.016);
+  }
+
+  // 5. All-Out Attack Finisher: glass/spark shatter + sub-boom + dramatic detective jazz chord
   function playAllOutHit() {
     if (!sfxEnabled) return;
     const ctx = ensureAudio();
     if (!ctx) return;
     const t = ctx.currentTime;
-    // Dramatic brassy power chord hit + sub punch
-    [110, 220, 329.63, 440, 523.25].forEach((freq) => {
+
+    // Metallic shatter crash
+    const noise = ctx.createBufferSource();
+    noise.buffer = getNoiseBuffer(ctx);
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.setValueAtTime(2400, t);
+    const nGain = ctx.createGain();
+    nGain.gain.setValueAtTime(0.14, t);
+    nGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.36);
+    noise.connect(hp);
+    hp.connect(nGain);
+    nGain.connect(ctx.destination);
+    noise.start(t);
+    noise.stop(t + 0.38);
+
+    // Deep cinematic impact boom
+    const sub = ctx.createOscillator();
+    const sGain = ctx.createGain();
+    sub.type = 'sine';
+    sub.frequency.setValueAtTime(140, t);
+    sub.frequency.exponentialRampToValueAtTime(32, t + 0.34);
+    sGain.gain.setValueAtTime(0.22, t);
+    sGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+    sub.connect(sGain);
+    sGain.connect(ctx.destination);
+    sub.start(t);
+    sub.stop(t + 0.44);
+
+    // Rich Persona-style minor-major-9th brass chord stab (D-F-A-C#-E)
+    [146.83, 293.66, 349.23, 440.00, 554.37, 659.25].forEach((freq) => {
       const osc = ctx.createOscillator();
       const filter = ctx.createBiquadFilter();
       const gain = ctx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(freq, t);
+      osc.frequency.setValueAtTime(freq, t + 0.02);
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(2400, t);
-      filter.frequency.exponentialRampToValueAtTime(320, t + 0.55);
-      gain.gain.setValueAtTime(0.038, t);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+      filter.frequency.setValueAtTime(3400, t + 0.02);
+      filter.frequency.exponentialRampToValueAtTime(420, t + 0.72);
+      gain.gain.setValueAtTime(0.036, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.78);
       osc.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
-      osc.start(t);
-      osc.stop(t + 0.62);
+      osc.start(t + 0.02);
+      osc.stop(t + 0.8);
     });
   }
 
@@ -632,6 +790,7 @@
     let i = 0;
     typeTimer = setInterval(() => {
       dialogueTextEl.textContent += fullLine.charAt(i);
+      if (i % 4 === 0 && fullLine.charAt(i) !== ' ') playTypeTick();
       i++;
       if (i >= fullLine.length) {
         clearInterval(typeTimer);
@@ -691,7 +850,7 @@
 
   function closeCallingCard() {
     if (!callingCardOverlay) return;
-    playHoverTick();
+    playBackCancel();
     callingCardOverlay.classList.remove('active');
     callingCardOverlay.setAttribute('aria-hidden', 'true');
   }
@@ -814,7 +973,7 @@
 
   function returnToTitle() {
     if (body.classList.contains('mode-title')) return;
-    playSelectSnap();
+    playBackCancel();
     const label = currentLang === 'jp' ? 'タイトル' : (currentLang === 'es' ? 'INICIO' : 'TITLE SCREEN');
     triggerWipe(label, I18N[currentLang].locs.profile, false, () => {
       body.classList.add('mode-title');
@@ -898,7 +1057,7 @@
 
   function closePdfModal() {
     if (!pdfModal || !pdfModal.classList.contains('open')) return;
-    playHoverTick();
+    playBackCancel();
     pdfModal.classList.remove('open');
     pdfModal.setAttribute('aria-hidden', 'true');
     pdfFrame.src = '';
