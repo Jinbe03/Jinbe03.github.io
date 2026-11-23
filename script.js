@@ -84,11 +84,16 @@
       exp_b2: 'Contributed to data processing and exploratory analysis for <strong>customer churn</strong> initiatives, cleaning and transforming large-scale datasets into actionable retention metrics.',
       exp_b3: 'Optimized complex SQL queries and relational database models at national scale, <strong>cutting data processing time by 35%</strong> while safeguarding integrity across mission-critical reports.',
       code_proj: 'STOP 03 // EXPRESS CAR 02', hdr_proj: 'SELECTED PROJECTS', btn_repo: 'GITHUB REPO ↗',
-      p1_role: '01 // TECH LEAD', p1_title: 'Multinational Financial Compliance Engine',
+      btn_live: 'LIVE SITE ↗', btn_live_app: 'LIVE APP ↗',
+      p0_role: '01 // PRODUCTION DEPLOY', p0_title: 'PhantomSW — Multi-Vertical SaaS Platform',
+      p0_copy: 'Production web platform built in a <strong>React, Vite &amp; Serverless Functions</strong> architecture featuring <strong>Flow.cl</strong> live payments, automatic IP currency detection (CLP/USD), automated PDF receipts, and transactional emails with attachments.',
+      p0b_role: '02 // PRODUCTION DEPLOY', p0b_title: 'Salon & Barbershop 24/7 Booking Platform',
+      p0b_copy: 'Deployed booking &amp; management web app for salons and service businesses with <strong>24/7 online scheduling</strong>, real-time admin dashboard, cash-flow tracking, and <strong>Firebase / Firestore</strong> authentication &amp; security rules.',
+      p1_role: '03 // TECH LEAD', p1_title: 'Multinational Financial Compliance Engine',
       p1_copy: 'Full-stack platform managing complex tax compliance workflows across <strong>Chile, Peru, and Colombia</strong>. Includes brute-force lockout protection, RBAC admin dashboard, automated tax reporting (<strong>40% fewer manual errors</strong>), and a <strong>Jenkins CI/CD</strong> pipeline.',
-      p2_role: '02 // BACKEND LEAD', p2_title: 'Life Harmony — AI Mobile Nutrition App',
+      p2_role: '04 // BACKEND LEAD', p2_title: 'Life Harmony — AI Mobile Nutrition App',
       p2_copy: 'Cross-platform mobile app combining <strong>AI-assisted calorie tracking</strong> with a real-time <strong>Firebase / Firestore</strong> backend, offline persistence, granular security rules for sensitive health records, and <strong>+25% navigation efficiency</strong>.',
-      p3_role: '03 // CONTINUOUS PRACTICE', p3_title: 'Algorithms & Engineering Fundamentals',
+      p3_role: '05 // CONTINUOUS PRACTICE', p3_title: 'Algorithms & Engineering Fundamentals',
       p3_copy: 'Open Python repository documenting algorithmic problem-solving, clean code patterns, time/space complexity optimization, and core computer science fundamentals written from scratch.',
       code_skills: 'STOP 04 // NIGHT SKYLINE LOADOUT', hdr_skills: 'TECHNICAL SKILLS',
       sk1: 'Backend & Data', sk2: 'Frontend & Mobile', sk3: 'Cloud & DevOps',
@@ -121,8 +126,8 @@
           'I also optimized national-scale SQL queries and relational models, cutting processing times by 35% while supporting customer churn analytics.'
         ],
         projects: [
-          'Three core builds: a multinational financial compliance engine (Chile/Peru/Colombia), Life Harmony (AI mobile nutrition app), and my Python algorithms repo.',
-          'Click any GITHUB REPO stamp to jump straight into the source code.'
+          'Five featured builds: PhantomSW & my deployed 24/7 Salon booking platform, plus a multinational tax engine, Life Harmony (AI), and my Python algorithms repo.',
+          'Scroll through the dossier cards or click any LIVE / REPO stamp to inspect them directly.'
         ],
         skills: [
           'My primary loadout centers on Python, Django, Node.js, PostgreSQL, and Firebase — backed by Docker, Jenkins CI/CD, and cloud fundamentals.',
@@ -177,11 +182,16 @@
       exp_b2: 'Participé en el procesamiento y análisis de datos para iniciativas de <strong>churn (fuga de clientes)</strong>, limpiando y transformando grandes volúmenes de datos en métricas accionables.',
       exp_b3: 'Optimicé consultas SQL complejas y modelos relacionales a escala nacional, <strong>reduciendo el tiempo de procesamiento en un 35%</strong> y asegurando integridad en reportes críticos.',
       code_proj: 'PARADA 03 // VAGÓN EXPRESO 02', hdr_proj: 'PROYECTOS DESTACADOS', btn_repo: 'VER REPO ↗',
-      p1_role: '01 // LÍDER TÉCNICO', p1_title: 'Motor de Cumplimiento Financiero Multinacional',
+      btn_live: 'SITIO EN VIVO ↗', btn_live_app: 'APP EN VIVO ↗',
+      p0_role: '01 // DESPLEGADO EN PRODUCCIÓN', p0_title: 'PhantomSW — Plataforma SaaS Multi-Vertical',
+      p0_copy: 'Plataforma web en producción construida con <strong>React, Vite y Serverless Functions</strong> con pagos reales vía <strong>Flow.cl</strong>, detección automática de divisa por IP (CLP/USD), comprobantes PDF automáticos y correos transaccionales con adjuntos.',
+      p0b_role: '02 // DESPLEGADO EN PRODUCCIÓN', p0b_title: 'Plataforma de Reservas 24/7 para Peluquerías',
+      p0b_copy: 'Aplicación web desplegada para salones y negocios de servicios con <strong>agenda online 24/7</strong>, panel administrativo en tiempo real, control de caja y autenticación + reglas de seguridad en <strong>Firebase / Firestore</strong>.',
+      p1_role: '03 // LÍDER TÉCNICO', p1_title: 'Motor de Cumplimiento Financiero Multinacional',
       p1_copy: 'Plataforma full-stack para gestionar flujos impositivos complejos en <strong>Chile, Perú y Colombia</strong>. Incluye protección contra fuerza bruta, panel administrativo RBAC, automatización tributaria (<strong>40% menos errores manuales</strong>) y pipeline <strong>CI/CD con Jenkins</strong>.',
-      p2_role: '02 // LÍDER BACKEND', p2_title: 'Life Harmony — App Móvil de Nutrición con IA',
+      p2_role: '04 // LÍDER BACKEND', p2_title: 'Life Harmony — App Móvil de Nutrición con IA',
       p2_copy: 'App móvil multiplataforma que combina <strong>control calórico asistido con IA</strong> y base de datos en tiempo real <strong>Firebase / Firestore</strong>, persistencia offline, reglas de seguridad granulares y <strong>+25% eficiencia de navegación</strong>.',
-      p3_role: '03 // PRÁCTICA CONTINUA', p3_title: 'Algoritmos y Fundamentos de Ingeniería',
+      p3_role: '05 // PRÁCTICA CONTINUA', p3_title: 'Algoritmos y Fundamentos de Ingeniería',
       p3_copy: 'Repositorio abierto en Python documentando resolución de problemas algorítmicos, código limpio, optimización de complejidad y fundamentos de ciencias de la computación escritos desde cero.',
       code_skills: 'PARADA 04 // EQUIPAMIENTO TÉCNICO', hdr_skills: 'HABILIDADES TÉCNICAS',
       sk1: 'Backend y Datos', sk2: 'Frontend y Móvil', sk3: 'Cloud y DevOps',
@@ -214,8 +224,8 @@
           'También optimicé consultas SQL a escala nacional reduciendo el tiempo de procesamiento en un 35% y apoyé análisis de fuga de clientes.'
         ],
         projects: [
-          'Tres proyectos clave: motor tributario multinacional (Chile/Perú/Colombia), Life Harmony (app móvil con IA) y mi repo de algoritmos en Python.',
-          'Haz clic en VER REPO en cualquiera para revisar el código directo en GitHub.'
+          'Cinco proyectos clave: PhantomSW y la app desplegada de peluquerías 24/7, más el motor tributario multinacional, Life Harmony (IA) y mi repo de algoritmos.',
+          'Haz scroll en las tarjetas o clic en SITIO EN VIVO / VER REPO para revisarlos directamente.'
         ],
         skills: [
           'Mi stack principal gira en torno a Python, Django, Node.js, PostgreSQL y Firebase — respaldado por Docker, Jenkins CI/CD y Cloud.',
@@ -270,11 +280,16 @@
       exp_b2: '顧客離脱（<strong>チャーン分析</strong>）プロジェクトにて大規模データセットの前処理・探索的分析を担当し、施策に直結する指標を整備。',
       exp_b3: '全国規模の複雑なSQLクエリおよびリレーショナル設計を最適化し、<strong>データ処理時間を35%短縮</strong>。',
       code_proj: '第3駅 // 急行2号車', hdr_proj: '主要プロジェクト', btn_repo: 'GITHUBを見る ↗',
-      p1_role: '01 // テックリード', p1_title: '多国籍 金融・税務コンプライアンスエンジン',
+      btn_live: '公開サイト ↗', btn_live_app: '公開アプリ ↗',
+      p0_role: '01 // 本番運用中', p0_title: 'PhantomSW — マルチ業種SaaSプラットフォーム',
+      p0_copy: '<strong>React・Vite・Serverless Functions</strong>で構築した本番Web基盤。<strong>Flow.cl</strong>決済連携、IP通貨自動切替(CLP/USD)、PDF領収書自動生成、添付付きトランザクションメールを実装。',
+      p0b_role: '02 // 本番運用中', p0b_title: '美容室・サロン向け24時間オンライン予約アプリ',
+      p0b_copy: 'サロン・サービス業向けに本番デプロイ済みの予約管理アプリ。<strong>24時間Web予約</strong>、リアルタイム管理画面、収支管理、<strong>Firebase / Firestore</strong>認証＆セキュリティルールを搭載。',
+      p1_role: '03 // テックリード', p1_title: '多国籍 金融・税務コンプライアンスエンジン',
       p1_copy: '<strong>チリ・ペルー・コロンビア</strong>の税務ワークフローを統合管理するフルスタック基盤。ブルートフォース防御、RBAC管理画面、税務レポート自動化（<strong>手作業ミス40%削減</strong>）、<strong>Jenkins CI/CD</strong> を構築。',
-      p2_role: '02 // バックエンドリード', p2_title: 'Life Harmony — AI栄養管理モバイルアプリ',
+      p2_role: '04 // バックエンドリード', p2_title: 'Life Harmony — AI栄養管理モバイルアプリ',
       p2_copy: '<strong>AIカロリー管理</strong>とリアルタイム <strong>Firebase / Firestore</strong> バックエンドを統合したモバイルアプリ。オフライン永続化、厳格なセキュリティルール、<strong>操作効率+25%向上</strong>を実現。',
-      p3_role: '03 // 継続トレーニング', p3_title: 'アルゴリズム＆計算機科学の基礎',
+      p3_role: '05 // 継続トレーニング', p3_title: 'アルゴリズム＆計算機科学の基礎',
       p3_copy: 'Pythonでゼロから実装したアルゴリズム問題解決、計算量最適化、クリーンコード設計を記録する公開リポジトリ。',
       code_skills: '第4駅 // 技術ロードアウト', hdr_skills: 'テクニカルスキル',
       sk1: 'バックエンド＆データ', sk2: 'フロント＆モバイル', sk3: 'クラウド＆DevOps',
@@ -307,8 +322,8 @@
           '全国規模のSQL最適化によりデータ処理速度を35%高速化しました。'
         ],
         projects: [
-          '多国籍税務システム、AI栄養管理アプリ「Life Harmony」、Pythonアルゴリズム集の3本を厳選しています。',
-          '「GITHUBを見る」から実際のソースコードを確認できます。'
+          '本番稼働中のPhantomSW＆美容室24時間予約アプリに加え、多国籍税務基盤・AI栄養アプリ・Pythonアルゴリズム集の5本を掲載しています。',
+          'スクロールして各カードを確認し、公開サイトやGitHubリポジトリも直接チェックできます。'
         ],
         skills: [
           'Python・Django・Node.js・PostgreSQL・Firebaseを軸に、DockerとJenkins CI/CDで堅実な開発を行います。',
