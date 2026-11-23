@@ -1,15 +1,17 @@
-# Bruno R. Maldonado (@Jinbe03) — Software Engineer Portfolio
+# Bruno R. Maldonado (@Jinbe03) — Interactive Software Engineer Portfolio
 
-Minimalist, fast, zero-dependency portfolio hosted on **GitHub Pages** (`https://jinbe03.github.io`).
+Persona 5 × Sumi-e inspired interactive 3D subway station portfolio hosted on **GitHub Pages** (`https://jinbe03.github.io`).
 
-## Highlights
-- Pure HTML, CSS, and vanilla JS (no build step, instant load, light/dark mode).
-- Aligned with current EN & ES resumes (`assets/CV_Bruno_Maldonado_EN.pdf` and `assets/CV_Bruno_Maldonado_ES.pdf`).
-- Focused on Backend, Python, SQL optimization, and Full-Stack engineering.
+## Features
+- **3D Perspective Camera Rig:** Dynamic perspective shifts between the subway platform (`Profile`, `Skills`, `Contact`) and inside the speeding express train car (`Experience`, `Projects`, `Certs & Edu`), with live spring-damped mouse parallax.
+- **Passing Train Consist & Kinetic Transitions:** Custom-illustrated transparent subway cars gliding across the tracks, plus diagonal express-wipe cut-ins on station switches.
+- **Full Game-Style Controls:** Mouse hover/click, keyboard navigation (`↑`/`↓`, `W`/`S`, `1–6`, `Enter`, `Esc`), and toggleable synthesized Web Audio UI sound effects (`SFX: ON/OFF`).
+- **Recruiter Fast-Track:** Persistent HUD downloads for EN/ES PDF resumes (`assets/CV_Bruno_Maldonado_EN.pdf`, `assets/CV_Bruno_Maldonado_ES.pdf`) and verifiable official certificate PDFs (`assets/certificados/`).
+- **Zero Build Step:** Pure HTML5, CSS3, and vanilla JS — instant deployment on GitHub Pages.
 
 ## Deploy to GitHub Pages
 1. Create a public repository named **`Jinbe03.github.io`** on GitHub (`https://github.com/new`).
-2. Push this folder to `main`:
+2. Push this repository:
    ```bash
    git remote add origin https://github.com/Jinbe03/Jinbe03.github.io.git
    git push -u origin main
