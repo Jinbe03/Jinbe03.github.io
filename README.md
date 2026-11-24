@@ -1,6 +1,6 @@
 # Bruno R. Maldonado (@Jinbe03) — Interactive Software Engineer Portfolio
 
-Persona 5 × Sumi-e inspired interactive 3D subway station portfolio hosted on **GitHub Pages** (`https://jinbe03.github.io`).
+Persona 5 inspired interactive 3D subway station portfolio hosted on **GitHub Pages** (`https://jinbe03.github.io`).
 
 ## Features
 - **3D Perspective Camera Rig:** Dynamic perspective shifts between the subway platform (`Profile`, `Skills`, `Contact`) and inside the speeding express train car (`Experience`, `Projects`, `Certs & Edu`), with live spring-damped mouse parallax.
