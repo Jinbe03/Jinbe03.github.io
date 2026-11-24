@@ -145,10 +145,13 @@
       btn_github: 'GITHUB REPOSITORIES ↗', btn_inspect_resume: 'INSPECT RESUME PDF',
       pdf_stamp: 'CONFIDENTIAL // IN-PAGE VIEWER', pdf_download: 'DOWNLOAD PDF', pdf_newtab: 'NEW TAB ↗', pdf_close: 'CLOSE ×',
       aoa_kicker: 'ALL-OUT ATTACK // FINISHER', aoa_headline: 'THE CODE IS CLEAN.', aoa_sub: 'BRUNO MALDONADO · MISSION COMPLETE · CLICK TO CONTINUE',
-      cc_slogan: 'SHIP YOUR CODE',
-      cc_target: 'Your Team',
-      cc_sub: '- The builders of great software',
-      cc_body: 'We know your backlog is full of slow queries and manual chaos. That is why I will arrive remotely from Chile to automate it and ship clean production code.',
+      hud_resume: 'RESUME (EN)',
+      resume_pdf: 'assets/CV_Bruno_Maldonado_EN.pdf',
+      resume_pdf_title: 'RESUME — BRUNO MALDONADO (ENGLISH)',
+      cc_slogan: 'TAKE YOUR CODE',
+      cc_target: 'Legacy Codebase',
+      cc_sub: '- The Sinner of Spaghetti & Bugs',
+      cc_body: 'We know everything you have done. Your code is impure, tangled in slow queries and silent bugs. That is why we will infiltrate your repository and purify every last line.',
       cc_from: 'FROM,',
       cc_sign: 'Bruno Maldonado',
       dialogues: {
@@ -278,10 +281,13 @@
       btn_github: 'REPOSITORIOS GITHUB ↗', btn_inspect_resume: 'VER CV EN PDF',
       pdf_stamp: 'CONFIDENCIAL // VISOR INTEGRADO', pdf_download: 'DESCARGAR PDF', pdf_newtab: 'NUEVA PESTAÑA ↗', pdf_close: 'CERRAR ×',
       aoa_kicker: 'ALL-OUT ATTACK // REMATE', aoa_headline: 'EL CÓDIGO ESTÁ LIMPIO.', aoa_sub: 'BRUNO MALDONADO · MISIÓN CUMPLIDA · CLIC PARA SEGUIR',
-      cc_slogan: 'SHIP YOUR CODE',
-      cc_target: 'Tu Equipo',
-      cc_sub: '- Los creadores de software',
-      cc_body: 'Sabemos que su backlog tiene consultas lentas y tareas manuales. Por eso llegaré remoto desde Chile a automatizar el caos y entregar código limpio en producción.',
+      hud_resume: 'CV (ES)',
+      resume_pdf: 'assets/CV_Bruno_Maldonado_ES.pdf',
+      resume_pdf_title: 'CURRÍCULUM — BRUNO MALDONADO (ESPAÑOL)',
+      cc_slogan: 'TAKE YOUR CODE',
+      cc_target: 'Código Impuro',
+      cc_sub: '- El Pecador del Caos y los Bugs',
+      cc_body: 'Sabemos todo lo que has hecho. Tu código es impuro, atrapado en consultas lentas y errores ocultos. Por eso entraremos a limpiarlo y purificar cada última línea.',
       cc_from: 'DE PARTE DE,',
       cc_sign: 'Bruno Maldonado',
       dialogues: {
@@ -411,10 +417,13 @@
       btn_github: 'GITHUB リポジトリ ↗', btn_inspect_resume: '履歴書PDFを確認',
       pdf_stamp: '極秘資料 // ページ内ビューア', pdf_download: 'PDF保存', pdf_newtab: '別タブで開く ↗', pdf_close: '閉じる ×',
       aoa_kicker: '総攻撃 // フィニッシュ', aoa_headline: 'コードは完璧だ。', aoa_sub: 'BRUNO MALDONADO · ミッション完了 · クリックで戻る',
-      cc_slogan: 'SHIP YOUR CODE',
-      cc_target: '貴社開発チーム殿',
-      cc_sub: '- 未来を創るエンジニアへ',
-      cc_body: '遅いSQLと手作業のバックログを確認した。サンティアゴからフルリモートで参上し、自動化とクリーンなコードで課題を鮮やかに解決する。',
+      hud_resume: '履歴書 (JP) ★',
+      resume_pdf: 'assets/CV_Bruno_Maldonado_JP.pdf',
+      resume_pdf_title: '職務経歴書 — BRUNO MALDONADO (日本語 ★)',
+      cc_slogan: 'TAKE YOUR CODE',
+      cc_target: '不純なコード殿',
+      cc_sub: '- バグと遅延の大罪人',
+      cc_body: 'お前のやってきたことは全て知っている。そのコードは不純だ。遅いクエリとバグの闇を暴き、俺たちが隅々まで浄化してやる。',
       cc_from: '差出人：',
       cc_sign: 'Bruno Maldonado',
       dialogues: {
@@ -523,6 +532,14 @@
       dict.radar.forEach((lbl, i) => {
         const tEl = document.getElementById('rad' + (i + 1));
         if (tEl) tEl.textContent = lbl;
+      });
+    }
+
+    // Sync all Resume / CV buttons to the currently active language PDF (EN / ES / Secret JP!)
+    if (dict.resume_pdf) {
+      document.querySelectorAll('.js-resume-pdf').forEach((btn) => {
+        btn.setAttribute('data-pdf', dict.resume_pdf);
+        btn.setAttribute('data-pdf-title', dict.resume_pdf_title || 'RESUME — BRUNO MALDONADO');
       });
     }
 

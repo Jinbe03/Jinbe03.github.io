@@ -245,15 +245,10 @@
       <button id="langToggle" class="hud-btn hud-btn-lang" type="button" title="Switch English / Español">
         <span id="langLabel">EN / ES</span>
       </button>
-      <button class="hud-btn hud-btn-primary js-open-pdf" type="button"
+      <button id="hudResumeBtn" class="hud-btn hud-btn-primary js-open-pdf js-resume-pdf" type="button"
               data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
               data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)">
-        <span data-i18n="hud_resume_en">RESUME (EN)</span>
-      </button>
-      <button class="hud-btn js-open-pdf" type="button"
-              data-pdf="assets/CV_Bruno_Maldonado_ES.pdf"
-              data-pdf-title="CURRÍCULUM — BRUNO MALDONADO (ESPAÑOL)">
-        <span data-i18n="hud_resume_es">CV (ES)</span>
+        <span data-i18n="hud_resume">RESUME (EN)</span>
       </button>
       <button id="bgmToggle" class="hud-btn hud-btn-audio" type="button" aria-pressed="false" title="Toggle Nu-Jazz House BGM">
         <span id="bgmLabel">&#9834; BGM: OFF</span>
@@ -448,7 +443,7 @@
                 <button class="skin-btn skin-btn-red" type="button" data-jump="experience" data-i18n="btn_board_exp">
                   BOARD EXPERIENCE CAR &rarr;
                 </button>
-                <button class="skin-btn skin-btn-light js-open-pdf" type="button"
+                <button class="skin-btn skin-btn-light js-open-pdf js-resume-pdf" type="button"
                         data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
                         data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)"
                         data-i18n="btn_view_resume">
@@ -762,7 +757,7 @@
                       <span class="reply-tri">&#9654;</span>
                       <span class="reply-txt" data-i18n="btn_linkedin">LINKEDIN PROFILE &nearr;</span>
                     </a>
-                    <button class="sns-reply-btn js-open-pdf" type="button"
+                    <button class="sns-reply-btn js-open-pdf js-resume-pdf" type="button"
                             data-pdf="assets/CV_Bruno_Maldonado_EN.pdf"
                             data-pdf-title="RESUME — BRUNO MALDONADO (ENGLISH)">
                       <span class="reply-tri">&#9654;</span>
