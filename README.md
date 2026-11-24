@@ -63,13 +63,3 @@ Built with **zero frameworks and zero build steps** — pure HTML5, CSS3, vanill
 - Initial release of the 3D Subway Station interactive portfolio on GitHub Pages with EN/ES support, Nu-Jazz BGM, in-page PDF viewer, and first Calling Card & All-Out Attack Easter Eggs.
 
 ---
-
-## Local Preview & Deployment
-
-Open `index.html` directly in any modern browser (no bundler or server required), or push changes to `main` to deploy automatically via GitHub Pages:
-
-```bash
-git add .
-git commit -m "chore: update portfolio"
-git push origin main
-```
