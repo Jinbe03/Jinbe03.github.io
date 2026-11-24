@@ -870,67 +870,300 @@
     });
   }
 
-  // Easter Egg #1 Theme: All-Out Attack Victory Brass Fanfare
-  function stopAllOutMusic() {
-    aoaTimers.forEach((id) => clearTimeout(id));
-    aoaTimers = [];
-  }
+  // Easter Egg #1 Theme & Authentic Multi-Phase All-Out Attack Audio Engine
+  // (100% Original Web Audio API Synthesis: Vinyl Scratch + Cut-In Shing + Brawl Hits
+  //  + 134 BPM Hip-Hop Brass Battle Groove inspired by classic Persona battle energy!)
+  let aoaMusicTimer = null;
+  let aoaMusicStep = 0;
+  let aoaPausedNormalBgm = false;
 
-  function playAllOutFanfare() {
-    stopAllOutMusic();
+  // Phase 1A: Classic Hip-Hop Vinyl Turntable Scratch ("Zzzip-Wika!")
+  function playVinylScratch() {
     if (!sfxEnabled && !bgmEnabled) return;
     const ctx = ensureAudio();
     if (!ctx) return;
+    const t = ctx.currentTime;
 
-    // Rising Persona-inspired jazz-rock victory horn melody after initial shatter boom
-    const melody = [
-      { t: 220,  f: 587.33, d: 0.13 }, // D5
-      { t: 360,  f: 698.46, d: 0.13 }, // F5
-      { t: 500,  f: 783.99, d: 0.13 }, // G5
-      { t: 640,  f: 880.00, d: 0.19 }, // A5
-      { t: 860,  f: 1046.50, d: 0.16 }, // C6
-      { t: 1040, f: 1174.66, d: 0.45 }, // D6 (victory hold!)
-      { t: 1580, f: 880.00, d: 0.14 }, // A5 strut
-      { t: 1760, f: 1046.50, d: 0.14 }, // C6 strut
-      { t: 1940, f: 1174.66, d: 0.55 }  // D6 final triumph
-    ];
+    [0, 0.14].forEach((offset, idx) => {
+      const noise = ctx.createBufferSource();
+      noise.buffer = getNoiseBuffer(ctx);
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.Q.setValueAtTime(5.2, t + offset);
+      if (idx === 0) {
+        bp.frequency.setValueAtTime(650, t + offset);
+        bp.frequency.exponentialRampToValueAtTime(2800, t + offset + 0.065);
+        bp.frequency.exponentialRampToValueAtTime(720, t + offset + 0.12);
+      } else {
+        bp.frequency.setValueAtTime(820, t + offset);
+        bp.frequency.exponentialRampToValueAtTime(3400, t + offset + 0.09);
+      }
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.11, t + offset);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + offset + 0.125);
+      noise.connect(bp);
+      bp.connect(g);
+      g.connect(ctx.destination);
+      noise.start(t + offset);
+      noise.stop(t + offset + 0.13);
+    });
+  }
 
-    melody.forEach((note) => {
-      const id = setTimeout(() => {
-        if (!alloutOverlay || !alloutOverlay.classList.contains('active')) return;
-        const nowT = ctx.currentTime;
+  // Phase 1B: Iconic Persona Eye Cut-In Metallic Blade "SHING!"
+  function playCutinShing() {
+    if (!sfxEnabled && !bgmEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+
+    [1567.98, 2349.32, 3135.96].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = i === 0 ? 'sawtooth' : 'triangle';
+      osc.frequency.setValueAtTime(freq * 0.85, t);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.12, t + 0.06);
+      osc.frequency.exponentialRampToValueAtTime(freq, t + 0.34);
+      g.gain.setValueAtTime(i === 0 ? 0.045 : 0.032, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.4);
+    });
+
+    // Sub punch underneath the cut-in rip
+    const sub = ctx.createOscillator();
+    const sg = ctx.createGain();
+    sub.type = 'sine';
+    sub.frequency.setValueAtTime(175, t);
+    sub.frequency.exponentialRampToValueAtTime(42, t + 0.18);
+    sg.gain.setValueAtTime(0.18, t);
+    sg.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    sub.connect(sg);
+    sg.connect(ctx.destination);
+    sub.start(t);
+    sub.stop(t + 0.24);
+  }
+
+  // Phase 2: Rapid Comic Dust-Cloud Brawl Punch / Slash / Crit Impacts
+  function playBrawlImpact(variant) {
+    if (!sfxEnabled && !bgmEnabled) return;
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+
+    // Punchy body thud
+    const kick = ctx.createOscillator();
+    const kg = ctx.createGain();
+    kick.type = 'sine';
+    kick.frequency.setValueAtTime(180 + (variant % 3) * 35, t);
+    kick.frequency.exponentialRampToValueAtTime(38, t + 0.1);
+    kg.gain.setValueAtTime(0.16, t);
+    kg.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    kick.connect(kg);
+    kg.connect(ctx.destination);
+    kick.start(t);
+    kick.stop(t + 0.13);
+
+    // Comic smack / slash burst
+    const noise = ctx.createBufferSource();
+    noise.buffer = getNoiseBuffer(ctx);
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.setValueAtTime(variant % 2 === 0 ? 1850 : 3200, t);
+    bp.frequency.exponentialRampToValueAtTime(620, t + 0.09);
+    bp.Q.setValueAtTime(1.4, t);
+    const ng = ctx.createGain();
+    ng.gain.setValueAtTime(0.12, t);
+    ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+    noise.connect(bp);
+    bp.connect(ng);
+    ng.connect(ctx.destination);
+    noise.start(t);
+    noise.stop(t + 0.11);
+
+    // Critical spark ping on every 2nd impact
+    if (variant % 2 === 1) {
+      const ping = ctx.createOscillator();
+      const pg = ctx.createGain();
+      ping.type = 'square';
+      ping.frequency.setValueAtTime(1174.66 + (variant * 120), t);
+      pg.gain.setValueAtTime(0.032, t);
+      pg.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+      ping.connect(pg);
+      pg.connect(ctx.destination);
+      ping.start(t);
+      ping.stop(t + 0.09);
+    }
+  }
+
+  // 134 BPM Hip-Hop Brass Battle Groove (Original Persona-3 Battle Vibe Synth!)
+  const BATTLE_BASS_32 = [
+    98.00, 0, 98.00, 116.54,  0, 98.00, 130.81, 0,
+    138.59, 0, 146.83, 0,     130.81, 116.54, 98.00, 87.31,
+    98.00, 0, 98.00, 116.54,  0, 130.81, 146.83, 0,
+    174.61, 0, 146.83, 130.81, 116.54, 0, 130.81, 146.83
+  ];
+
+  // Punchy 3-voice Trumpet / Brass Horn Battle Stabs (G minor high-energy riff!)
+  const BATTLE_BRASS_32 = {
+    0:  [392.00, 587.33, 783.99], // G4-D5-G5 BLAST!
+    3:  [466.16, 698.46, 932.33], // Bb stab
+    6:  [523.25, 783.99, 1046.50], // C stab
+    8:  [587.33, 880.00, 1174.66], // D5-A5-D6 HIGH STAB!
+    11: [523.25, 783.99],
+    14: [466.16, 698.46],
+    16: [392.00, 587.33, 783.99], // G BLAST!
+    19: [466.16, 698.46],
+    22: [587.33, 880.00, 1174.66], // D PEAK!
+    24: [698.46, 1046.50, 1396.91], // F6 SOARING HORN!
+    27: [587.33, 880.00],
+    30: [523.25, 783.99, 1046.50]
+  };
+
+  function playAllOutBattleStep() {
+    const ctx = ensureAudio();
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    const s16 = aoaMusicStep % 16;
+    const s32 = aoaMusicStep % 32;
+
+    // 1. Heavy Boom-Bap Hip-Hop Kick (steps 0, 6, 8, 10, 14)
+    if (s16 === 0 || s16 === 6 || s16 === 8 || s16 === 10 || s16 === 14) {
+      const k = ctx.createOscillator();
+      const kg = ctx.createGain();
+      k.type = 'sine';
+      k.frequency.setValueAtTime(148, t);
+      k.frequency.exponentialRampToValueAtTime(38, t + 0.085);
+      kg.gain.setValueAtTime(s16 === 0 || s16 === 8 ? 0.14 : 0.1, t);
+      kg.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+      k.connect(kg);
+      kg.connect(ctx.destination);
+      k.start(t);
+      k.stop(t + 0.13);
+    }
+
+    // 2. Snappy Boom-Bap Snare + Clap on beats 2 & 4 (steps 4, 12)
+    if (s16 === 4 || s16 === 12) {
+      const n = ctx.createBufferSource();
+      n.buffer = getNoiseBuffer(ctx);
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.setValueAtTime(2100, t);
+      bp.Q.setValueAtTime(0.9, t);
+      const ng = ctx.createGain();
+      ng.gain.setValueAtTime(0.095, t);
+      ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+      n.connect(bp);
+      bp.connect(ng);
+      ng.connect(ctx.destination);
+      n.start(t);
+      n.stop(t + 0.12);
+
+      // Snare body snap
+      const body = ctx.createOscillator();
+      const bg = ctx.createGain();
+      body.type = 'triangle';
+      body.frequency.setValueAtTime(215, t);
+      body.frequency.exponentialRampToValueAtTime(110, t + 0.05);
+      bg.gain.setValueAtTime(0.07, t);
+      bg.gain.exponentialRampToValueAtTime(0.0001, t + 0.065);
+      body.connect(bg);
+      bg.connect(ctx.destination);
+      body.start(t);
+      body.stop(t + 0.07);
+    }
+
+    // 3. Crispy 16th-Note Swinging Hi-Hats
+    if (s16 % 2 === 0 || s16 === 15) {
+      const n = ctx.createBufferSource();
+      n.buffer = getNoiseBuffer(ctx);
+      const hp = ctx.createBiquadFilter();
+      hp.type = 'highpass';
+      hp.frequency.setValueAtTime(7600, t);
+      const hg = ctx.createGain();
+      const openHat = s16 === 2 || s16 === 10;
+      hg.gain.setValueAtTime(openHat ? 0.026 : 0.015, t);
+      hg.gain.exponentialRampToValueAtTime(0.0001, t + (openHat ? 0.08 : 0.032));
+      n.connect(hp);
+      hp.connect(hg);
+      hg.connect(ctx.destination);
+      n.start(t);
+      n.stop(t + (openHat ? 0.09 : 0.04));
+    }
+
+    // 4. Driving Funky Battle Bassline
+    const bf = BATTLE_BASS_32[s32];
+    if (bf > 0) {
+      const b = ctx.createOscillator();
+      const flt = ctx.createBiquadFilter();
+      const bg = ctx.createGain();
+      b.type = 'sawtooth';
+      b.frequency.setValueAtTime(bf, t);
+      flt.type = 'lowpass';
+      flt.frequency.setValueAtTime(780, t);
+      flt.frequency.exponentialRampToValueAtTime(210, t + 0.14);
+      bg.gain.setValueAtTime(0.068, t);
+      bg.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      b.connect(flt);
+      flt.connect(bg);
+      bg.connect(ctx.destination);
+      b.start(t);
+      b.stop(t + 0.18);
+    }
+
+    // 5. High-Energy Persona-Style Staccato Trumpet / Brass Section Stabs!
+    const brassChord = BATTLE_BRASS_32[s32];
+    if (brassChord) {
+      const dur = (s32 === 0 || s32 === 8 || s32 === 16 || s32 === 24) ? 0.24 : 0.12;
+      brassChord.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
-        const filter = ctx.createBiquadFilter();
+        const flt = ctx.createBiquadFilter();
         const g = ctx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(note.f, nowT);
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(3200, nowT);
-        filter.frequency.exponentialRampToValueAtTime(950, nowT + note.d);
-        g.gain.setValueAtTime(0.055, nowT);
-        g.gain.exponentialRampToValueAtTime(0.0001, nowT + note.d + 0.04);
-        osc.connect(filter);
-        filter.connect(g);
+        osc.frequency.setValueAtTime(freq, t);
+        osc.detune.setValueAtTime(idx === 1 ? 6 : (idx === 2 ? -6 : 0), t);
+        flt.type = 'lowpass';
+        flt.frequency.setValueAtTime(950, t);
+        flt.frequency.exponentialRampToValueAtTime(3800, t + 0.025);
+        flt.frequency.exponentialRampToValueAtTime(1100, t + dur);
+        flt.Q.setValueAtTime(2.4, t);
+        g.gain.setValueAtTime(0.001, t);
+        g.gain.linearRampToValueAtTime(0.038, t + 0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.03);
+        osc.connect(flt);
+        flt.connect(g);
         g.connect(ctx.destination);
-        osc.start(nowT);
-        osc.stop(nowT + note.d + 0.06);
+        osc.start(t);
+        osc.stop(t + dur + 0.05);
+      });
+    }
 
-        // Funky backing bass hit on strong accents
-        if (note.t === 220 || note.t === 1040 || note.t === 1940) {
-          const b = ctx.createOscillator();
-          const bg = ctx.createGain();
-          b.type = 'triangle';
-          b.frequency.setValueAtTime(note.t === 1040 ? 196 : 146.83, nowT);
-          bg.gain.setValueAtTime(0.09, nowT);
-          bg.gain.exponentialRampToValueAtTime(0.0001, nowT + 0.35);
-          b.connect(bg);
-          bg.connect(ctx.destination);
-          b.start(nowT);
-          b.stop(nowT + 0.38);
-        }
-      }, note.t);
-      aoaTimers.push(id);
-    });
+    aoaMusicStep++;
+  }
+
+  function startAllOutBattleGroove() {
+    if (!sfxEnabled && !bgmEnabled) return;
+    if (aoaMusicTimer) clearInterval(aoaMusicTimer);
+    aoaMusicStep = 0;
+    ensureAudio();
+    playAllOutBattleStep();
+    aoaMusicTimer = setInterval(playAllOutBattleStep, 112); // ~134 BPM Hip-Hop Brass Battle!
+  }
+
+  function stopAllOutMusic() {
+    aoaTimers.forEach((id) => clearTimeout(id));
+    aoaTimers = [];
+    if (aoaMusicTimer) {
+      clearInterval(aoaMusicTimer);
+      aoaMusicTimer = null;
+    }
+    if (aoaPausedNormalBgm) {
+      aoaPausedNormalBgm = false;
+      if (bgmEnabled && !bgmTimer) {
+        bgmTimer = setInterval(playNuJazzStep, 123);
+      }
+    }
   }
 
   // Easter Egg #2 Theme: Calling Card Stealth Heist Groove (E minor suspense loop!)
@@ -1240,21 +1473,71 @@
   let allOutTimeout = null;
   let secretBuffer = '';
 
+  function flashAllOut() {
+    if (!alloutOverlay) return;
+    alloutOverlay.classList.remove('flash-hit');
+    void alloutOverlay.offsetWidth;
+    alloutOverlay.classList.add('flash-hit');
+  }
+
   function triggerAllOutAttack() {
     if (!alloutOverlay) return;
     stopCallingCardMusic();
-    playAllOutHit();
-    alloutOverlay.classList.add('active');
-    alloutOverlay.setAttribute('aria-hidden', 'false');
-    playAllOutFanfare();
+    stopAllOutMusic();
     if (allOutTimeout) clearTimeout(allOutTimeout);
-    allOutTimeout = setTimeout(closeAllOutAttack, 3800);
+
+    // Duck/pause background BGM cleanly so the Battle Groove owns the speakers!
+    if (bgmEnabled && bgmTimer) {
+      clearInterval(bgmTimer);
+      bgmTimer = null;
+      aoaPausedNormalBgm = true;
+    }
+
+    // PHASE 1 (0ms - 760ms): Iconic Eye-Level Diagonal Cut-In Banner
+    alloutOverlay.classList.remove('phase-cutin', 'phase-brawl', 'phase-finisher', 'flash-hit');
+    alloutOverlay.classList.add('active', 'phase-cutin');
+    alloutOverlay.setAttribute('aria-hidden', 'false');
+    flashAllOut();
+
+    playVinylScratch();
+    aoaTimers.push(setTimeout(playCutinShing, 90));
+    aoaTimers.push(setTimeout(startAllOutBattleGroove, 180));
+
+    // PHASE 2 (760ms - 2360ms): Comic Dust Cloud Brawl + 7 Synced Punch/Slash Impacts
+    aoaTimers.push(setTimeout(() => {
+      if (!alloutOverlay.classList.contains('active')) return;
+      alloutOverlay.classList.remove('phase-cutin');
+      alloutOverlay.classList.add('phase-brawl');
+      flashAllOut();
+    }, 760));
+
+    [800, 1000, 1200, 1410, 1630, 1870, 2110].forEach((ms, idx) => {
+      aoaTimers.push(setTimeout(() => {
+        if (!alloutOverlay.classList.contains('active')) return;
+        playBrawlImpact(idx);
+      }, ms));
+    });
+
+    // PHASE 3 (2360ms - 6800ms): Violent Glass Shatter -> Crimson Finisher Splash Screen!
+    aoaTimers.push(setTimeout(() => {
+      if (!alloutOverlay.classList.contains('active')) return;
+      alloutOverlay.classList.remove('phase-brawl');
+      alloutOverlay.classList.add('phase-finisher');
+      flashAllOut();
+      playAllOutHit();
+    }, 2360));
+
+    allOutTimeout = setTimeout(closeAllOutAttack, 6800);
   }
 
   function closeAllOutAttack() {
     if (!alloutOverlay) return;
+    if (allOutTimeout) {
+      clearTimeout(allOutTimeout);
+      allOutTimeout = null;
+    }
     stopAllOutMusic();
-    alloutOverlay.classList.remove('active');
+    alloutOverlay.classList.remove('active', 'phase-cutin', 'phase-brawl', 'phase-finisher', 'flash-hit');
     alloutOverlay.setAttribute('aria-hidden', 'true');
   }
 
@@ -1611,11 +1894,13 @@
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
     applyLanguage('jp');
     switchView('profile', true);
-  } else if (hashView === 'allout') {
+  } else if (hashView === 'allout' || hashView === 'allout-p1' || hashView === 'allout-p2') {
     body.classList.remove('mode-title');
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
     switchView('profile', true);
-    alloutOverlay.classList.add('active');
+    const phaseClass = hashView === 'allout-p1' ? 'phase-cutin' : (hashView === 'allout-p2' ? 'phase-brawl' : 'phase-finisher');
+    alloutOverlay.classList.add('active', phaseClass);
+    alloutOverlay.setAttribute('aria-hidden', 'false');
   } else if (hashView === 'callingcard') {
     body.classList.remove('mode-title');
     if (appShell) appShell.setAttribute('aria-hidden', 'false');
