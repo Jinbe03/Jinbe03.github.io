@@ -2536,7 +2536,7 @@ body[data-lang="jp"] .arc-word .big-first {
 }
 
 /* =========================================================
-   CONTACT: AUTHENTIC VERTICAL PERSONA 5 SNS SMARTPHONE + MANGA HANDS
+   CONTACT: AUTHENTIC PERSONA 5 MANGA HAND + LIVE SNS SMARTPHONE
    ========================================================= */
 #view-contact {
   overflow: visible;
@@ -2547,131 +2547,58 @@ body[data-lang="jp"] .arc-word .big-first {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 12px;
+  padding: 0;
 }
 
 .sns-phone-wrap {
   position: relative;
-  width: min(375px, 90%);
-  padding: 0 28px;
+  height: min(82vh, 740px);
+  aspect-ratio: 641 / 884;
+  margin-bottom: -85px;
+  flex-shrink: 0;
 }
 
 .dossier-panel.active .sns-phone-wrap {
-  animation: phone-slide-up 0.56s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  opacity: 1;
 }
 
-@keyframes phone-slide-up {
-  0%   { opacity: 0; transform: translateY(72px) rotate(-3deg) scale(0.95); }
-  100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
-}
-
-.sns-hand {
+/* Illustrated Persona 5 Manga Hand + Sleek Black Smartphone Frame Overlay */
+.sns-hand-overlay {
   position: absolute;
-  z-index: 8;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 6;
   pointer-events: none;
-  filter: drop-shadow(5px 8px 0 rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(10px 14px 16px rgba(0, 0, 0, 0.65));
 }
 
-/* Bold Persona 5 Manga Left Thumb & Palm gripping the lower-left phone bezel */
-.sns-hand-left {
-  left: -50px;
-  bottom: -30px;
-  width: 118px;
-  height: auto;
-  transform: rotate(3.2deg);
-}
-
-/* Sleek Curled Persona 5 Manga Fingers tightly hugging the right phone bezel */
-.sns-hand-right {
-  right: -20px;
-  bottom: 30px;
-  width: 60px;
-  height: auto;
-  transform: rotate(3.2deg);
-}
-
-/* REAL VERTICAL SMARTPHONE CHASSIS */
-.sns-phone-chassis {
-  position: relative;
-  background: linear-gradient(155deg, #1b1b22 0%, #09090b 65%, #17171f 100%);
-  border: 3px solid #353542;
-  outline: 4px solid #09090b;
-  border-radius: 26px;
-  padding: 12px 9px 11px;
-  transform: rotate(3.2deg);
-  box-shadow:
-    14px 18px 0 rgba(9, 9, 11, 0.88),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
-}
-
-/* Hardware Side Volume & Power Buttons */
-.phone-hw-btn {
+/* Exact mathematical screen window sitting right behind the transparent bezel cutout */
+.sns-screen-slot {
   position: absolute;
-  width: 5px;
-  background: #272731;
-  border: 1.5px solid #09090b;
-  border-radius: 2px;
-}
-
-.phone-vol-up { left: -7px; top: 82px; height: 34px; }
-.phone-vol-dn { left: -7px; top: 124px; height: 34px; }
-.phone-pwr    { right: -7px; top: 104px; height: 46px; }
-
-/* Smartphone Top Speaker & Front Camera Bezel */
-.phone-top-bezel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.phone-cam-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #5b7cff, #101424 65%);
-  border: 1.5px solid #3c3c4a;
-}
-
-.phone-speaker-slit {
-  width: 52px;
-  height: 5px;
-  border-radius: 99px;
-  background: #2c2c37;
-  border: 1px solid #09090b;
-}
-
-.phone-sensor-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #24242e;
-}
-
-/* Smartphone Bottom Home Bar Chin */
-.phone-bottom-chin {
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-}
-
-.phone-home-pill {
-  width: 86px;
-  height: 4px;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.42);
+  left: 62.91%;
+  top: 40.1%;
+  width: 49.4%;
+  height: 63.0%;
+  transform: translate(-50%, -50%) rotate(2.95deg);
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 3px;
 }
 
 /* Inner Red Persona 5 SNS Screen */
 .sns-phone {
   position: relative;
+  width: 100%;
+  height: 100%;
   background: #d80415;
-  border: 6px solid #ffffff;
-  outline: 3px solid #09090b;
-  border-radius: 8px;
-  box-shadow: inset 0 0 0 3px #09090b;
-  padding: 6px 11px 11px;
+  border: 3.5px solid #ffffff;
+  box-shadow: inset 0 0 0 2.5px #09090b;
+  padding: 5px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
 }
 
@@ -2681,13 +2608,13 @@ body[data-lang="jp"] .arc-word .big-first {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(9, 9, 11, 0.78);
-  margin: -6px -11px 6px;
-  padding: 3px 10px;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(9, 9, 11, 0.82);
+  margin: -5px -8px 4px;
+  padding: 2.5px 8px;
 }
 
 .sns-zigzag {
@@ -2705,38 +2632,38 @@ body[data-lang="jp"] .arc-word .big-first {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 7px;
+  margin-bottom: 4px;
 }
 
 .sns-logo {
   font-family: var(--font-display);
-  font-size: 38px;
+  font-size: 29px;
   line-height: 0.85;
   letter-spacing: -0.02em;
   display: inline-flex;
   align-items: baseline;
-  transform: rotate(-8deg) translate(-2px, -2px);
-  filter: drop-shadow(3px 3px 0 #09090b);
+  transform: rotate(-8deg) translate(-1px, -1px);
+  filter: drop-shadow(2.5px 2.5px 0 #09090b);
 }
 
 .sns-s1 {
   color: #e60012;
-  -webkit-text-stroke: 3px #09090b;
+  -webkit-text-stroke: 2.4px #09090b;
   transform: rotate(-10deg) translateY(2px);
   display: inline-block;
 }
 
 .sns-n {
   color: #ffffff;
-  -webkit-text-stroke: 3px #09090b;
-  transform: rotate(5deg) translateY(-2px);
+  -webkit-text-stroke: 2.4px #09090b;
+  transform: rotate(5deg) translateY(-1px);
   display: inline-block;
-  margin: 0 -2px;
+  margin: 0 -1px;
 }
 
 .sns-s2 {
   color: #ffffff;
-  -webkit-text-stroke: 3px #09090b;
+  -webkit-text-stroke: 2.4px #09090b;
   transform: rotate(-7deg) translateY(2px);
   display: inline-block;
 }
@@ -2744,24 +2671,24 @@ body[data-lang="jp"] .arc-word .big-first {
 .sns-mini-card {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: #09090b;
-  border: 2.5px solid #ffffff;
-  padding: 2px 7px 2px 3px;
+  border: 2px solid #ffffff;
+  padding: 2px 6px 2px 2px;
   transform: rotate(-2deg) skewX(-6deg);
-  box-shadow: 3px 3px 0 #09090b;
+  box-shadow: 2.5px 2.5px 0 #09090b;
 }
 
 .sns-mini-card img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   background: #09090b;
-  border: 1.5px solid #ffffff;
+  border: 1px solid #ffffff;
 }
 
 .sns-mini-card span {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.08em;
@@ -2772,98 +2699,92 @@ body[data-lang="jp"] .arc-word .big-first {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 6px;
+  margin-bottom: 6px;
+  flex: 1;
+  justify-content: center;
 }
 
 .sns-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
-.sns-row-right {
-  justify-content: flex-end;
-}
+.sns-row-right { justify-content: flex-end; }
+.sns-row-left  { justify-content: flex-start; }
 
-.sns-row-left {
-  justify-content: flex-start;
-}
-
-.dossier-panel.active .msg-1 { animation: msg-pop 0.25s 0.04s both; }
-.dossier-panel.active .msg-2 { animation: msg-pop 0.25s 0.12s both; }
-.dossier-panel.active .msg-3 { animation: msg-pop 0.25s 0.20s both; }
-.dossier-panel.active .msg-4 { animation: msg-pop 0.25s 0.28s both; }
+.dossier-panel.active .msg-1 { animation: msg-pop 0.18s 0.02s both; }
+.dossier-panel.active .msg-2 { animation: msg-pop 0.18s 0.06s both; }
+.dossier-panel.active .msg-3 { animation: msg-pop 0.18s 0.10s both; }
+.dossier-panel.active .msg-4 { animation: msg-pop 0.18s 0.14s both; }
 
 @keyframes msg-pop {
-  0%   { opacity: 0; transform: translateX(-18px) scale(0.92); }
+  0%   { opacity: 0; transform: translateX(-16px) scale(0.92); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-/* Outgoing White Bubble (top right, black border & tail) */
 .sns-bubble-white {
   position: relative;
   background: #ffffff;
   color: #09090b;
-  border: 3.5px solid #09090b;
-  padding: 5px 12px;
-  font-size: 12px;
+  border: 2.5px solid #09090b;
+  padding: 3.5px 10px;
+  font-size: 10.5px;
   font-weight: 800;
   transform: skewX(-10deg) rotate(-1deg);
-  box-shadow: 3px 3px 0 #09090b;
-  max-width: 78%;
+  box-shadow: 2.5px 2.5px 0 #09090b;
+  max-width: 82%;
 }
 
 .sns-bubble-white::after {
   content: "";
   position: absolute;
-  right: -11px;
+  right: -9px;
   top: 50%;
   transform: translateY(-50%);
-  border-left: 11px solid #09090b;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
+  border-left: 9px solid #09090b;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
 }
 
-/* Skewed Persona 5 Avatar Trapezoid */
 .sns-avatar {
-  width: 44px;
-  height: 38px;
+  width: 34px;
+  height: 30px;
   flex-shrink: 0;
   background: #09090b;
-  border: 3px solid #ffffff;
-  outline: 2.5px solid #09090b;
+  border: 2.5px solid #ffffff;
+  outline: 2px solid #09090b;
   overflow: hidden;
   display: grid;
   place-items: center;
-  box-shadow: 3px 3px 0 #09090b;
+  box-shadow: 2.5px 2.5px 0 #09090b;
 }
 
-.av-tilt-1 { transform: skewX(-12deg) rotate(-4deg); }
+.av-tilt-1 { transform: skewX(-11deg) rotate(-4deg); }
 .av-tilt-2 { transform: skewX(-8deg) rotate(3deg); }
-.av-tilt-3 { transform: skewX(-14deg) rotate(-2deg); }
+.av-tilt-3 { transform: skewX(-12deg) rotate(-2deg); }
 
 .sns-avatar img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 2px;
+  padding: 1px;
 }
 
-/* Incoming Black Bubble with Thick White Outer Border */
 .sns-bubble-black {
   position: relative;
   flex: 1;
   background: #09090b;
   color: #ffffff;
-  border: 3px solid #ffffff;
-  outline: 2px solid #09090b;
-  padding: 6px 10px;
-  font-size: 11.5px;
+  border: 2.5px solid #ffffff;
+  outline: 1.5px solid #09090b;
+  padding: 4.5px 7px;
+  font-size: 10px;
   font-weight: 600;
-  line-height: 1.36;
-  transform: skewX(-8deg);
-  box-shadow: 4px 4px 0 rgba(9, 9, 11, 0.85);
+  line-height: 1.3;
+  transform: skewX(-7deg);
+  box-shadow: 3px 3px 0 rgba(9, 9, 11, 0.85);
 }
 
 .sns-bubble-black strong {
@@ -2874,59 +2795,59 @@ body[data-lang="jp"] .arc-word .big-first {
 .sns-bubble-black::before {
   content: "";
   position: absolute;
-  left: -11px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
-  border-right: 11px solid #ffffff;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
+  border-right: 8px solid #ffffff;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
 }
 
-/* Persona Interactive Reply Choices at Bottom of SNS Screen */
 .sns-replies {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding-top: 4px;
+  grid-template-columns: 1fr;
+  gap: 4.5px;
+  padding-top: 2px;
 }
 
 .sns-reply-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 7px;
+  gap: 5px;
+  width: 100%;
+  padding: 4.5px 8px;
   background: #ffffff;
   color: #09090b;
-  border: 2.5px solid #09090b;
+  border: 2px solid #09090b;
   font-family: var(--font-sub);
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.05;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   cursor: pointer;
   transform: skewX(-8deg);
-  box-shadow: 3px 3px 0 #09090b;
+  box-shadow: 2.5px 2.5px 0 #09090b;
   transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease;
 }
 
 .sns-reply-btn .reply-tri {
   color: var(--red);
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .sns-reply-primary {
   background: #09090b;
   color: #ffffff;
   border-color: #ffffff;
-  outline: 2px solid #09090b;
+  outline: 1.5px solid #09090b;
 }
 
 .sns-reply-btn:hover {
   background: #09090b;
   color: #ffffff;
   border-color: #ffffff;
-  transform: skewX(-8deg) translate(-2px, -2px);
+  transform: skewX(-8deg) translate(-2px, -1px);
 }
 
 .sns-reply-primary:hover {
@@ -3201,18 +3122,18 @@ body[data-lang="jp"] .arc-word .big-first {
   .tarot-roman { font-size: 20px; top: -9px; }
   .tarot-title { font-size: 13.5px; -webkit-text-stroke: 3px #09090b; }
 
-  .sns-phone-wrap { width: min(345px, 90%); padding: 0 22px; }
-  .sns-hand-left { left: -40px; bottom: -26px; width: 100px; }
-  .sns-hand-right { right: -16px; bottom: 22px; width: 52px; }
-  .sns-phone-chassis { padding: 9px 7px 8px; border-radius: 22px; }
-  .sns-phone { padding: 5px 9px 9px; border-width: 5px; }
-  .sns-status-bar { margin: -5px -9px 5px; }
-  .sns-logo { font-size: 32px; }
-  .sns-thread { gap: 6px; margin-bottom: 8px; }
-  .sns-bubble-white { font-size: 11px; padding: 4px 10px; }
-  .sns-bubble-black { font-size: 10.8px; padding: 5px 8px; }
-  .sns-avatar { width: 38px; height: 32px; }
-  .sns-reply-btn { padding: 5px 7px; font-size: 12.5px; }
+  .sns-phone-wrap { height: min(82vh, 630px); margin-bottom: -68px; }
+  .sns-phone { padding: 4px 6px 6px; }
+  .sns-status-bar { font-size: 7.5px; margin: -4px -6px 3px; padding: 2px 6px; }
+  .sns-logo { font-size: 24px; }
+  .sns-mini-card img { width: 17px; height: 17px; }
+  .sns-mini-card span { font-size: 8px; }
+  .sns-thread { gap: 4.5px; margin-bottom: 4px; }
+  .sns-bubble-white { font-size: 9px; padding: 2.5px 7px; }
+  .sns-bubble-black { font-size: 8.6px; padding: 3.5px 6px; line-height: 1.25; }
+  .sns-avatar { width: 28px; height: 24px; }
+  .sns-replies { gap: 3.5px; }
+  .sns-reply-btn { padding: 3.5px 6px; font-size: 10.8px; }
 
   .dialogue-portrait-wrap { width: 82px; height: 70px; }
   .dialogue-body { min-height: 64px; padding: 15px 34px 9px 18px; }
@@ -3328,10 +3249,7 @@ body[data-lang="jp"] .arc-word .big-first {
     transform: none;
   }
 
-  .sns-phone-wrap { width: min(365px, 96%); padding: 0 22px; }
-  .sns-phone-chassis { transform: rotate(1.5deg); }
-  .sns-hand-left { left: -34px; width: 88px; }
-  .sns-hand-right { right: -22px; width: 54px; }
+  .sns-phone-wrap { height: min(76vh, 660px); margin-bottom: -24px; }
 }
 
 /* 4. Mobile Phones (<= 640px, rock-solid down to 320px!) */
@@ -3590,7 +3508,7 @@ body[data-lang="jp"] .arc-word .big-first {
   .tarot-title { font-size: 13.5px; bottom: -5px; -webkit-text-stroke: 3px #09090b; }
   .tarot-hrs-tag { font-size: 8px; padding: 1px 4px; }
 
-  /* Skin 6: Contact SNS Smartphone (snappy instant mobile reveal!) */
+  /* Skin 6: Contact SNS Smartphone (full-width clean phone screen on mobile!) */
   .dossier-panel.active { animation-duration: 0.22s; }
   .dossier-panel.active .sns-phone-wrap { animation: none; opacity: 1; transform: none; }
   .dossier-panel.active .msg-1,
@@ -3598,23 +3516,33 @@ body[data-lang="jp"] .arc-word .big-first {
   .dossier-panel.active .msg-3,
   .dossier-panel.active .msg-4 { animation: none; opacity: 1; transform: none; }
   .sns-stage { padding: 0; }
-  .sns-hand, .phone-hw-btn { display: none; }
-  .sns-phone-wrap { padding: 0; width: 100%; }
-  .sns-phone-chassis {
+  .sns-hand-overlay { display: none; }
+  .sns-phone-wrap { height: auto; aspect-ratio: auto; width: 100%; margin-bottom: 0; }
+  .sns-screen-slot {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
     transform: none;
-    border-radius: 20px;
-    padding: 8px 6px 8px;
+    border-radius: 16px;
+    background: #111116;
+    border: 3px solid #2f2f3c;
+    padding: 8px 6px;
     box-shadow: 4px 4px 0 var(--black);
   }
   .sns-phone {
-    transform: none;
+    height: auto;
     border-width: 4px;
-    outline-width: 2px;
-    padding: 5px 8px 10px;
+    border-radius: 8px;
+    padding: 6px 9px 10px;
   }
-  .sns-status-bar { margin: -5px -8px 5px; }
+  .sns-status-bar { font-size: 9px; margin: -6px -9px 6px; padding: 3px 9px; }
   .sns-logo { font-size: 30px; transform: rotate(-4deg); }
   .sns-mini-card { transform: none; box-shadow: 2px 2px 0 #09090b; }
+  .sns-mini-card img { width: 22px; height: 22px; }
+  .sns-mini-card span { font-size: 10px; }
+  .sns-thread { gap: 8px; margin-bottom: 10px; }
   .sns-row { gap: 7px; }
   .sns-avatar { width: 38px; height: 34px; transform: none; border-width: 2.5px; outline-width: 2px; box-shadow: 2px 2px 0 #09090b; }
   .sns-bubble-white { transform: none; max-width: 90%; font-size: 12px; padding: 6px 10px; border-width: 3px; box-shadow: 3px 3px 0 #09090b; }
