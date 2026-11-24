@@ -1931,12 +1931,22 @@ body[data-lang="jp"] .arc-word .big-first {
 
 .dossier-panel.active {
   display: block;
-  animation: panel-cut-in 0.45s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  scroll-behavior: smooth;
+  animation: panel-scroll-down 0.44s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes panel-cut-in {
-  0%   { opacity: 0; transform: translateX(48px) scale(0.97) rotate(1.2deg); }
-  100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); }
+.dossier-panel.active.dir-up {
+  animation: panel-scroll-up 0.44s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes panel-scroll-down {
+  0%   { opacity: 0; transform: translateY(58px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panel-scroll-up {
+  0%   { opacity: 0; transform: translateY(-58px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .skin-kicker {

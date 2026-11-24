@@ -1691,46 +1691,73 @@
     });
   }
 
-  function switchView(viewName, skipWipe) {
+  function switchView(viewName, silent) {
     const idx = menuItems.findIndex((m) => m.dataset.view === viewName);
     if (idx === -1) return;
     const item = menuItems[idx];
     const alreadyActive = !body.classList.contains('mode-title') && body.getAttribute('data-view') === viewName;
-    if (alreadyActive && !skipWipe) return;
+    if (alreadyActive && !silent) return;
 
+    const goingUp = idx < activeIndex;
     activeIndex = idx;
     const dict = I18N[currentLang];
     const scene = item.dataset.scene || 'station';
     const loc = dict.locs[viewName] || dict.locs.profile;
-    const sub = dict.subs[viewName] || 'NEXT STATION';
-    const withCutin = item.dataset.cutin === 'true';
-    const labelText = item.querySelector('.menu-label')?.textContent?.trim() || viewName.toUpperCase();
 
-    const applyState = () => {
-      body.setAttribute('data-view', viewName);
-      body.setAttribute('data-scene', scene);
-      if (hudLoc) hudLoc.textContent = loc;
+    if (!silent) playSelectSnap();
 
-      menuItems.forEach((btn, i) => {
-        const isOn = i === idx;
-        btn.classList.toggle('active', isOn);
-        btn.setAttribute('aria-selected', String(isOn));
-      });
+    body.setAttribute('data-view', viewName);
+    body.setAttribute('data-scene', scene);
+    if (hudLoc) hudLoc.textContent = loc;
 
-      panels.forEach((p) => {
-        p.classList.toggle('active', p.id === `view-${viewName}`);
-      });
+    menuItems.forEach((btn, i) => {
+      const isOn = i === idx;
+      btn.classList.toggle('active', isOn);
+      btn.setAttribute('aria-selected', String(isOn));
+    });
 
-      startDialogue(viewName, 0);
-    };
+    panels.forEach((p) => {
+      const isTarget = p.id === `view-${viewName}`;
+      p.classList.remove('active', 'dir-up');
+      if (isTarget) {
+        void p.offsetWidth; // restart smooth scroll-glide cleanly
+        if (goingUp) p.classList.add('dir-up');
+        p.classList.add('active');
+        p.scrollTop = 0;
+      }
+    });
 
-    if (skipWipe) {
-      applyState();
-    } else {
-      playSelectSnap();
-      triggerWipe(labelText, sub, withCutin, applyState);
-    }
+    startDialogue(viewName, 0);
   }
+
+  // Smooth Mouse-Wheel Section Scroll on Desktop (> 1040px)
+  let wheelLockUntil = 0;
+  window.addEventListener('wheel', (e) => {
+    if (window.innerWidth <= 1040) return;
+    if (body.classList.contains('mode-title')) return;
+    if (pdfModal && pdfModal.classList.contains('open')) return;
+    if (callingCardOverlay && callingCardOverlay.classList.contains('active')) return;
+    if (alloutOverlay && alloutOverlay.classList.contains('active')) return;
+    if (Math.abs(e.deltaY) < 28) return;
+
+    const activePanel = panels.find((p) => p.classList.contains('active'));
+    if (activePanel && activePanel.scrollHeight > activePanel.clientHeight + 6) {
+      const atTop = activePanel.scrollTop <= 2;
+      const atBottom = activePanel.scrollTop + activePanel.clientHeight >= activePanel.scrollHeight - 2;
+      if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) return;
+    }
+
+    const now = Date.now();
+    if (now < wheelLockUntil) return;
+    const nextIdx = e.deltaY > 0
+      ? Math.min(activeIndex + 1, menuItems.length - 1)
+      : Math.max(activeIndex - 1, 0);
+
+    if (nextIdx !== activeIndex && menuItems[nextIdx]) {
+      wheelLockUntil = now + 520;
+      switchView(menuItems[nextIdx].dataset.view, false);
+    }
+  }, { passive: true });
 
   if (boardBtn) boardBtn.addEventListener('click', () => enterStation('profile'));
   if (titleReturnBtn) titleReturnBtn.addEventListener('click', returnToTitle);
