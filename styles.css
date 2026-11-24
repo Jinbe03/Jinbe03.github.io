@@ -2417,9 +2417,12 @@ body[data-lang="jp"] .arc-word .big-first {
 
 .tarot-fan {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  padding: 14px 6px 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 18px;
+  max-width: 580px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 6px 14px;
 }
 
 /* AUTHENTIC PERSONA 5 TAROT ARCANA PLAYING CARD */
@@ -2428,8 +2431,8 @@ body[data-lang="jp"] .arc-word .big-first {
   background: #ffffff;
   border: 3px solid #09090b;
   border-radius: 5px;
-  padding: 9px 9px 11px;
-  aspect-ratio: 2 / 3.05;
+  padding: 7px 7px 9px;
+  aspect-ratio: 2 / 2.68;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2441,10 +2444,12 @@ body[data-lang="jp"] .arc-word .big-first {
   transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
 }
 
-.tarot-card:nth-child(1) { transform: rotate(-4deg) translateY(7px); }
-.tarot-card:nth-child(2) { transform: rotate(-1.3deg) translateY(-4px); }
-.tarot-card:nth-child(3) { transform: rotate(1.6deg) translateY(-3px); }
-.tarot-card:nth-child(4) { transform: rotate(4.2deg) translateY(8px); }
+.tarot-card:nth-child(1) { transform: rotate(-2.6deg); }
+.tarot-card:nth-child(2) { transform: rotate(0.6deg) translateY(-3px); }
+.tarot-card:nth-child(3) { transform: rotate(2.6deg); }
+.tarot-card:nth-child(4) { transform: rotate(-2deg); }
+.tarot-card:nth-child(5) { transform: rotate(-0.5deg) translateY(-2px); }
+.tarot-card:nth-child(6) { transform: rotate(2.2deg); }
 
 .tarot-card:hover {
   transform: rotate(0deg) translateY(-16px) scale(1.08);
@@ -3189,12 +3194,12 @@ body[data-lang="jp"] .arc-word .big-first {
   .slot-pills { padding: 10px 12px; gap: 6px; }
   .slot-pill { font-size: 11px; padding: 3px 8px; }
 
-  .edu-banner-ribbon { padding: 8px 14px; }
-  .edu-banner-ribbon h2 { font-size: 19px; }
-  .tarot-fan { gap: 11px; padding: 11px 4px 12px; }
-  .tarot-card { padding: 7px 7px 9px; aspect-ratio: 2 / 2.88; }
-  .tarot-roman { font-size: 22px; top: -10px; }
-  .tarot-title { font-size: 14.5px; -webkit-text-stroke: 3px #09090b; }
+  .edu-banner-ribbon { padding: 7px 13px; }
+  .edu-banner-ribbon h2 { font-size: 18px; }
+  .tarot-fan { max-width: 470px; gap: 13px 14px; padding: 8px 4px 10px; }
+  .tarot-card { padding: 6px 6px 7px; aspect-ratio: 2 / 2.55; }
+  .tarot-roman { font-size: 20px; top: -9px; }
+  .tarot-title { font-size: 13.5px; -webkit-text-stroke: 3px #09090b; }
 
   .sns-phone-wrap { width: min(345px, 90%); padding: 0 22px; }
   .sns-hand-left { left: -40px; bottom: -26px; width: 100px; }
