@@ -2407,74 +2407,121 @@ body[data-lang="jp"] .arc-word .big-first {
 
 .tarot-fan {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 8px 4px 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 14px 6px 16px;
 }
 
+/* AUTHENTIC PERSONA 5 TAROT ARCANA PLAYING CARD */
 .tarot-card {
   position: relative;
-  background: linear-gradient(160deg, #16151a 0%, #09090c 100%);
-  border: 3.5px solid #e4b44c;
-  outline: 3px solid var(--black);
-  padding: 14px 10px;
-  min-height: 225px;
+  background: #ffffff;
+  border: 3px solid #09090b;
+  border-radius: 5px;
+  padding: 9px 9px 11px;
+  aspect-ratio: 2 / 3.05;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  justify-content: stretch;
   text-align: center;
-  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.88);
+  box-shadow: 6px 8px 0 rgba(9, 9, 11, 0.92);
   cursor: pointer;
   color: var(--cream);
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
 }
 
-.tarot-card:nth-child(1) { transform: rotate(-4.5deg) translateY(8px); }
-.tarot-card:nth-child(2) { transform: rotate(-1.5deg) translateY(-4px); }
-.tarot-card:nth-child(3) { transform: rotate(1.8deg) translateY(-3px); }
-.tarot-card:nth-child(4) { transform: rotate(5deg) translateY(9px); }
+.tarot-card:nth-child(1) { transform: rotate(-4deg) translateY(7px); }
+.tarot-card:nth-child(2) { transform: rotate(-1.3deg) translateY(-4px); }
+.tarot-card:nth-child(3) { transform: rotate(1.6deg) translateY(-3px); }
+.tarot-card:nth-child(4) { transform: rotate(4.2deg) translateY(8px); }
 
 .tarot-card:hover {
-  transform: rotate(0deg) translateY(-14px) scale(1.06);
-  border-color: var(--cream);
-  box-shadow: 0 14px 26px rgba(230, 0, 18, 0.45);
-  z-index: 10;
+  transform: rotate(0deg) translateY(-16px) scale(1.08);
+  box-shadow: 0 18px 32px rgba(230, 0, 18, 0.55), 0 0 0 3px #facc15;
+  z-index: 12;
 }
 
+/* Roman Numeral Breaking the Top Card Border (Authentic Persona 5 Tarot!) */
 .tarot-roman {
-  width: 100%;
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  z-index: 4;
   font-family: var(--font-display);
   font-size: 26px;
-  color: #e4b44c;
-  border-bottom: 1.5px solid rgba(228, 180, 76, 0.45);
-  padding-bottom: 4px;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  -webkit-text-stroke: 3.5px #09090b;
+  paint-order: stroke fill;
+  filter: drop-shadow(2px 2px 0 #09090b);
+  pointer-events: none;
 }
 
-.tarot-title {
-  font-family: var(--font-display);
-  font-size: 19px;
-  line-height: 1.12;
-  color: var(--cream);
-  text-shadow: 2px 2px 0 var(--red);
-}
-
-.tarot-hrs {
-  font-size: 10px;
-  color: rgba(246, 243, 236, 0.72);
-}
-
-.tarot-foot {
+.tarot-art-frame {
+  position: relative;
   width: 100%;
-  background: var(--red);
-  color: var(--cream);
-  font-size: 10.5px;
-  font-weight: 700;
-  padding: 5px 6px;
-  letter-spacing: 0.08em;
+  flex: 1;
+  border: 3px solid #09090b;
+  overflow: hidden;
+  background: #9f000d;
 }
+
+.tarot-art-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.26s ease, filter 0.26s ease;
+}
+
+.tarot-card:hover .tarot-art-img {
+  transform: scale(1.06);
+  filter: contrast(1.08) brightness(1.05);
+}
+
+.tarot-hrs-tag {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(9, 9, 11, 0.9);
+  color: #facc15;
+  border: 1.5px solid #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 5px;
+  transform: skewX(-8deg);
+  z-index: 3;
+}
+
+/* Jagged Hand-Inked Arcana Name Breaking the Bottom Card Border */
+.tarot-title {
+  position: absolute;
+  bottom: -6px;
+  left: -4px;
+  right: -4px;
+  z-index: 5;
+  font-family: var(--font-display);
+  font-size: 16.5px;
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  -webkit-text-stroke: 3.8px #09090b;
+  paint-order: stroke fill;
+  text-shadow: 2px 3px 0 #09090b;
+  transform: rotate(-2.5deg) skewX(-6deg);
+  pointer-events: none;
+}
+
+.tarot-card:hover .tarot-title {
+  color: #facc15;
+}
+
 /* =========================================================
-   CONTACT: AUTHENTIC PERSONA 5 SNS PHONE SCREEN
+   CONTACT: AUTHENTIC VERTICAL PERSONA 5 SNS SMARTPHONE + MANGA HANDS
    ========================================================= */
 #view-contact {
   overflow: visible;
@@ -2485,56 +2532,147 @@ body[data-lang="jp"] .arc-word .big-first {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 10px 4px;
+  padding: 0 12px;
 }
 
 .sns-phone-wrap {
   position: relative;
-  width: min(510px, 94%);
-  padding: 0 26px;
+  width: min(375px, 90%);
+  padding: 0 28px;
 }
 
 .dossier-panel.active .sns-phone-wrap {
-  animation: phone-slide-up 0.62s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation: phone-slide-up 0.56s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
 @keyframes phone-slide-up {
-  0%   { opacity: 0; transform: translateY(75px) rotate(-3deg) scale(0.95); }
+  0%   { opacity: 0; transform: translateY(72px) rotate(-3deg) scale(0.95); }
   100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
 }
 
 .sns-hand {
   position: absolute;
-  z-index: 6;
+  z-index: 8;
   pointer-events: none;
-  filter: drop-shadow(4px 6px 0 rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(5px 8px 0 rgba(0, 0, 0, 0.55));
 }
 
+/* Bold Persona 5 Manga Left Thumb & Palm gripping the lower-left phone bezel */
 .sns-hand-left {
-  left: -18px;
-  bottom: -14px;
-  width: 68px;
+  left: -50px;
+  bottom: -30px;
+  width: 118px;
   height: auto;
+  transform: rotate(3.2deg);
 }
 
+/* Sleek Curled Persona 5 Manga Fingers tightly hugging the right phone bezel */
 .sns-hand-right {
-  right: -18px;
-  bottom: 24px;
-  width: 66px;
+  right: -20px;
+  bottom: 30px;
+  width: 60px;
   height: auto;
+  transform: rotate(3.2deg);
 }
 
+/* REAL VERTICAL SMARTPHONE CHASSIS */
+.sns-phone-chassis {
+  position: relative;
+  background: linear-gradient(155deg, #1b1b22 0%, #09090b 65%, #17171f 100%);
+  border: 3px solid #353542;
+  outline: 4px solid #09090b;
+  border-radius: 26px;
+  padding: 12px 9px 11px;
+  transform: rotate(3.2deg);
+  box-shadow:
+    14px 18px 0 rgba(9, 9, 11, 0.88),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+/* Hardware Side Volume & Power Buttons */
+.phone-hw-btn {
+  position: absolute;
+  width: 5px;
+  background: #272731;
+  border: 1.5px solid #09090b;
+  border-radius: 2px;
+}
+
+.phone-vol-up { left: -7px; top: 82px; height: 34px; }
+.phone-vol-dn { left: -7px; top: 124px; height: 34px; }
+.phone-pwr    { right: -7px; top: 104px; height: 46px; }
+
+/* Smartphone Top Speaker & Front Camera Bezel */
+.phone-top-bezel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.phone-cam-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #5b7cff, #101424 65%);
+  border: 1.5px solid #3c3c4a;
+}
+
+.phone-speaker-slit {
+  width: 52px;
+  height: 5px;
+  border-radius: 99px;
+  background: #2c2c37;
+  border: 1px solid #09090b;
+}
+
+.phone-sensor-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #24242e;
+}
+
+/* Smartphone Bottom Home Bar Chin */
+.phone-bottom-chin {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.phone-home-pill {
+  width: 86px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+/* Inner Red Persona 5 SNS Screen */
 .sns-phone {
   position: relative;
   background: #d80415;
-  border: 9px solid #ffffff;
-  outline: 5px solid #09090b;
-  box-shadow:
-    inset 0 0 0 4px #09090b,
-    14px 16px 0 rgba(9, 9, 11, 0.88);
-  padding: 14px 18px 18px;
-  transform: rotate(2.6deg);
+  border: 6px solid #ffffff;
+  outline: 3px solid #09090b;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 3px #09090b;
+  padding: 6px 11px 11px;
   overflow: hidden;
+}
+
+.sns-status-bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(9, 9, 11, 0.78);
+  margin: -6px -11px 6px;
+  padding: 3px 10px;
 }
 
 .sns-zigzag {
@@ -2552,30 +2690,30 @@ body[data-lang="jp"] .arc-word .big-first {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .sns-logo {
   font-family: var(--font-display);
-  font-size: 46px;
+  font-size: 38px;
   line-height: 0.85;
   letter-spacing: -0.02em;
   display: inline-flex;
   align-items: baseline;
-  transform: rotate(-8deg) translate(-4px, -4px);
-  filter: drop-shadow(4px 4px 0 #09090b);
+  transform: rotate(-8deg) translate(-2px, -2px);
+  filter: drop-shadow(3px 3px 0 #09090b);
 }
 
 .sns-s1 {
   color: #e60012;
-  -webkit-text-stroke: 3.5px #09090b;
-  transform: rotate(-10deg) translateY(3px);
+  -webkit-text-stroke: 3px #09090b;
+  transform: rotate(-10deg) translateY(2px);
   display: inline-block;
 }
 
 .sns-n {
   color: #ffffff;
-  -webkit-text-stroke: 3.5px #09090b;
+  -webkit-text-stroke: 3px #09090b;
   transform: rotate(5deg) translateY(-2px);
   display: inline-block;
   margin: 0 -2px;
@@ -2583,7 +2721,7 @@ body[data-lang="jp"] .arc-word .big-first {
 
 .sns-s2 {
   color: #ffffff;
-  -webkit-text-stroke: 3.5px #09090b;
+  -webkit-text-stroke: 3px #09090b;
   transform: rotate(-7deg) translateY(2px);
   display: inline-block;
 }
@@ -2591,24 +2729,24 @@ body[data-lang="jp"] .arc-word .big-first {
 .sns-mini-card {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   background: #09090b;
-  border: 3px solid #ffffff;
-  padding: 3px 9px 3px 4px;
+  border: 2.5px solid #ffffff;
+  padding: 2px 7px 2px 3px;
   transform: rotate(-2deg) skewX(-6deg);
-  box-shadow: 4px 4px 0 #09090b;
+  box-shadow: 3px 3px 0 #09090b;
 }
 
 .sns-mini-card img {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   background: #09090b;
   border: 1.5px solid #ffffff;
 }
 
 .sns-mini-card span {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.08em;
@@ -2619,14 +2757,14 @@ body[data-lang="jp"] .arc-word .big-first {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 11px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .sns-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .sns-row-right {
@@ -2643,7 +2781,7 @@ body[data-lang="jp"] .arc-word .big-first {
 .dossier-panel.active .msg-4 { animation: msg-pop 0.25s 0.28s both; }
 
 @keyframes msg-pop {
-  0%   { opacity: 0; transform: translateX(-20px) scale(0.92); }
+  0%   { opacity: 0; transform: translateX(-18px) scale(0.92); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 
@@ -2652,38 +2790,38 @@ body[data-lang="jp"] .arc-word .big-first {
   position: relative;
   background: #ffffff;
   color: #09090b;
-  border: 4px solid #09090b;
-  padding: 7px 16px;
-  font-size: 13.5px;
+  border: 3.5px solid #09090b;
+  padding: 5px 12px;
+  font-size: 12px;
   font-weight: 800;
   transform: skewX(-10deg) rotate(-1deg);
-  box-shadow: 4px 4px 0 #09090b;
+  box-shadow: 3px 3px 0 #09090b;
   max-width: 78%;
 }
 
 .sns-bubble-white::after {
   content: "";
   position: absolute;
-  right: -13px;
+  right: -11px;
   top: 50%;
   transform: translateY(-50%);
-  border-left: 13px solid #09090b;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
+  border-left: 11px solid #09090b;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
 }
 
 /* Skewed Persona 5 Avatar Trapezoid */
 .sns-avatar {
-  width: 54px;
-  height: 46px;
+  width: 44px;
+  height: 38px;
   flex-shrink: 0;
   background: #09090b;
-  border: 3.5px solid #ffffff;
-  outline: 3px solid #09090b;
+  border: 3px solid #ffffff;
+  outline: 2.5px solid #09090b;
   overflow: hidden;
   display: grid;
   place-items: center;
-  box-shadow: 4px 4px 0 #09090b;
+  box-shadow: 3px 3px 0 #09090b;
 }
 
 .av-tilt-1 { transform: skewX(-12deg) rotate(-4deg); }
@@ -2703,14 +2841,14 @@ body[data-lang="jp"] .arc-word .big-first {
   flex: 1;
   background: #09090b;
   color: #ffffff;
-  border: 4px solid #ffffff;
-  outline: 2.5px solid #09090b;
-  padding: 8px 14px;
-  font-size: 13px;
+  border: 3px solid #ffffff;
+  outline: 2px solid #09090b;
+  padding: 6px 10px;
+  font-size: 11.5px;
   font-weight: 600;
-  line-height: 1.42;
-  transform: skewX(-9deg);
-  box-shadow: 5px 5px 0 rgba(9, 9, 11, 0.85);
+  line-height: 1.36;
+  transform: skewX(-8deg);
+  box-shadow: 4px 4px 0 rgba(9, 9, 11, 0.85);
 }
 
 .sns-bubble-black strong {
@@ -2721,12 +2859,12 @@ body[data-lang="jp"] .arc-word .big-first {
 .sns-bubble-black::before {
   content: "";
   position: absolute;
-  left: -13px;
+  left: -11px;
   top: 50%;
   transform: translateY(-50%);
-  border-right: 13px solid #ffffff;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
+  border-right: 11px solid #ffffff;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
 }
 
 /* Persona Interactive Reply Choices at Bottom of SNS Screen */
@@ -2735,30 +2873,31 @@ body[data-lang="jp"] .arc-word .big-first {
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding-top: 6px;
+  gap: 6px;
+  padding-top: 4px;
 }
 
 .sns-reply-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 12px;
+  gap: 4px;
+  padding: 6px 7px;
   background: #ffffff;
   color: #09090b;
-  border: 3px solid #09090b;
+  border: 2.5px solid #09090b;
   font-family: var(--font-sub);
-  font-size: 15.5px;
-  letter-spacing: 0.06em;
+  font-size: 13px;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transform: skewX(-10deg);
-  box-shadow: 4px 4px 0 #09090b;
+  transform: skewX(-8deg);
+  box-shadow: 3px 3px 0 #09090b;
   transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease;
 }
 
 .sns-reply-btn .reply-tri {
   color: var(--red);
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .sns-reply-primary {
@@ -2772,7 +2911,7 @@ body[data-lang="jp"] .arc-word .big-first {
   background: #09090b;
   color: #ffffff;
   border-color: #ffffff;
-  transform: skewX(-10deg) translate(-2px, -2px);
+  transform: skewX(-8deg) translate(-2px, -2px);
 }
 
 .sns-reply-primary:hover {
@@ -3040,20 +3179,25 @@ body[data-lang="jp"] .arc-word .big-first {
   .slot-pills { padding: 10px 12px; gap: 6px; }
   .slot-pill { font-size: 11px; padding: 3px 8px; }
 
-  .edu-banner-ribbon { padding: 9px 14px; }
-  .edu-banner-ribbon h2 { font-size: 20px; }
-  .tarot-card { min-height: 182px; padding: 11px 8px; }
-  .tarot-roman { font-size: 22px; }
-  .tarot-title { font-size: 16px; }
+  .edu-banner-ribbon { padding: 8px 14px; }
+  .edu-banner-ribbon h2 { font-size: 19px; }
+  .tarot-fan { gap: 11px; padding: 11px 4px 12px; }
+  .tarot-card { padding: 7px 7px 9px; aspect-ratio: 2 / 2.88; }
+  .tarot-roman { font-size: 22px; top: -10px; }
+  .tarot-title { font-size: 14.5px; -webkit-text-stroke: 3px #09090b; }
 
-  .sns-phone-wrap { width: min(455px, 92%); }
-  .sns-phone { padding: 10px 14px 12px; border-width: 7px; }
-  .sns-logo { font-size: 38px; }
-  .sns-thread { gap: 8px; margin-bottom: 10px; }
-  .sns-bubble-white { font-size: 12px; padding: 5px 12px; }
-  .sns-bubble-black { font-size: 12px; padding: 6px 11px; }
-  .sns-avatar { width: 44px; height: 38px; }
-  .sns-reply-btn { padding: 6px 10px; font-size: 14px; }
+  .sns-phone-wrap { width: min(345px, 90%); padding: 0 22px; }
+  .sns-hand-left { left: -40px; bottom: -26px; width: 100px; }
+  .sns-hand-right { right: -16px; bottom: 22px; width: 52px; }
+  .sns-phone-chassis { padding: 9px 7px 8px; border-radius: 22px; }
+  .sns-phone { padding: 5px 9px 9px; border-width: 5px; }
+  .sns-status-bar { margin: -5px -9px 5px; }
+  .sns-logo { font-size: 32px; }
+  .sns-thread { gap: 6px; margin-bottom: 8px; }
+  .sns-bubble-white { font-size: 11px; padding: 4px 10px; }
+  .sns-bubble-black { font-size: 10.8px; padding: 5px 8px; }
+  .sns-avatar { width: 38px; height: 32px; }
+  .sns-reply-btn { padding: 5px 7px; font-size: 12.5px; }
 
   .dialogue-portrait-wrap { width: 82px; height: 70px; }
   .dialogue-body { min-height: 64px; padding: 15px 34px 9px 18px; }
@@ -3160,8 +3304,8 @@ body[data-lang="jp"] .arc-word .big-first {
     padding: 10px;
   }
 
-  .tarot-fan { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .tarot-card:nth-child(n) { transform: none; min-height: 165px; }
+  .tarot-fan { grid-template-columns: repeat(2, 1fr); gap: 16px 14px; padding: 12px 4px; }
+  .tarot-card:nth-child(n) { transform: none; aspect-ratio: 2 / 2.95; }
 
   .edu-banner-ribbon {
     flex-direction: column;
@@ -3169,9 +3313,10 @@ body[data-lang="jp"] .arc-word .big-first {
     transform: none;
   }
 
-  .sns-phone-wrap { width: min(500px, 100%); padding: 0 18px; }
-  .sns-phone { transform: rotate(1deg); }
-  .sns-hand { width: 48px; }
+  .sns-phone-wrap { width: min(365px, 96%); padding: 0 22px; }
+  .sns-phone-chassis { transform: rotate(1.5deg); }
+  .sns-hand-left { left: -34px; width: 88px; }
+  .sns-hand-right { right: -22px; width: 54px; }
 }
 
 /* 4. Mobile Phones (<= 640px, rock-solid down to 320px!) */
@@ -3413,27 +3558,24 @@ body[data-lang="jp"] .arc-word .big-first {
   .slot-pills { padding: 10px; gap: 6px; }
   .slot-pill { font-size: 11px; box-shadow: 2px 2px 0 var(--red); }
 
-  /* Skin 5: Certs Tarot */
+  /* Skin 5: Certs Tarot Arcana Cards */
   .edu-banner-ribbon {
     padding: 12px;
     border-left-width: 6px;
     box-shadow: 4px 4px 0 var(--black);
   }
   .edu-banner-ribbon h2 { font-size: 19px; }
-  .tarot-fan { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 4px 0; }
+  .tarot-fan { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 10px; padding: 10px 2px 12px; }
   .tarot-card {
-    min-height: 152px;
-    padding: 10px 8px;
+    padding: 6px 6px 8px;
     border-width: 2.5px;
-    outline-width: 2px;
     box-shadow: 4px 4px 0 var(--black);
   }
-  .tarot-roman { font-size: 20px; }
-  .tarot-title { font-size: 14.5px; }
-  .tarot-hrs { font-size: 9px; }
-  .tarot-foot { font-size: 9.5px; padding: 4px; }
+  .tarot-roman { font-size: 20px; top: -9px; -webkit-text-stroke: 3px #09090b; }
+  .tarot-title { font-size: 13.5px; bottom: -5px; -webkit-text-stroke: 3px #09090b; }
+  .tarot-hrs-tag { font-size: 8px; padding: 1px 4px; }
 
-  /* Skin 6: Contact SNS Phone (snappy instant mobile reveal!) */
+  /* Skin 6: Contact SNS Smartphone (snappy instant mobile reveal!) */
   .dossier-panel.active { animation-duration: 0.22s; }
   .dossier-panel.active .sns-phone-wrap { animation: none; opacity: 1; transform: none; }
   .dossier-panel.active .msg-1,
@@ -3441,22 +3583,28 @@ body[data-lang="jp"] .arc-word .big-first {
   .dossier-panel.active .msg-3,
   .dossier-panel.active .msg-4 { animation: none; opacity: 1; transform: none; }
   .sns-stage { padding: 0; }
-  .sns-hand { display: none; }
+  .sns-hand, .phone-hw-btn { display: none; }
   .sns-phone-wrap { padding: 0; width: 100%; }
+  .sns-phone-chassis {
+    transform: none;
+    border-radius: 20px;
+    padding: 8px 6px 8px;
+    box-shadow: 4px 4px 0 var(--black);
+  }
   .sns-phone {
     transform: none;
-    border-width: 5px;
+    border-width: 4px;
     outline-width: 2px;
-    box-shadow: 4px 4px 0 var(--black);
-    padding: 10px 10px 12px;
+    padding: 5px 8px 10px;
   }
+  .sns-status-bar { margin: -5px -8px 5px; }
   .sns-logo { font-size: 30px; transform: rotate(-4deg); }
   .sns-mini-card { transform: none; box-shadow: 2px 2px 0 #09090b; }
   .sns-row { gap: 7px; }
   .sns-avatar { width: 38px; height: 34px; transform: none; border-width: 2.5px; outline-width: 2px; box-shadow: 2px 2px 0 #09090b; }
   .sns-bubble-white { transform: none; max-width: 90%; font-size: 12px; padding: 6px 10px; border-width: 3px; box-shadow: 3px 3px 0 #09090b; }
   .sns-bubble-white::after { display: none; }
-  .sns-bubble-black { transform: none; font-size: 12px; padding: 7px 10px; border-width: 3px; outline-width: 1.5px; box-shadow: 3px 3px 0 #09090b; }
+  .sns-bubble-black { transform: none; font-size: 11.8px; padding: 7px 10px; border-width: 3px; outline-width: 1.5px; box-shadow: 3px 3px 0 #09090b; }
   .sns-bubble-black::before { display: none; }
   .sns-replies { grid-template-columns: 1fr; gap: 6px; }
   .sns-reply-btn { transform: none; width: 100%; font-size: 14px; padding: 8px 10px; box-shadow: 3px 3px 0 #09090b; }
